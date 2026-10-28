@@ -1,26 +1,141 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/*
+ * Direction artistique — tokens.
+ * Contrastes vérifiés (WCAG) :
+ *  - charbon sur orange ≈ 5,9:1 ✅  → texte des boutons orange
+ *  - blanc sur orange   ≈ 2,6:1 ❌  → interdit
+ *  - ivoire sur vert    ≈ 9,4:1 ✅
+ *  - terracotta sur ivoire ≈ 4,3:1 → grands textes / décor uniquement
+ *  - or sur ivoire      ≈ 2,3:1 → décor uniquement (filets, motifs)
+ */
+@theme {
+  --color-orange: #f58220;
+  --color-orange-clair: #f7953f;
+  --color-vert: #174c38;
+  --color-vert-clair: #1f6049;
+  --color-ivoire: #fff8ed;
+  --color-blanc: #ffffff;
+  --color-cacao: #4a2e24;
+  --color-terracotta: #b85c38;
+  --color-or: #c6a15b;
+  --color-sable: #e8d8c3;
+  --color-charbon: #252522;
+  --color-sauge: #a8b7a0;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --font-display: var(--font-young-serif), Georgia, serif;
+  --font-sans: var(--font-manrope), system-ui, sans-serif;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  --breakpoint-xs: 380px;
+
+  --animate-tourne: tourne 90s linear infinite;
+  @keyframes tourne {
+    to {
+      transform: rotate(360deg);
+    }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+  body {
+    background: var(--color-ivoire);
+    color: var(--color-charbon);
+    font-family: var(--font-sans);
+  }
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    text-wrap: balance;
+  }
+  :focus-visible {
+    outline: 3px solid var(--color-orange);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  /* Échelle typographique fluide : téléphone → ordinateur */
+  .titre-hero {
+    font-size: clamp(2.5rem, 1.6rem + 4vw, 4.5rem);
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+  }
+  .titre-section {
+    font-size: clamp(1.9rem, 1.4rem + 2.2vw, 3.1rem);
+    line-height: 1.08;
+    letter-spacing: -0.01em;
+  }
+  .surtitre {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  /* Table en bois vue de dessus — fond des assiettes */
+  .table-bois {
+    background-color: var(--color-cacao);
+    background-image:
+      radial-gradient(circle at 30% 20%, rgb(255 255 255 / 0.06), transparent 60%),
+      repeating-radial-gradient(
+        ellipse at 50% 120%,
+        rgb(0 0 0 / 0) 0 7px,
+        rgb(0 0 0 / 0.08) 7px 9px,
+        rgb(255 255 255 / 0.025) 9px 14px
+      );
+  }
+
+  /* Assiette en céramique vue de dessus */
+  .assiette {
+    border-radius: 9999px;
+    background: radial-gradient(
+      circle,
+      #fffdf9 0 58%,
+      #f4ebdd 61%,
+      #fffdf9 64% 86%,
+      #efe3d1 100%
+    );
+    box-shadow:
+      0 1px 0 rgb(255 255 255 / 0.6) inset,
+      0 18px 40px -12px rgb(0 0 0 / 0.45),
+      0 4px 10px -4px rgb(0 0 0 / 0.3);
+  }
+  /* Liseré doré du marli : rend la rotation perceptible */
+  .assiette-liseret {
+    border-radius: 9999px;
+    background: repeating-conic-gradient(
+      from 0deg,
+      var(--color-or) 0 1.2deg,
+      transparent 1.2deg 7.5deg
+    );
+    mask: radial-gradient(circle, transparent 0 89%, #000 89.5% 91%, transparent 91.5%);
+    opacity: 0.7;
+  }
+
+  /* Bande tissée : motif géométrique discret, coloré via background-color */
+  .bande-tissee {
+    height: 10px;
+    background-color: var(--color-or);
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='10'%3E%3Cpath d='M0 5 L7 0 L14 5 L21 0 L28 5 M0 5 L7 10 L14 5 L21 10 L28 5' fill='none' stroke='%23000' stroke-width='1.2'/%3E%3Crect x='12.5' y='3.5' width='3' height='3' transform='rotate(45 14 5)'/%3E%3C/svg%3E")
+      repeat-x center / auto 10px;
+  }
 }

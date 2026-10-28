@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { site, whatsappUrl } from "@/config/site";
-import { demoAmbiance, findDemoDish, type DemoDish } from "@/data/demo-dishes";
+import { demoAmbiance, findDemoDish } from "@/data/demo-dishes";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import { Badge } from "@/components/ui/Badge";
 import { DishCard } from "@/components/dish/DishCard";
@@ -16,8 +16,6 @@ export default function HomePage() {
   return (
     <>
       <Hero />
-      <BandeauPlats />
-      <GrandePhrase />
 
       {/* ───────── Plats populaires ───────── */}
       <section aria-labelledby="populaires" className="py-20 sm:py-24 lg:py-32">
@@ -25,7 +23,7 @@ export default function HomePage() {
           <div className="max-w-xl">
             <p className="surtitre text-terracotta">La carte</p>
             <h2 id="populaires" className="titre-section mt-3 text-vert">
-              Les plats populaires
+              Nos plats phares
             </h2>
             <p className="mt-4 text-charbon/70">
               Les classiques que l&apos;on commande les yeux fermés, du braisé au kedjenou.
@@ -53,8 +51,6 @@ export default function HomePage() {
 
       <Concept />
       <Experience3D />
-      <Specialites />
-      <AppelReservation />
       <InfosPratiques />
     </>
   );
@@ -119,61 +115,6 @@ function Hero() {
   );
 }
 
-/** Bandeau défilant des plats : rythme et identité, purement décoratif. */
-function BandeauPlats() {
-  const mots = ["Attiéké", "Alloco", "Garba", "Kedjenou", "Sauce graine", "Foutou", "Placali", "Poisson braisé", "Choukouya", "Bissap", "Gnamakoudji"];
-  const ligne = (
-    <div className="flex shrink-0 items-center">
-      {mots.map((m) => (
-        <span key={m} className="flex items-center">
-          <span className="px-6 font-display text-2xl text-ivoire sm:text-3xl">{m}</span>
-          <span className="size-2 rotate-45 bg-or" />
-        </span>
-      ))}
-    </div>
-  );
-  return (
-    <div className="overflow-hidden border-y border-or/30 bg-vert py-5" aria-hidden>
-      <div className="flex w-max animate-defile hover:[animation-play-state:paused]">
-        {ligne}
-        {ligne}
-      </div>
-    </div>
-  );
-}
-
-
-/** Grande phrase : les mots s'allument un à un pendant le défilement. */
-function GrandePhrase() {
-  const texte =
-    "Attiéké, alloco, braisé, kedjenou : les saveurs qu'on partage à Abidjan, réunies autour d'une même table.";
-  const mots = texte.split(" ");
-  return (
-    <section aria-label="Notre cuisine" className="phrase relative py-24 sm:py-32 lg:py-40">
-      <div className={container}>
-        <p className="surtitre flex items-center gap-3 text-terracotta">
-          <span className="h-px w-8 bg-terracotta" aria-hidden />
-          Notre cuisine
-        </p>
-        <p className="mt-8 max-w-5xl font-display text-[clamp(2rem,1.2rem+3.6vw,4.4rem)] leading-[1.08] tracking-[-0.015em] text-vert">
-          {mots.map((mot, i) => {
-            const debut = 15 + (i / mots.length) * 40;
-            return (
-              <span
-                key={i}
-                className="phrase-mot"
-                style={{ animationRange: `cover ${debut}% cover ${debut + 12}%` }}
-              >
-                {mot}{" "}
-              </span>
-            );
-          })}
-        </p>
-      </div>
-    </section>
-  );
-}
-
 /* ═══════════════════════ Le restaurant ═══════════════════════ */
 
 function Concept() {
@@ -190,19 +131,14 @@ function Concept() {
               className="object-cover"
             />
           </div>
-          <div className="verre absolute -bottom-6 left-4 right-4 rounded-2xl p-5 sm:left-auto sm:right-6 sm:w-72">
-            <p className="font-display text-xl">Ici, on partage.</p>
-            <p className="mt-1 text-sm text-ivoire/75">Les plats arrivent au milieu de la table, chacun se sert.</p>
-          </div>
           <span className="absolute top-4 left-5 text-[0.65rem] font-semibold text-ivoire/70">Photo d&apos;illustration</span>
         </div>
 
-        <div className="reveal pt-6 lg:col-span-6 lg:pt-0">
+        <div className="reveal lg:col-span-6">
           <p className="surtitre text-or">Le restaurant</p>
           <h2 id="concept" className="titre-section mt-3">
             Une table pour partager les saveurs de Côte d&apos;Ivoire
           </h2>
-          <div className="bande-tissee mt-8 w-40 opacity-70" aria-hidden />
           <div className="mt-8 rounded-2xl border border-dashed border-or/50 bg-ivoire/5 p-6 sm:p-8">
             <Badge tone="sable">Texte à fournir</Badge>
             <p className="mt-4 text-lg leading-relaxed text-ivoire/85">
@@ -273,95 +209,6 @@ function Experience3D() {
   );
 }
 
-/* ═══════════════════════ Spécialités (mosaïque) ═══════════════════════ */
-
-function TuileSpecialite({ dish, grande = false, className = "" }: { dish: DemoDish; grande?: boolean; className?: string }) {
-  return (
-    <article className={`reveal group relative overflow-hidden rounded-[1.75rem] bg-cacao text-ivoire ${className}`}>
-      {dish.photo && (
-        <Image
-          src={dish.photo}
-          alt={dish.name}
-          fill
-          sizes={grande ? "(min-width: 1024px) 66vw, 100vw" : "(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"}
-          className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.05]"
-        />
-      )}
-      <div className="absolute inset-0 bg-gradient-to-t from-charbon/85 via-charbon/15 to-transparent" aria-hidden />
-      <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-5 sm:p-7">
-        <div>
-          <p className="text-[0.65rem] font-semibold text-ivoire/60">{dish.category} · Photo d&apos;illustration</p>
-          <h3 className={`mt-1 leading-tight ${grande ? "text-3xl sm:text-4xl" : "text-2xl"}`}>
-            <Link href={`/menu/${dish.slug}`} className="after:absolute after:inset-0">
-              {dish.name}
-            </Link>
-          </h3>
-          {grande && <p className="mt-2 max-w-md text-ivoire/75">{dish.description}</p>}
-        </div>
-        <span className="grid size-11 shrink-0 place-items-center rounded-full bg-ivoire text-cacao transition-transform group-hover:-rotate-45" aria-hidden>
-          <IconArrow width={18} height={18} />
-        </span>
-      </div>
-    </article>
-  );
-}
-
-function Specialites() {
-  const [grande, ...petites] = ["sauce-feuille-foutou", "sauce-graine", "bissap"].map(findDemoDish);
-  return (
-    <section aria-labelledby="specialites" className="relative z-10 -mt-10 rounded-t-[2.5rem] lg:-mt-16 lg:rounded-t-[4rem] bg-sable py-20 sm:py-24 lg:py-32">
-      <div className={container}>
-        <div className="reveal max-w-2xl">
-          <p className="surtitre text-terracotta">Spécialités</p>
-          <h2 id="specialites" className="titre-section mt-3 text-cacao">
-            Ce que l&apos;on vient goûter chez nous
-          </h2>
-        </div>
-
-        {/* Téléphone : empilé · Tablette : grande tuile + 2 · Ordinateur : mosaïque 2/3 + 1/3 */}
-        <div className="mt-12 grid gap-4 md:grid-cols-2 lg:h-[40rem] lg:grid-cols-3 lg:grid-rows-2 lg:gap-6">
-          <TuileSpecialite dish={grande} grande className="aspect-[4/5] sm:aspect-[16/10] md:col-span-2 lg:row-span-2 lg:aspect-auto" />
-          {petites.map((d) => (
-            <TuileSpecialite key={d.slug} dish={d} className="aspect-[4/3] md:aspect-[4/5] lg:aspect-auto" />
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ═══════════════════════ Appel à réserver ═══════════════════════ */
-
-function AppelReservation() {
-  const wa = whatsappUrl("Bonjour, je souhaite réserver une table.");
-  return (
-    <section aria-labelledby="appel" className="px-4 pt-20 sm:px-6 sm:pt-24 lg:px-10 lg:pt-32">
-      <div className="reveal grain relative mx-auto max-w-7xl overflow-hidden rounded-[2rem] bg-cacao text-ivoire">
-        <Image src={findDemoDish("brochettes").photo!} alt="" fill sizes="(min-width: 1280px) 1280px, 100vw" className="object-cover opacity-60" />
-        <div className="absolute inset-0 bg-gradient-to-r from-cacao via-cacao/80 to-cacao/20" aria-hidden />
-        <div className="relative px-6 py-14 sm:px-12 sm:py-20 lg:px-16 lg:py-24">
-          <p className="surtitre text-or">Réservation</p>
-          <h2 id="appel" className="titre-section mt-3 max-w-xl">
-            Une table pour ce soir ?
-          </h2>
-          <p className="mt-4 max-w-md text-ivoire/80">
-            Choisissez le jour, l&apos;heure et le nombre de personnes. Nous confirmons selon les places disponibles.
-          </p>
-          <div className="mt-8 flex flex-col gap-3 xs:flex-row xs:flex-wrap">
-            <ButtonLink href="/reservation">Réserver une table</ButtonLink>
-            {wa && (
-              <ButtonLink href={wa} target="_blank" rel="noopener noreferrer" variant="outlineLight">
-                Écrire sur WhatsApp
-              </ButtonLink>
-            )}
-          </div>
-          <p className="absolute right-5 bottom-4 text-[0.65rem] text-ivoire/50">Photo d&apos;illustration</p>
-        </div>
-      </div>
-    </section>
-  );
-}
-
 /* ═══════════════════════ Infos pratiques ═══════════════════════ */
 
 function InfosPratiques() {
@@ -369,7 +216,7 @@ function InfosPratiques() {
   const card = "reveal rounded-[1.75rem] bg-blanc p-6 sm:p-8 shadow-[0_20px_40px_-30px_rgb(74_46_36/0.5)]";
 
   return (
-    <section aria-labelledby="infos" className="py-20 sm:py-24 lg:py-32">
+    <section aria-labelledby="infos" className="relative z-10 -mt-10 rounded-t-[2.5rem] bg-ivoire py-20 sm:py-24 lg:-mt-16 lg:rounded-t-[4rem] lg:py-32">
       <div className={container}>
         <div className="reveal flex flex-wrap items-end justify-between gap-4">
           <div>

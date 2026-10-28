@@ -43,13 +43,6 @@
     }
   }
 
-  --animate-defile: defile 50s linear infinite;
-  @keyframes defile {
-    to {
-      transform: translateX(-50%);
-    }
-  }
-
   --animate-zoom-lent: zoom-lent 24s ease-out both;
   @keyframes zoom-lent {
     from {
@@ -209,24 +202,6 @@
       animation: entree linear both;
       animation-timeline: view();
       animation-range: entry 0% entry 55%;
-    }
-  }
-}
-
-/* Mots qui s'allument au fil du défilement (grande phrase) */
-@keyframes allume {
-  from {
-    opacity: 0.14;
-  }
-}
-@media (prefers-reduced-motion: no-preference) {
-  @supports (animation-timeline: view()) {
-    .phrase {
-      view-timeline-name: --phrase;
-    }
-    .phrase-mot {
-      animation: allume linear both;
-      animation-timeline: --phrase;
     }
   }
 }

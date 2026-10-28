@@ -18,6 +18,16 @@ export function SiteHeader() {
     setOpen(false);
   }
 
+  // Sur l'accueil, l'en-tête est transparent au-dessus de la photo, puis devient plein au défilement.
+  const [scrolled, setScrolled] = useState(false);
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+  const transparent = pathname === "/" && !scrolled && !open;
+
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
@@ -26,7 +36,11 @@ export function SiteHeader() {
   }, [open]);
 
   return (
-    <header className="sticky top-0 z-40 bg-vert text-ivoire">
+    <header
+      className={`sticky top-0 z-40 text-ivoire transition-[background-color,box-shadow] duration-300 ${
+        transparent ? "bg-transparent" : "bg-vert shadow-[0_8px_30px_-12px_rgb(0_0_0/0.35)]"
+      }`}
+    >
       <div className="mx-auto flex h-16 max-w-7xl items-center gap-4 px-4 sm:px-6 lg:h-20 lg:px-10">
         <Link href="/" className="mr-auto flex items-baseline gap-2">
           <span className="font-display text-xl lg:text-2xl">{site.name.value}</span>

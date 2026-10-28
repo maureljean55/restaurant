@@ -4,6 +4,9 @@
  * Les noms sont des classiques de la cuisine ivoirienne, utilisés pour
  * tester la mise en page. Ce n'est PAS la carte du restaurant :
  * prix, descriptions et disponibilités sont à fournir.
+ *
+ * Les photos sont des PHOTOS D'ILLUSTRATION (Unsplash, licence libre),
+ * pas des plats du restaurant. Sources : docs/visuels-provisoires.md
  * Ce fichier disparaîtra quand les plats viendront de Supabase.
  */
 
@@ -15,69 +18,83 @@ export type DemoDish = {
   price: number | null;
   category: string;
   photo: string | null;
+  /** true = photo d'illustration, pas une photo du restaurant */
+  photoIsIllustration: boolean;
   has3d: boolean;
   hasAr: boolean;
 };
 
+const dish = (d: Omit<DemoDish, "price" | "photoIsIllustration" | "has3d" | "hasAr">): DemoDish => ({
+  price: null,
+  photoIsIllustration: true,
+  has3d: false,
+  hasAr: false,
+  ...d,
+});
+
 export const demoDishes: DemoDish[] = [
-  {
+  dish({
     slug: "poisson-braise-attieke",
     name: "Poisson braisé & attiéké",
-    description: "Poisson grillé au feu de bois, attiéké, oignons et piment frais.",
-    price: null,
+    description: "Poisson grillé au feu de bois, attiéké, alloco, oignons et piment frais.",
     category: "Grillades",
-    photo: null,
-    has3d: false,
-    hasAr: false,
-  },
-  {
+    photo: "/demo/poisson-braise-alloco.jpg",
+  }),
+  dish({
     slug: "kedjenou-poulet",
     name: "Kedjenou de poulet",
     description: "Poulet mijoté à l'étouffée avec légumes et épices.",
-    price: null,
     category: "Plats traditionnels",
-    photo: null,
-    has3d: false,
-    hasAr: false,
-  },
-  {
-    slug: "garba",
-    name: "Garba",
-    description: "Attiéké et thon frit, piment, tomate et oignon.",
-    price: null,
+    photo: "/demo/kedjenou.jpg",
+  }),
+  dish({
+    slug: "riz-gras-poulet",
+    name: "Riz gras au poulet",
+    description: "Riz cuit dans une sauce tomate parfumée, poulet doré.",
     category: "Plats traditionnels",
-    photo: null,
-    has3d: false,
-    hasAr: false,
-  },
-  {
+    photo: "/demo/riz-gras-poulet.jpg",
+  }),
+  dish({
     slug: "alloco",
     name: "Alloco",
     description: "Banane plantain mûre frite, sauce pimentée.",
-    price: null,
     category: "Accompagnements",
-    photo: null,
-    has3d: false,
-    hasAr: false,
-  },
-  {
+    photo: "/demo/alloco.jpg",
+  }),
+  dish({
     slug: "sauce-graine",
     name: "Sauce graine",
     description: "Sauce à la noix de palme, servie avec riz ou foutou.",
-    price: null,
     category: "Plats traditionnels",
-    photo: null,
-    has3d: false,
-    hasAr: false,
-  },
-  {
+    photo: "/demo/sauce-graine.jpg",
+  }),
+  dish({
+    slug: "sauce-feuille-foutou",
+    name: "Sauce feuille & foutou",
+    description: "Sauce aux feuilles, viande et poisson fumé, foutou banane.",
+    category: "Plats traditionnels",
+    photo: "/demo/sauce-feuille-foutou.jpg",
+  }),
+  dish({
+    slug: "brochettes",
+    name: "Brochettes grillées",
+    description: "Viandes marinées grillées au charbon, piment et légumes.",
+    category: "Grillades",
+    photo: "/demo/brochettes.jpg",
+  }),
+  dish({
     slug: "bissap",
     name: "Bissap",
     description: "Infusion de fleurs d'hibiscus, servie bien fraîche.",
-    price: null,
     category: "Boissons",
-    photo: null,
-    has3d: false,
-    hasAr: false,
-  },
+    photo: "/demo/bissap.jpg",
+  }),
 ];
+
+export const findDemoDish = (slug: string) => demoDishes.find((d) => d.slug === slug)!;
+
+/** Visuels d'ambiance (illustration) */
+export const demoAmbiance = {
+  hero: "/demo/hero-poisson-feuille.jpg",
+  partage: "/demo/table-partage.jpg",
+};

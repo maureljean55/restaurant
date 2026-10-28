@@ -1,12 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
-import { site, whatsappUrl } from "@/config/site";
+import { site } from "@/config/site";
 import { demoAmbiance, findDemoDish } from "@/data/demo-dishes";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import { Badge } from "@/components/ui/Badge";
 import { DishCard } from "@/components/dish/DishCard";
 import { Turntable } from "@/components/dish/Turntable";
-import { IconArrow, IconBag, IconClock, IconPhone, IconPin, IconRotate } from "@/components/ui/icons";
+import { IconArrow, IconBag, IconRotate } from "@/components/ui/icons";
 
 const container = "mx-auto max-w-7xl px-4 sm:px-6 lg:px-10";
 
@@ -51,7 +51,6 @@ export default function HomePage() {
 
       <Concept />
       <Experience3D />
-      <InfosPratiques />
     </>
   );
 }
@@ -208,81 +207,3 @@ function Experience3D() {
     </section>
   );
 }
-
-/* ═══════════════════════ Infos pratiques ═══════════════════════ */
-
-function InfosPratiques() {
-  const wa = whatsappUrl();
-  const card = "reveal rounded-[1.75rem] bg-blanc p-6 sm:p-8 shadow-[0_20px_40px_-30px_rgb(74_46_36/0.5)]";
-
-  return (
-    <section aria-labelledby="infos" className="relative z-10 -mt-10 rounded-t-[2.5rem] bg-ivoire py-20 sm:py-24 lg:-mt-16 lg:rounded-t-[4rem] lg:py-32">
-      <div className={container}>
-        <div className="reveal flex flex-wrap items-end justify-between gap-4">
-          <div>
-            <p className="surtitre text-terracotta">Infos pratiques</p>
-            <h2 id="infos" className="titre-section mt-3 text-vert">
-              Venir nous voir
-            </h2>
-          </div>
-          {site.address.placeholder && <Badge tone="provisoire">Coordonnées à venir</Badge>}
-        </div>
-
-        <div className="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
-          <div className={`${card} md:col-span-2 lg:col-span-1 lg:row-span-2`}>
-            <span className="grid size-12 place-items-center rounded-2xl bg-terracotta/10 text-terracotta">
-              <IconPin />
-            </span>
-            <h3 className="mt-5 text-2xl text-charbon">Adresse</h3>
-            <p className="mt-2 text-charbon/70">{site.address.value}</p>
-            <div className="relative mt-6 grid aspect-[16/10] place-items-center overflow-hidden rounded-2xl bg-sauge/30 text-center text-sm text-vert/80 lg:aspect-[4/5]">
-              <div className="absolute inset-0 opacity-30 [background-image:linear-gradient(rgb(23_76_56/0.25)_1px,transparent_1px),linear-gradient(90deg,rgb(23_76_56/0.25)_1px,transparent_1px)] [background-size:28px_28px]" aria-hidden />
-              <span className="relative">
-                <IconPin className="mx-auto mb-2 text-terracotta" />
-                Carte interactive
-                <br />
-                dès que l&apos;adresse est connue
-              </span>
-            </div>
-          </div>
-
-          <div className={card}>
-            <span className="grid size-12 place-items-center rounded-2xl bg-terracotta/10 text-terracotta">
-              <IconClock />
-            </span>
-            <h3 className="mt-5 text-2xl text-charbon">Horaires</h3>
-            <dl className="mt-4 space-y-3">
-              {site.hours.value.map((h) => (
-                <div key={h.days} className="flex justify-between gap-4 border-b border-sable pb-3 last:border-0">
-                  <dt className="text-charbon/70">{h.days}</dt>
-                  <dd className="font-bold text-charbon">{h.time}</dd>
-                </div>
-              ))}
-            </dl>
-          </div>
-
-          <div className={card}>
-            <span className="grid size-12 place-items-center rounded-2xl bg-terracotta/10 text-terracotta">
-              <IconPhone />
-            </span>
-            <h3 className="mt-5 text-2xl text-charbon">Contact</h3>
-            <p className="mt-2 text-charbon/70">{site.phone.value}</p>
-            <p className="text-charbon/70">{site.email.value}</p>
-            <div className="mt-6 flex flex-wrap gap-3">
-              {wa ? (
-                <ButtonLink href={wa} target="_blank" rel="noopener noreferrer" variant="secondary" size="sm">
-                  Écrire sur WhatsApp
-                </ButtonLink>
-              ) : (
-                <ButtonLink href="/contact" variant="outline" size="sm">
-                  Nous écrire
-                </ButtonLink>
-              )}
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-

@@ -8,7 +8,7 @@ export function SiteFooter() {
   const titre = "surtitre text-[0.68rem] text-or";
 
   return (
-    <footer className="grain relative mt-8 overflow-hidden rounded-t-[2.5rem] bg-charbon pb-[calc(4.5rem+env(safe-area-inset-bottom))] text-ivoire/75 md:pb-0 lg:rounded-t-[4rem]">
+    <footer className="grain relative z-10 -mt-10 overflow-hidden rounded-t-[2.5rem] lg:-mt-16 bg-charbon pb-[calc(4.5rem+env(safe-area-inset-bottom))] text-ivoire/75 md:pb-0 lg:rounded-t-[4rem]">
       <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
         {/* Appel à l'action */}
         <div className="flex flex-col gap-8 border-b border-ivoire/10 py-14 md:flex-row md:items-end md:justify-between lg:py-20">

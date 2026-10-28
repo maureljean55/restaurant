@@ -94,7 +94,7 @@ export function Experience3D({ plats }: { plats: DemoDish[] }) {
 
               <span className={`${pastille} absolute top-3 left-3 z-10 bg-blanc/90 text-vert shadow-sm backdrop-blur-md`}>
                 <IconInfo width={14} height={14} />
-                {model.isDemo ? "Modèle de démonstration" : "Modèle 3D validé"}
+                {model.isDemo ? "Aperçu 3D provisoire" : "Modèle 3D validé"}
               </span>
 
               {aide && (
@@ -227,8 +227,8 @@ export function Experience3D({ plats }: { plats: DemoDish[] }) {
               <p className="flex gap-2 rounded-lg border border-dashed border-terracotta/60 bg-orange-pale/40 p-3 text-body-sm text-cacao/80">
                 <IconInfo width={16} height={16} className="mt-0.5 shrink-0 text-terracotta" />
                 <span>
-                  Le modèle affiché est un objet de démonstration : <strong>{model.label.toLowerCase()}</strong>. Le
-                  modèle 3D du plat réel sera ajouté après la séance de scan.
+                  <strong>Aperçu provisoire</strong> : la photo d&apos;illustration du plat est posée sur une assiette
+                  en 3D. Ce n&apos;est pas un scan ; le vrai modèle 3D sera créé après la séance de prise de vue.
                 </span>
               </p>
             )}

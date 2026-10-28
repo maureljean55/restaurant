@@ -4,7 +4,7 @@
  * - Les noms sont des classiques de la cuisine ivoirienne : ce n'est PAS la carte du restaurant.
  * - Les PRIX sont des EXEMPLES pour tester le panier ; ils seront fournis par le restaurant.
  * - Les PHOTOS sont des photos d'illustration (Unsplash), pas des plats du restaurant.
- * - Les MODÈLES 3D sont des objets de démonstration (Poly Haven, CC0), pas les plats eux-mêmes.
+ * - Les MODÈLES 3D sont des aperçus générés à partir des photos (assiette 3D + photo), pas des scans.
  * Sources : docs/visuels-provisoires.md
  * Ce fichier disparaîtra quand les plats viendront de Supabase.
  */
@@ -53,9 +53,13 @@ export type DemoDish = {
   model: Model3D | null;
 };
 
-const demoModel = (file: string, label: string, sizeKb: number): Model3D => ({
-  glb: `/models/demo/${file}.glb`,
-  label,
+/**
+ * Aperçu 3D provisoire généré à partir de la photo du plat (npm run apercus-3d) :
+ * une assiette modélisée en 3D avec la photo posée dedans. Ce n'est pas un scan.
+ */
+const apercu3d = (slug: string, sizeKb: number): Model3D => ({
+  glb: `/models/apercus/${slug}.glb`,
+  label: "Aperçu 3D généré à partir de la photo",
   isDemo: true,
   sizeKb,
   arEnabled: true,
@@ -76,7 +80,7 @@ export const demoDishes: DemoDish[] = [
     prepMinutes: 25,
     photo: "/demo/poisson-braise-alloco.jpg",
     photoIsIllustration: true,
-    model: demoModel("carved_wooden_plate", "Plat de service en bois sculpté", 428),
+    model: apercu3d("poisson-braise-attieke", 325),
   },
   {
     slug: "kedjenou-poulet",
@@ -92,7 +96,7 @@ export const demoDishes: DemoDish[] = [
     prepMinutes: 30,
     photo: "/demo/kedjenou.jpg",
     photoIsIllustration: true,
-    model: demoModel("ceramic_pot", "Marmite en terre cuite, type canari", 524),
+    model: apercu3d("kedjenou-poulet", 300),
   },
   {
     slug: "alloco",
@@ -108,7 +112,7 @@ export const demoDishes: DemoDish[] = [
     prepMinutes: 10,
     photo: "/demo/alloco.jpg",
     photoIsIllustration: true,
-    model: demoModel("bananas", "Régime de bananes", 1414),
+    model: apercu3d("alloco", 283),
   },
   {
     slug: "sauce-graine",
@@ -123,7 +127,7 @@ export const demoDishes: DemoDish[] = [
     prepMinutes: 20,
     photo: "/demo/sauce-graine.jpg",
     photoIsIllustration: true,
-    model: demoModel("wooden_bowl_01", "Bol en bois tourné", 731),
+    model: apercu3d("sauce-graine", 427),
   },
   {
     slug: "riz-gras-poulet",
@@ -138,7 +142,7 @@ export const demoDishes: DemoDish[] = [
     prepMinutes: 20,
     photo: "/demo/riz-gras-poulet.jpg",
     photoIsIllustration: true,
-    model: null,
+    model: apercu3d("riz-gras-poulet", 338),
   },
   {
     slug: "sauce-feuille-foutou",
@@ -154,7 +158,7 @@ export const demoDishes: DemoDish[] = [
     prepMinutes: 25,
     photo: "/demo/sauce-feuille-foutou.jpg",
     photoIsIllustration: true,
-    model: null,
+    model: apercu3d("sauce-feuille-foutou", 274),
   },
   {
     slug: "brochettes",
@@ -169,7 +173,7 @@ export const demoDishes: DemoDish[] = [
     prepMinutes: 15,
     photo: "/demo/brochettes.jpg",
     photoIsIllustration: true,
-    model: null,
+    model: apercu3d("brochettes", 390),
   },
   {
     slug: "bissap",

@@ -27,18 +27,14 @@ Elles **ne représentent pas** les plats du restaurant et sont signalées comme 
    L'optimisation (AVIF/WebP, tailles adaptées au mobile) est automatique.
 4. Supprimer les fichiers de `public/demo/` qui ne servent plus.
 
-## Modèles 3D de démonstration
+## Aperçus 3D provisoires
 
-Les fichiers de `public/models/demo/` viennent de [Poly Haven](https://polyhaven.com) (licence **CC0**, domaine public,
-usage commercial libre). Ce sont des **objets**, pas les plats du restaurant ; le site l'indique sur la page 3D.
-Ils ont été convertis en GLB et optimisés (textures 1024 px) avec `@gltf-transform/cli`.
+Les fichiers de `public/models/apercus/` sont **générés à partir des photos** par `npm run apercus-3d`
+(script `scripts/generer-apercus-3d.mjs`) : une assiette en céramique modélisée en 3D (≈ 30 cm, taille réelle
+en réalité augmentée) avec la photo du plat posée dans son creux. Ainsi, la vignette et la 3D montrent le même plat.
 
-| Fichier | Objet | Associé au plat (démo) | Source |
-|---|---|---|---|
-| carved_wooden_plate.glb | Plat en bois sculpté | Poisson braisé & attiéké | https://polyhaven.com/a/carved_wooden_plate |
-| ceramic_pot.glb | Marmite en terre cuite (type canari) | Kedjenou de poulet | https://polyhaven.com/a/ceramic_pot |
-| bananas.glb | Régime de bananes | Alloco | https://polyhaven.com/a/bananas |
-| wooden_bowl_01.glb | Bol en bois | Sauce graine | https://polyhaven.com/a/wooden_bowl_01 |
+⚠️ Ce **n'est pas un scan** : une photo seule ne suffit pas à produire un modèle 3D fidèle. Le site l'indique
+(« Aperçu 3D provisoire »). Pour régénérer après avoir changé une photo : `npm run apercus-3d`.
 
 ### Remplacer par les modèles des vrais plats
 

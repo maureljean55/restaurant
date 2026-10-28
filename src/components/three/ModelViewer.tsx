@@ -25,7 +25,8 @@ type Props = {
   className?: string;
 };
 
-const ORBITE_INITIALE = "30deg 72deg auto";
+/** Vue légèrement plongeante, comme assis devant son assiette. */
+const ORBITE_INITIALE = "0deg 55deg auto";
 
 /**
  * Visualiseur 3D (<model-viewer>), chargé uniquement côté navigateur et à la demande.

@@ -5,7 +5,7 @@ import { demoAmbiance, findDemoDish, type DemoDish } from "@/data/demo-dishes";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import { Badge } from "@/components/ui/Badge";
 import { DishCard } from "@/components/dish/DishCard";
-import { DishPlate } from "@/components/dish/DishPlate";
+import { Turntable } from "@/components/dish/Turntable";
 import { IconArrow, IconBag, IconClock, IconPhone, IconPin, IconRotate } from "@/components/ui/icons";
 
 const container = "mx-auto max-w-7xl px-4 sm:px-6 lg:px-10";
@@ -17,6 +17,7 @@ export default function HomePage() {
     <>
       <Hero />
       <BandeauPlats />
+      <GrandePhrase />
 
       {/* ───────── Plats populaires ───────── */}
       <section aria-labelledby="populaires" className="py-20 sm:py-24 lg:py-32">
@@ -65,7 +66,7 @@ function Hero() {
   return (
     <section
       aria-labelledby="hero"
-      className="grain relative -mt-16 flex min-h-[92svh] items-end overflow-hidden bg-cacao text-ivoire lg:-mt-20 lg:min-h-[100svh]"
+      className="grain relative flex min-h-[92svh] items-end overflow-hidden bg-cacao text-ivoire lg:min-h-[100svh]"
     >
       <Image
         src={demoAmbiance.hero}
@@ -141,11 +142,43 @@ function BandeauPlats() {
   );
 }
 
+
+/** Grande phrase : les mots s'allument un à un pendant le défilement. */
+function GrandePhrase() {
+  const texte =
+    "Attiéké, alloco, braisé, kedjenou : les saveurs qu'on partage à Abidjan, réunies autour d'une même table.";
+  const mots = texte.split(" ");
+  return (
+    <section aria-label="Notre cuisine" className="phrase relative py-24 sm:py-32 lg:py-40">
+      <div className={container}>
+        <p className="surtitre flex items-center gap-3 text-terracotta">
+          <span className="h-px w-8 bg-terracotta" aria-hidden />
+          Notre cuisine
+        </p>
+        <p className="mt-8 max-w-5xl font-display text-[clamp(2rem,1.2rem+3.6vw,4.4rem)] leading-[1.08] tracking-[-0.015em] text-vert">
+          {mots.map((mot, i) => {
+            const debut = 15 + (i / mots.length) * 40;
+            return (
+              <span
+                key={i}
+                className="phrase-mot"
+                style={{ animationRange: `cover ${debut}% cover ${debut + 12}%` }}
+              >
+                {mot}{" "}
+              </span>
+            );
+          })}
+        </p>
+      </div>
+    </section>
+  );
+}
+
 /* ═══════════════════════ Le restaurant ═══════════════════════ */
 
 function Concept() {
   return (
-    <section aria-labelledby="concept" className="grain overflow-hidden bg-vert text-ivoire">
+    <section aria-labelledby="concept" className="grain relative z-10 -mt-10 rounded-t-[2.5rem] lg:-mt-16 lg:rounded-t-[4rem] overflow-hidden bg-vert text-ivoire">
       <div className={`${container} grid items-center gap-12 py-20 sm:py-24 lg:grid-cols-12 lg:gap-16 lg:py-32`}>
         <div className="reveal relative lg:col-span-6">
           <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] sm:aspect-[5/4] lg:aspect-[4/5]">
@@ -193,18 +226,22 @@ function Experience3D() {
   ];
 
   return (
-    <section aria-labelledby="experience-3d" className="table-bois grain overflow-hidden text-ivoire">
-      <div className={`${container} grid items-center gap-16 py-20 sm:py-24 md:grid-cols-2 lg:py-32`}>
-        <div className="reveal relative mx-auto w-full max-w-[22rem] md:order-2 md:max-w-md">
-          {/* Orbites : évoquent la rotation à 360° */}
-          <div className="absolute -inset-[9%] animate-tourne rounded-full border border-dashed border-or/45 [animation-direction:reverse]" aria-hidden />
-          <div className="absolute -inset-[18%] rounded-full border border-ivoire/10" aria-hidden />
-          <DishPlate name="Kedjenou de poulet" photo="/demo/kedjenou.jpg" spin sizes="(min-width: 768px) 40vw, 80vw" />
-
-          <span className="verre absolute -top-3 -left-2 inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-bold sm:-left-8">
+    <section aria-labelledby="experience-3d" className="grain relative z-10 -mt-10 rounded-t-[2.5rem] lg:-mt-16 lg:rounded-t-[4rem] overflow-hidden bg-[#2a1913] text-ivoire">
+      {/* Halo lumineux derrière le plateau */}
+      <div className="pointer-events-none absolute top-1/2 right-[-10%] size-[70rem] -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgb(245_130_32/0.18),transparent_60%)] max-md:top-[30%] max-md:right-1/2 max-md:size-[40rem] max-md:translate-x-1/2" aria-hidden />
+      <div className={`${container} relative grid items-center gap-10 py-20 sm:py-24 lg:grid-cols-2 lg:gap-16 lg:py-32`}>
+        <div className="reveal relative mx-auto w-full max-w-[26rem] sm:max-w-xl lg:order-2">
+          <Turntable
+            centre={{ name: "Poisson braisé & attiéké", photo: "/demo/poisson-braise-alloco.jpg" }}
+            autour={["kedjenou-poulet", "sauce-graine", "riz-gras-poulet", "alloco", "sauce-feuille-foutou"].map((slug) => {
+              const d = findDemoDish(slug);
+              return { name: d.name, photo: d.photo! };
+            })}
+          />
+          <span className="verre absolute top-[6%] left-0 inline-flex animate-flotte items-center gap-2 rounded-full px-4 py-2 text-sm font-bold">
             <IconRotate width={18} height={18} className="text-or" /> 360°
           </span>
-          <span className="absolute -right-2 bottom-6 inline-flex items-center gap-2 rounded-full bg-orange px-4 py-2 text-sm font-bold text-charbon shadow-xl sm:-right-8">
+          <span className="absolute right-0 bottom-[14%] inline-flex animate-flotte items-center gap-2 rounded-full bg-orange px-4 py-2 text-sm font-bold text-charbon shadow-xl [animation-delay:-2.5s]">
             Voir sur ma table
           </span>
         </div>
@@ -272,7 +309,7 @@ function TuileSpecialite({ dish, grande = false, className = "" }: { dish: DemoD
 function Specialites() {
   const [grande, ...petites] = ["sauce-feuille-foutou", "sauce-graine", "bissap"].map(findDemoDish);
   return (
-    <section aria-labelledby="specialites" className="bg-sable/55 py-20 sm:py-24 lg:py-32">
+    <section aria-labelledby="specialites" className="relative z-10 -mt-10 rounded-t-[2.5rem] lg:-mt-16 lg:rounded-t-[4rem] bg-sable py-20 sm:py-24 lg:py-32">
       <div className={container}>
         <div className="reveal max-w-2xl">
           <p className="surtitre text-terracotta">Spécialités</p>

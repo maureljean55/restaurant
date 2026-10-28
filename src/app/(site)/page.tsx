@@ -1,209 +1,194 @@
 import Image from "next/image";
 import Link from "next/link";
 import { site } from "@/config/site";
-import { demoAmbiance, findDemoDish } from "@/data/demo-dishes";
-import { ButtonLink } from "@/components/ui/ButtonLink";
-import { Badge } from "@/components/ui/Badge";
+import { demoAmbiance, demoDishes } from "@/data/demo-dishes";
 import { DishCard } from "@/components/dish/DishCard";
 import { Turntable } from "@/components/dish/Turntable";
-import { IconArrow, IconBag, IconRotate } from "@/components/ui/icons";
+import { btn, pastille } from "@/components/ui/styles";
+import { IconCalendar, IconCarte, IconChevron, IconCube, IconRotate, IconUsers, IconLeaf } from "@/components/ui/icons";
 
-const container = "mx-auto max-w-7xl px-4 sm:px-6 lg:px-10";
+const container = "mx-auto w-full max-w-7xl px-4 md:px-8 lg:px-12";
 
 export default function HomePage() {
-  const populaires = ["poisson-braise-attieke", "kedjenou-poulet", "riz-gras-poulet", "alloco"].map(findDemoDish);
+  const signatures = [...demoDishes].sort((a, b) => b.popularity - a.popularity).slice(0, 4);
+  const avec3d = demoDishes.filter((d) => d.model && d.photo);
 
   return (
-    <>
-      <Hero />
-
-      {/* ───────── Plats populaires ───────── */}
-      <section aria-labelledby="populaires" className="py-20 sm:py-24 lg:py-32">
-        <div className={`${container} reveal flex flex-wrap items-end justify-between gap-6`}>
-          <div className="max-w-xl">
-            <p className="surtitre text-terracotta">La carte</p>
-            <h2 id="populaires" className="titre-section mt-3 text-vert">
-              Nos plats phares
-            </h2>
-            <p className="mt-4 text-charbon/70">
-              Les classiques que l&apos;on commande les yeux fermés, du braisé au kedjenou.
-            </p>
-          </div>
-          <Link href="/menu" className="group inline-flex min-h-11 items-center gap-2 font-bold text-vert">
-            Voir tout le menu
-            <span className="grid size-9 place-items-center rounded-full border border-vert/25 transition-colors group-hover:bg-vert group-hover:text-ivoire">
-              <IconArrow width={16} height={16} />
+    <div className="flex flex-col gap-14 pb-16 md:gap-20 lg:gap-24 lg:pb-24">
+      {/* ───────── Ouverture ───────── */}
+      <section className={`${container} grid gap-5 pt-4 md:pt-8 lg:grid-cols-12 lg:items-center lg:gap-12 lg:pt-12`}>
+        <div className="relative overflow-hidden rounded-xl bg-creme-fonce shadow-flottant lg:order-2 lg:col-span-7">
+          <div className="relative h-80 sm:h-[26rem] lg:h-[34rem]">
+            <Image src={demoAmbiance.hero} alt="" fill priority sizes="(min-width: 1024px) 58vw, 100vw" className="object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-t from-cacao/90 via-cacao/35 to-transparent lg:from-cacao/60" aria-hidden />
+            <span className={`${pastille} absolute top-3 left-3 bg-ivoire/90 text-vert uppercase shadow-sm backdrop-blur-md`}>
+              <span className="size-2 animate-pulse rounded-full bg-orange" />
+              Gastronomie ivoirienne
             </span>
-          </Link>
+            <span className="absolute right-3 bottom-3 text-[0.65rem] text-ivoire/70">Photo d&apos;illustration</span>
+            {/* Téléphone/tablette : titre sur la photo, comme la maquette */}
+            <div className="absolute inset-x-4 bottom-8 text-ivoire lg:hidden">
+              <p className="surtitre text-or-pale">{site.tagline.value}</p>
+              <h1 className="mt-1.5 max-w-md text-headline-lg-mobile sm:text-headline-lg">
+                Découvrez l&apos;âme de la cuisine <em className="font-medium">ivoirienne</em>
+              </h1>
+            </div>
+          </div>
         </div>
 
-        {/* Téléphone : défilement horizontal · Tablette : 2 colonnes · Ordinateur : 4 colonnes */}
-        <ul
-          className={`${container} mt-12 flex snap-x snap-mandatory scroll-px-4 gap-4 overflow-x-auto pb-6 [scrollbar-width:none] md:grid md:grid-cols-2 md:gap-6 md:overflow-visible lg:grid-cols-4`}
-        >
-          {populaires.map((dish) => (
-            <li key={dish.slug} className="reveal w-[78%] shrink-0 snap-start xs:w-[72%] sm:w-[46%] md:w-auto">
-              <DishCard dish={dish} />
+        <div className="flex flex-col gap-5 lg:col-span-5">
+          <div className="hidden lg:block">
+            <p className="surtitre text-terracotta">{site.tagline.value}</p>
+            <h1 className="mt-3 text-display text-vert">
+              Découvrez l&apos;âme de la cuisine <em className="font-medium text-cacao">ivoirienne</em>
+            </h1>
+          </div>
+          <p className="text-body-md text-cacao/80 lg:text-body-lg">
+            Des saveurs authentiques et des recettes transmises, servies dans un cadre moderne à Abidjan. Commandez
+            en ligne, réservez votre table et découvrez nos plats sous tous les angles.
+          </p>
+          <div className="grid grid-cols-2 gap-2 sm:flex sm:gap-3">
+            <Link href="/menu" className={`${btn.primary} ${btn.md} px-4`}>
+              <IconCarte width={18} height={18} />
+              La carte
+            </Link>
+            <Link href="/reservation" className={`${btn.secondary} ${btn.md} px-4`}>
+              <IconCalendar width={18} height={18} />
+              Réserver
+            </Link>
+          </div>
+          {/* Indicateurs : uniquement des faits vrais sur le service proposé */}
+          <dl className="grid grid-cols-3 gap-2 rounded-xl bg-creme p-3 text-center sm:p-4">
+            {[
+              ["En ligne", "Commande & réservation", "text-vert"],
+              ["360°", "Aperçu 3D & RA", "text-terracotta"],
+              ["Abidjan", "Côte d'Ivoire", "text-vert"],
+            ].map(([valeur, libelle, couleur]) => (
+              <div key={valeur} className="flex flex-col-reverse items-center">
+                <dt className="text-label-sm font-medium text-cacao/65">{libelle}</dt>
+                <dd className={`font-display text-headline-sm ${couleur}`}>{valeur}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </section>
+
+      {/* ───────── Plats signatures ───────── */}
+      <section aria-labelledby="signatures" className={container}>
+        <div className="flex items-end justify-between gap-4">
+          <div>
+            <p className="surtitre text-terracotta">Créations emblématiques</p>
+            <h2 id="signatures" className="mt-1 text-headline-sm text-cacao md:text-headline-md">
+              Nos plats signatures
+            </h2>
+          </div>
+          <Link href="/menu" className="flex items-center gap-0.5 text-label-md text-vert hover:text-terracotta">
+            Voir tout <IconChevron width={16} height={16} />
+          </Link>
+        </div>
+        <ul className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
+          {signatures.map((dish) => (
+            <li key={dish.slug}>
+              <DishCard dish={dish} variant="signature" />
             </li>
           ))}
         </ul>
       </section>
 
-      <Concept />
-      <Experience3D />
-    </>
-  );
-}
-
-/* ═══════════════════════ Ouverture ═══════════════════════ */
-
-function Hero() {
-  return (
-    <section
-      aria-labelledby="hero"
-      className="grain relative flex min-h-[92svh] items-end overflow-hidden bg-cacao text-ivoire lg:min-h-[100svh]"
-    >
-      <Image
-        src={demoAmbiance.hero}
-        alt=""
-        fill
-        priority
-        sizes="100vw"
-        className="animate-zoom-lent object-cover object-[60%_50%]"
-      />
-      {/* Voiles pour la lisibilité : bas sombre (téléphone), gauche sombre (ordinateur) */}
-      <div className="absolute inset-0 bg-gradient-to-t from-cacao via-cacao/75 to-charbon/50 md:via-cacao/45 md:to-charbon/30" aria-hidden />
-      <div className="absolute inset-0 bg-charbon/35 md:hidden" aria-hidden />
-      <div className="absolute inset-0 hidden bg-gradient-to-r from-charbon/75 via-charbon/25 to-transparent md:block" aria-hidden />
-
-      <div className={`${container} relative w-full pt-32 pb-10 sm:pb-14 lg:pb-20`}>
-        <div className="max-w-3xl">
-          <p className="surtitre flex items-center gap-3 text-or">
-            <span className="h-px w-8 bg-or" aria-hidden />
-            {site.tagline.value}
-          </p>
-          <h1 id="hero" className="titre-hero mt-5">
-            Attiéké, braisé, kedjenou.
-            <span className="block text-sable/85">Les saveurs d&apos;Abidjan, à votre table.</span>
-          </h1>
-          <p className="mt-6 max-w-lg text-lg leading-relaxed text-ivoire/80">
-            Commandez en ligne, réservez votre table et découvrez nos plats sous tous les angles.
-          </p>
-          <div className="mt-9 flex flex-col gap-3 xs:flex-row xs:flex-wrap">
-            <ButtonLink href="/menu" className="shadow-[0_10px_30px_-10px_rgb(245_130_32/0.7)]">
-              <IconBag width={20} height={20} />
-              Commander
-            </ButtonLink>
-            <ButtonLink href="/reservation" variant="outlineLight" className="verre !border-ivoire/30">
-              Réserver une table
-            </ButtonLink>
-          </div>
-        </div>
-
-        <div className="mt-12 flex items-end justify-between gap-6 border-t border-ivoire/15 pt-5 text-sm">
-          <Link href="/menu" className="group inline-flex items-center gap-3 font-semibold text-ivoire/85 hover:text-ivoire">
-            <span className="grid size-10 place-items-center rounded-full border border-ivoire/30 transition-transform group-hover:translate-y-0.5">
-              <IconArrow width={16} height={16} className="rotate-90" />
+      {/* ───────── Encart 3D & réalité augmentée ───────── */}
+      <section aria-labelledby="teaser-3d" className={container}>
+        <div className="relative grid overflow-hidden rounded-2xl bg-vert text-ivoire shadow-flottant md:grid-cols-2 md:items-center">
+          <div className="pointer-events-none absolute -top-16 -right-16 size-64 rounded-full bg-orange/20 blur-3xl" aria-hidden />
+          <div className="relative flex flex-col gap-3 p-6 sm:p-8 lg:p-12">
+            <span className={`${pastille} self-start bg-ivoire/15 text-vert-pale uppercase backdrop-blur-md`}>
+              <IconCube width={15} height={15} />
+              Immersion réalité augmentée
             </span>
-            Découvrir le menu
-          </Link>
-          <p className="text-right text-xs text-ivoire/55">Photo d&apos;illustration</p>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ═══════════════════════ Le restaurant ═══════════════════════ */
-
-function Concept() {
-  return (
-    <section aria-labelledby="concept" className="grain relative z-10 -mt-10 rounded-t-[2.5rem] lg:-mt-16 lg:rounded-t-[4rem] overflow-hidden bg-vert text-ivoire">
-      <div className={`${container} grid items-center gap-12 py-20 sm:py-24 lg:grid-cols-12 lg:gap-16 lg:py-32`}>
-        <div className="reveal relative lg:col-span-6">
-          <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] sm:aspect-[5/4] lg:aspect-[4/5]">
-            <Image
-              src={demoAmbiance.partage}
-              alt="Une table garnie de poissons braisés et de plats à partager"
-              fill
-              sizes="(min-width: 1024px) 45vw, 100vw"
-              className="object-cover"
+            <h2 id="teaser-3d" className="text-headline-sm sm:text-headline-md lg:text-headline-lg">
+              Vivez votre assiette en 360° &amp; RA avant de commander
+            </h2>
+            <p className="text-body-sm text-ivoire/75 sm:text-body-md">
+              Faites pivoter les plats, zoomez sur les textures et, sur un téléphone compatible, posez-les sur votre
+              table en réalité augmentée.
+            </p>
+            <div className="pt-2">
+              <Link href="/experience-3d" className={`${btn.primary} ${btn.md}`}>
+                <IconRotate width={18} height={18} />
+                Lancer l&apos;expérience 3D
+              </Link>
+            </div>
+          </div>
+          <div className="relative mx-auto w-full max-w-sm px-6 pb-8 md:max-w-md md:py-8">
+            <Turntable
+              centre={{ name: avec3d[0].name, photo: avec3d[0].photo! }}
+              autour={demoDishes.filter((d) => d.photo && d.slug !== avec3d[0].slug).slice(0, 5).map((d) => ({ name: d.name, photo: d.photo! }))}
             />
           </div>
-          <span className="absolute top-4 left-5 text-[0.65rem] font-semibold text-ivoire/70">Photo d&apos;illustration</span>
         </div>
+      </section>
 
-        <div className="reveal lg:col-span-6">
-          <p className="surtitre text-or">Le restaurant</p>
-          <h2 id="concept" className="titre-section mt-3">
-            Une table pour partager les saveurs de Côte d&apos;Ivoire
-          </h2>
-          <div className="mt-8 rounded-2xl border border-dashed border-or/50 bg-ivoire/5 p-6 sm:p-8">
-            <Badge tone="sable">Texte à fournir</Badge>
-            <p className="mt-4 text-lg leading-relaxed text-ivoire/85">
-              Ici : l&apos;histoire du restaurant, son équipe et ce qui fait sa cuisine. Quelques phrases sincères
-              suffisent, avec une photo de la salle ou de l&apos;équipe.
-            </p>
+      {/* ───────── Terroir & modernité ───────── */}
+      <section aria-labelledby="terroir" className={container}>
+        <div className="flex flex-wrap items-end justify-between gap-2">
+          <div>
+            <p className="surtitre text-terracotta">Philosophie</p>
+            <h2 id="terroir" className="mt-1 text-headline-sm text-cacao md:text-headline-md">
+              Terroir &amp; modernité
+            </h2>
+          </div>
+          <span className={`${pastille} border border-dashed border-terracotta text-terracotta`}>Textes à fournir</span>
+        </div>
+        <div className="mt-6 grid gap-3 md:grid-cols-3 md:gap-4 lg:gap-6">
+          <div className="relative h-56 overflow-hidden rounded-xl shadow-carte md:col-span-2 md:row-span-2 md:h-auto md:min-h-80">
+            <Image src={demoAmbiance.partage} alt="Une table garnie de plats à partager" fill sizes="(min-width: 768px) 60vw, 100vw" className="object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-t from-cacao/85 via-cacao/25 to-transparent" aria-hidden />
+            <div className="absolute inset-x-4 bottom-4 text-ivoire md:inset-x-6 md:bottom-6">
+              <h3 className="text-title md:text-headline-sm">L&apos;art du partage</h3>
+              <p className="mt-1 max-w-md text-body-sm text-ivoire/80">
+                Ici : l&apos;histoire du restaurant, son équipe et ce qui fait sa cuisine.
+              </p>
+            </div>
+            <span className="absolute top-3 left-3 text-[0.65rem] text-ivoire/75">Photo d&apos;illustration</span>
+          </div>
+          <div className="grid grid-cols-2 gap-3 md:contents">
+            {[
+              { Icon: IconLeaf, titre: "Produits & savoir-faire", texte: "Vos producteurs, vos recettes, votre façon de cuisiner.", couleur: "text-vert bg-vert/10" },
+              { Icon: IconUsers, titre: "L'hospitalité Akwaba", texte: "L'accueil à l'ivoirienne : chaleureux, attentif, généreux.", couleur: "text-terracotta bg-terracotta/10" },
+            ].map(({ Icon, titre, texte, couleur }) => (
+              <div key={titre} className="flex flex-col justify-between gap-3 rounded-xl bg-creme p-4 shadow-carte md:p-6">
+                <span className={`grid size-10 place-items-center rounded-full ${couleur}`}>
+                  <Icon width={20} height={20} />
+                </span>
+                <div>
+                  <h3 className="text-title text-vert">{titre}</h3>
+                  <p className="mt-1 text-body-sm text-cacao/75">{texte}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
-      </div>
-    </section>
-  );
-}
+      </section>
 
-/* ═══════════════════════ 3D ═══════════════════════ */
-
-function Experience3D() {
-  const etapes = [
-    ["Touchez « Voir en 3D »", "sur la fiche d'un plat qui porte le badge 3D."],
-    ["Faites-le pivoter", "et zoomez du bout des doigts, sous tous les angles."],
-    ["Touchez « Voir sur ma table »", "sur un téléphone compatible pour le poser chez vous, en réalité augmentée."],
-  ];
-
-  return (
-    <section aria-labelledby="experience-3d" className="grain relative z-10 -mt-10 rounded-t-[2.5rem] lg:-mt-16 lg:rounded-t-[4rem] overflow-hidden bg-[#2a1913] text-ivoire">
-      {/* Halo lumineux derrière le plateau */}
-      <div className="pointer-events-none absolute top-1/2 right-[-10%] size-[70rem] -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgb(245_130_32/0.18),transparent_60%)] max-md:top-[30%] max-md:right-1/2 max-md:size-[40rem] max-md:translate-x-1/2" aria-hidden />
-      <div className={`${container} relative grid items-center gap-10 py-20 sm:py-24 lg:grid-cols-2 lg:gap-16 lg:py-32`}>
-        <div className="reveal relative mx-auto w-full max-w-[26rem] sm:max-w-xl lg:order-2">
-          <Turntable
-            centre={{ name: "Poisson braisé & attiéké", photo: "/demo/poisson-braise-alloco.jpg" }}
-            autour={["kedjenou-poulet", "sauce-graine", "riz-gras-poulet", "alloco", "sauce-feuille-foutou"].map((slug) => {
-              const d = findDemoDish(slug);
-              return { name: d.name, photo: d.photo! };
-            })}
-          />
-          <span className="verre absolute top-[6%] left-0 inline-flex animate-flotte items-center gap-2 rounded-full px-4 py-2 text-sm font-bold">
-            <IconRotate width={18} height={18} className="text-or" /> 360°
+      {/* ───────── Appel à réserver ───────── */}
+      <section className={container}>
+        <div className="flex flex-col items-center gap-4 rounded-xl border border-sable/70 bg-creme-fonce px-6 py-10 text-center shadow-carte md:py-14">
+          <span className="grid size-12 place-items-center rounded-full bg-orange text-charbon shadow-carte">
+            <IconCalendar />
           </span>
-          <span className="absolute right-0 bottom-[14%] inline-flex animate-flotte items-center gap-2 rounded-full bg-orange px-4 py-2 text-sm font-bold text-charbon shadow-xl [animation-delay:-2.5s]">
-            Voir sur ma table
-          </span>
+          <div className="max-w-md">
+            <p className="surtitre text-terracotta">Une table chez nous</p>
+            <h2 className="mt-1 text-headline-sm text-cacao md:text-headline-md">Préparez votre prochaine soirée</h2>
+            <p className="mt-2 text-body-sm text-cacao/75">
+              Choisissez la date, l&apos;heure et le nombre de convives : le restaurant confirme selon les places
+              disponibles.
+            </p>
+          </div>
+          <Link href="/reservation" className={`${btn.primary} ${btn.md} w-full sm:w-auto`}>
+            <IconCalendar width={18} height={18} />
+            Réserver votre table
+          </Link>
         </div>
-
-        <div className="reveal">
-          <p className="surtitre text-or">Expérience 3D</p>
-          <h2 id="experience-3d" className="titre-section mt-3">
-            Tournez autour du plat avant de commander
-          </h2>
-          <ol className="mt-10 space-y-6">
-            {etapes.map(([titre, texte], i) => (
-              <li key={titre} className="flex gap-5">
-                <span className="grid size-10 shrink-0 place-items-center rounded-full bg-or/15 font-display text-lg text-or ring-1 ring-or/40">
-                  {i + 1}
-                </span>
-                <p className="pt-1.5 leading-relaxed text-ivoire/75">
-                  <strong className="font-bold text-ivoire">{titre}</strong> {texte}
-                </p>
-              </li>
-            ))}
-          </ol>
-          <p className="mt-10 border-l-2 border-or/50 pl-4 text-sm text-ivoire/60">
-            Bientôt disponible pour une sélection de plats. Sur les appareils non compatibles, la photo reste
-            affichée et la commande fonctionne toujours.
-          </p>
-        </div>
-      </div>
-    </section>
+      </section>
+    </div>
   );
 }

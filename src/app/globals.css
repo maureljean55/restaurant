@@ -1,64 +1,96 @@
 @import "tailwindcss";
 
 /*
- * Direction artistique — tokens.
+ * Direction artistique « L'Écrin d'Ébène » (voir stitch_…/l_crin_d_b_ne/DESIGN.md),
+ * alignée sur la palette du cahier des charges.
+ *
  * Contrastes vérifiés (WCAG) :
- *  - charbon sur orange ≈ 5,9:1 ✅  → texte des boutons orange
- *  - blanc sur orange   ≈ 2,6:1 ❌  → interdit
- *  - ivoire sur vert    ≈ 9,4:1 ✅
- *  - terracotta sur ivoire ≈ 4,3:1 → grands textes / décor uniquement
- *  - or sur ivoire      ≈ 2,3:1 → décor uniquement (filets, motifs)
+ *  - cacao sur ivoire ≈ 11,8:1 ✅ (texte courant)
+ *  - charbon sur orange ≈ 5,9:1 ✅ → texte des boutons orange
+ *  - blanc sur orange ≈ 2,6:1 ❌ → interdit (le DESIGN.md le prévoyait, corrigé ici)
+ *  - ivoire sur vert ≈ 9,4:1 ✅
  */
 @theme {
+  /* Palette principale */
   --color-orange: #f58220;
   --color-orange-clair: #f7953f;
+  --color-orange-pale: #ffe9d6;
   --color-vert: #174c38;
-  --color-vert-clair: #1f6049;
+  --color-vert-fonce: #0f3a2a;
+  --color-vert-pale: #dcebe2;
   --color-ivoire: #fff8ed;
   --color-blanc: #ffffff;
+  /* Palette complémentaire */
   --color-cacao: #4a2e24;
   --color-terracotta: #b85c38;
   --color-or: #c6a15b;
+  --color-or-pale: #f5e8cc;
   --color-sable: #e8d8c3;
+  --color-creme: #f9f1e2;
+  --color-creme-fonce: #f2e6d3;
   --color-charbon: #252522;
   --color-sauge: #a8b7a0;
 
-  --font-display: var(--font-young-serif), Georgia, serif;
-  --font-sans: var(--font-manrope), system-ui, sans-serif;
+  --font-display: var(--font-playfair), Georgia, serif;
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+
+  /* Échelle typographique du DESIGN.md */
+  --text-display: 3.5rem;
+  --text-display--line-height: 4rem;
+  --text-display--letter-spacing: -0.02em;
+  --text-display--font-weight: 600;
+  --text-display-mobile: 2.375rem;
+  --text-display-mobile--line-height: 2.75rem;
+  --text-display-mobile--letter-spacing: -0.01em;
+  --text-display-mobile--font-weight: 600;
+  --text-headline-lg: 2.5rem;
+  --text-headline-lg--line-height: 3rem;
+  --text-headline-lg--letter-spacing: -0.01em;
+  --text-headline-lg--font-weight: 600;
+  --text-headline-lg-mobile: 1.875rem;
+  --text-headline-lg-mobile--line-height: 2.25rem;
+  --text-headline-lg-mobile--font-weight: 600;
+  --text-headline-md: 1.75rem;
+  --text-headline-md--line-height: 2.25rem;
+  --text-headline-md--font-weight: 500;
+  --text-headline-sm: 1.375rem;
+  --text-headline-sm--line-height: 1.75rem;
+  --text-headline-sm--font-weight: 500;
+  --text-title: 1.125rem;
+  --text-title--line-height: 1.5rem;
+  --text-title--letter-spacing: 0.01em;
+  --text-title--font-weight: 600;
+  --text-body-lg: 1.125rem;
+  --text-body-lg--line-height: 1.75rem;
+  --text-body-md: 0.9375rem;
+  --text-body-md--line-height: 1.5rem;
+  --text-body-sm: 0.8125rem;
+  --text-body-sm--line-height: 1.125rem;
+  --text-label-lg: 0.875rem;
+  --text-label-lg--line-height: 1.25rem;
+  --text-label-lg--letter-spacing: 0.04em;
+  --text-label-lg--font-weight: 600;
+  --text-label-md: 0.75rem;
+  --text-label-md--line-height: 1rem;
+  --text-label-md--letter-spacing: 0.06em;
+  --text-label-md--font-weight: 600;
+  --text-label-sm: 0.6875rem;
+  --text-label-sm--line-height: 0.875rem;
+  --text-label-sm--letter-spacing: 0.08em;
+  --text-label-sm--font-weight: 700;
+
+  /* Ombres teintées cacao, jamais grises */
+  --shadow-carte: 0 2px 6px -1px rgb(74 46 36 / 0.05), 0 8px 24px -8px rgb(74 46 36 / 0.1);
+  --shadow-carte-survol: 0 4px 10px -2px rgb(74 46 36 / 0.07), 0 18px 36px -12px rgb(74 46 36 / 0.18);
+  --shadow-flottant: 0 24px 48px -12px rgb(74 46 36 / 0.22);
 
   --breakpoint-xs: 380px;
 
-  --animate-tourne: tourne 90s linear infinite;
+  --animate-plateau: tourne 48s linear infinite;
   @keyframes tourne {
     to {
       transform: rotate(360deg);
     }
-  }
-
-  --animate-plateau: tourne 48s linear infinite;
-  --animate-flotte: flotte 5s ease-in-out infinite;
-  @keyframes flotte {
-    50% {
-      transform: translateY(-10px);
-    }
-  }
-
-  --animate-zoom-lent: zoom-lent 24s ease-out both;
-  @keyframes zoom-lent {
-    from {
-      transform: scale(1.12);
-    }
-    to {
-      transform: scale(1);
-    }
-  }
-
-}
-
-@keyframes entree {
-  from {
-    opacity: 0;
-    transform: translateY(32px);
   }
 }
 
@@ -69,20 +101,20 @@
   }
   body {
     background: var(--color-ivoire);
-    color: var(--color-charbon);
+    color: var(--color-cacao);
     font-family: var(--font-sans);
   }
   h1,
   h2,
-  h3 {
+  h3,
+  h4 {
     font-family: var(--font-display);
-    font-weight: 400;
     text-wrap: balance;
   }
   :focus-visible {
-    outline: 3px solid var(--color-orange);
+    outline: 2px solid var(--color-vert);
     outline-offset: 3px;
-    border-radius: 4px;
+    border-radius: 6px;
   }
   @media (prefers-reduced-motion: reduce) {
     html {
@@ -99,25 +131,20 @@
 }
 
 @layer components {
-  /* Échelle typographique fluide : téléphone → ordinateur */
-  .titre-hero {
-    font-size: clamp(2.5rem, 1.6rem + 4vw, 4.5rem);
-    line-height: 1.02;
-    letter-spacing: -0.02em;
-  }
-  .titre-section {
-    font-size: clamp(1.9rem, 1.4rem + 2.2vw, 3.1rem);
-    line-height: 1.08;
-    letter-spacing: -0.01em;
-  }
   .surtitre {
-    font-size: 0.75rem;
+    font-size: var(--text-label-sm);
+    line-height: var(--text-label-sm--line-height);
     font-weight: 700;
-    letter-spacing: 0.16em;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
   }
 
-  /* Table en bois vue de dessus — fond des assiettes */
+  /* Prix : chiffres tabulaires pour l'alignement */
+  .prix {
+    font-feature-settings: "tnum" 1;
+  }
+
+  /* Table en bois vue de dessus (plateau tournant) */
   .table-bois {
     background-color: var(--color-cacao);
     background-image:
@@ -130,10 +157,9 @@
       );
   }
 
-  /* Assiette en céramique vue de dessus */
+  /* Assiette en céramique vue de dessus : le bord est dessiné par le dégradé (net en perspective) */
   .assiette {
     border-radius: 9999px;
-    /* Le bord est dessiné par le dégradé (fondu sur 1,5 %) : reste net même en perspective */
     background: radial-gradient(
       circle closest-side,
       #fffdf9 0 72%,
@@ -142,66 +168,6 @@
       #eee1cd 98.4%,
       rgb(238 225 205 / 0) 100%
     );
-    box-shadow:
-      0 1px 0 rgb(255 255 255 / 0.6) inset,
-      0 18px 40px -12px rgb(0 0 0 / 0.45),
-      0 4px 10px -4px rgb(0 0 0 / 0.3);
-  }
-  /* Liseré doré du marli : rend la rotation perceptible */
-  .assiette-liseret {
-    border-radius: 9999px;
-    background: repeating-conic-gradient(
-      from 0deg,
-      var(--color-or) 0 1.2deg,
-      transparent 1.2deg 7.5deg
-    );
-    mask: radial-gradient(circle, transparent 0 89%, #000 89.5% 91%, transparent 91.5%);
-    opacity: 0.7;
-  }
-
-  /* Grain photographique léger sur les sections sombres */
-  .grain {
-    position: relative;
-    isolation: isolate;
-  }
-  .grain::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    pointer-events: none;
-    opacity: 0.09;
-    mix-blend-mode: overlay;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  }
-
-  /* Verre dépoli pour les éléments posés sur une photo */
-  .verre {
-    background: rgb(37 37 34 / 0.35);
-    border: 1px solid rgb(255 248 237 / 0.18);
-    backdrop-filter: blur(14px) saturate(1.2);
-    -webkit-backdrop-filter: blur(14px) saturate(1.2);
-  }
-
-  /* Bande tissée : motif géométrique discret, coloré via background-color */
-  .bande-tissee {
-    height: 10px;
-    background-color: var(--color-or);
-    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='10'%3E%3Cpath d='M0 5 L7 0 L14 5 L21 0 L28 5 M0 5 L7 10 L14 5 L21 10 L28 5' fill='none' stroke='%23000' stroke-width='1.2'/%3E%3Crect x='12.5' y='3.5' width='3' height='3' transform='rotate(45 14 5)'/%3E%3C/svg%3E")
-      repeat-x center / auto 10px;
-  }
-}
-
-/*
- * Apparition au défilement (CSS pur, sans JavaScript).
- * Ignorée par les navigateurs non compatibles et si l'utilisateur réduit les animations.
- */
-@media (prefers-reduced-motion: no-preference) {
-  @supports (animation-timeline: view()) {
-    .reveal {
-      animation: entree linear both;
-      animation-timeline: view();
-      animation-range: entry 0% entry 55%;
-    }
+    box-shadow: 0 14px 30px -12px rgb(0 0 0 / 0.45);
   }
 }

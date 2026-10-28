@@ -28,7 +28,7 @@ export function Turntable({ centre, autour }: { centre: Plat; autour: Plat[] }) 
       ref={ref}
       onPointerMove={onPointerMove}
       onPointerLeave={() => setTilt({ x: 0, y: 0 })}
-      className="relative aspect-square w-full [perspective:1300px] [&_.assiette]:outline [&_.assiette]:outline-1 [&_.assiette]:outline-transparent [&_.assiette]:[backface-visibility:hidden] [&_.assiette-liseret]:hidden"
+      className="relative aspect-square w-full [perspective:1300px] [&_.assiette]:outline [&_.assiette]:outline-1 [&_.assiette]:outline-transparent [&_.assiette]:[backface-visibility:hidden]"
     >
       {/* Ombre portée du plateau */}
       <div className="absolute inset-x-[8%] bottom-[6%] h-[22%] rounded-[50%] bg-black/45 blur-2xl" aria-hidden />

@@ -1,59 +1,101 @@
 import Image from "next/image";
 import Link from "next/link";
-import type { DemoDish } from "@/data/demo-dishes";
+import { categoryLabel, spiceLabel, type DemoDish } from "@/data/demo-dishes";
 import { formatFCFA } from "@/lib/format";
-import { Badge } from "@/components/ui/Badge";
-import { IconArrow } from "@/components/ui/icons";
-import { DishPlate } from "./DishPlate";
+import { carte, pastille } from "@/components/ui/styles";
+import { IconCube, IconFire, IconLeaf } from "@/components/ui/icons";
+import { AddToCartButton } from "./AddToCartButton";
 
-export function DishCard({ dish }: { dish: DemoDish }) {
+/**
+ * Carte de plat (maquettes Stitch « Plats signatures » et « La Carte »).
+ * - signature : prix sur la photo, lien « Voir en 3D » en pied de carte.
+ * - carte : prix à côté du titre, niveau de piment, 2 ingrédients, bouton Ajouter.
+ */
+export function DishCard({ dish, variant = "carte" }: { dish: DemoDish; variant?: "signature" | "carte" }) {
+  const prix = dish.price === null ? "Prix à venir" : formatFCFA(dish.price);
+
   return (
-    <article className="group relative flex h-full flex-col overflow-hidden rounded-[1.75rem] bg-blanc shadow-[0_1px_0_rgb(0_0_0/0.04),0_20px_40px_-24px_rgb(74_46_36/0.55)] transition-[translate,box-shadow] duration-500 hover:-translate-y-1.5 hover:shadow-[0_1px_0_rgb(0_0_0/0.04),0_30px_50px_-24px_rgb(74_46_36/0.6)]">
-      <div className="relative aspect-[4/5] overflow-hidden bg-cacao">
-        {dish.photo ? (
+    <article
+      className={`${carte} group flex h-full flex-col overflow-hidden transition-shadow hover:shadow-carte-survol ${
+        dish.available ? "" : "opacity-75"
+      }`}
+    >
+      <div className="relative h-48 overflow-hidden bg-creme-fonce sm:h-52">
+        {dish.photo && (
           <Image
             src={dish.photo}
             alt={dish.name}
             fill
-            sizes="(min-width: 1024px) 24vw, (min-width: 768px) 45vw, 75vw"
-            className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.06]"
+            sizes="(min-width: 1280px) 22vw, (min-width: 768px) 45vw, 100vw"
+            className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
           />
-        ) : (
-          <div className="table-bois absolute inset-0 grid place-items-center p-8">
-            <DishPlate name={dish.name} photo={null} className="w-full max-w-48" />
-          </div>
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-charbon/70 via-charbon/0 to-charbon/0" aria-hidden />
+        <div className="absolute inset-0 bg-gradient-to-t from-charbon/45 via-transparent to-transparent" aria-hidden />
 
-        <div className="absolute inset-x-3 top-3 flex items-start justify-between gap-2">
-          <span className="verre rounded-full px-3 py-1 text-[0.7rem] font-bold text-ivoire">{dish.category}</span>
-          {dish.has3d && <Badge tone="vert">3D</Badge>}
+        <div className="absolute top-3 left-3 flex flex-wrap items-center gap-1.5">
+          {dish.model && (
+            <span className={`${pastille} bg-vert text-ivoire shadow-sm`}>
+              <IconCube width={13} height={13} />
+              {variant === "signature" ? "Modèle 3D disponible" : "Modèle 3D"}
+            </span>
+          )}
+          {!dish.available && <span className={`${pastille} bg-charbon/80 text-ivoire`}>Indisponible</span>}
         </div>
 
         {dish.photoIsIllustration && (
-          <span className="absolute bottom-3 left-4 text-[0.65rem] font-semibold tracking-wide text-ivoire/75">
-            Photo d&apos;illustration
-          </span>
+          <span className="absolute bottom-2.5 left-3 text-[0.65rem] font-medium text-ivoire/85">Photo d&apos;illustration</span>
         )}
+
+        <span className={`${pastille} absolute right-3 bottom-2.5 bg-blanc/90 text-cacao shadow-sm backdrop-blur-md`}>
+          {variant === "signature" ? (
+            <span className="prix text-label-md text-terracotta">{prix}</span>
+          ) : (
+            <>
+              {dish.spice === "doux" ? <IconLeaf width={13} height={13} className="text-vert" /> : <IconFire width={13} height={13} className={dish.spice === "fort" ? "text-terracotta" : "text-orange"} />}
+              Piment {spiceLabel[dish.spice].toLowerCase()}
+            </>
+          )}
+        </span>
       </div>
 
-      <div className="flex flex-1 flex-col gap-2 p-5">
-        <h3 className="text-[1.35rem] leading-tight text-charbon">
-          <Link href={`/menu/${dish.slug}`} className="after:absolute after:inset-0">
-            {dish.name}
-          </Link>
-        </h3>
-        <p className="line-clamp-2 text-sm leading-relaxed text-charbon/70">{dish.description}</p>
-        <div className="mt-auto flex items-center justify-between pt-4">
-          <p className="font-bold text-cacao">
-            {dish.price === null ? <span className="font-semibold text-charbon/45">Prix à venir</span> : formatFCFA(dish.price)}
-          </p>
-          <span
-            className="grid size-10 place-items-center rounded-full bg-orange text-charbon transition-transform duration-300 group-hover:translate-x-0.5 group-hover:rotate-[-8deg]"
-            aria-hidden
-          >
-            <IconArrow width={18} height={18} />
-          </span>
+      <div className="flex flex-1 flex-col gap-2 p-4">
+        <div className="flex items-start justify-between gap-3">
+          <h3 className={`text-title leading-snug ${variant === "signature" ? "text-vert" : "text-cacao"}`}>{dish.name}</h3>
+          {variant === "carte" ? (
+            <span className="prix shrink-0 text-label-lg text-vert">{prix}</span>
+          ) : (
+            dish.badge && <span className={`${pastille} shrink-0 bg-creme-fonce font-semibold text-cacao/80`}>{dish.badge}</span>
+          )}
+        </div>
+        <p className="line-clamp-2 text-body-sm text-cacao/75">{dish.description}</p>
+
+        <div className="mt-auto flex items-center justify-between gap-2 pt-3">
+          {variant === "carte" ? (
+            <div className="flex min-w-0 flex-wrap gap-1">
+              {dish.tags.map((t) => (
+                <span key={t} className={`${pastille} bg-creme text-cacao/75`}>
+                  {t}
+                </span>
+              ))}
+            </div>
+          ) : (
+            <span className="flex items-center gap-1 text-label-sm text-cacao/65">
+              <IconLeaf width={15} height={15} className="text-or" />
+              {dish.tags[0] ?? categoryLabel(dish.category)}
+            </span>
+          )}
+
+          {variant === "signature" && dish.model ? (
+            <Link
+              href={`/experience-3d?plat=${dish.slug}`}
+              className="flex shrink-0 items-center gap-1 text-label-md text-terracotta underline decoration-or decoration-1 underline-offset-4 hover:text-vert"
+            >
+              <IconCube width={15} height={15} />
+              Voir en 3D
+            </Link>
+          ) : (
+            <AddToCartButton slug={dish.slug} name={dish.name} price={dish.price} available={dish.available} />
+          )}
         </div>
       </div>
     </article>

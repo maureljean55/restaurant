@@ -26,3 +26,24 @@ Elles **ne représentent pas** les plats du restaurant et sont signalées comme 
 3. **Après Supabase** : téléverser la photo depuis l'administration (fiche du plat → Photos).
    L'optimisation (AVIF/WebP, tailles adaptées au mobile) est automatique.
 4. Supprimer les fichiers de `public/demo/` qui ne servent plus.
+
+## Modèles 3D de démonstration
+
+Les fichiers de `public/models/demo/` viennent de [Poly Haven](https://polyhaven.com) (licence **CC0**, domaine public,
+usage commercial libre). Ce sont des **objets**, pas les plats du restaurant ; le site l'indique sur la page 3D.
+Ils ont été convertis en GLB et optimisés (textures 1024 px) avec `@gltf-transform/cli`.
+
+| Fichier | Objet | Associé au plat (démo) | Source |
+|---|---|---|---|
+| carved_wooden_plate.glb | Plat en bois sculpté | Poisson braisé & attiéké | https://polyhaven.com/a/carved_wooden_plate |
+| ceramic_pot.glb | Marmite en terre cuite (type canari) | Kedjenou de poulet | https://polyhaven.com/a/ceramic_pot |
+| bananas.glb | Régime de bananes | Alloco | https://polyhaven.com/a/bananas |
+| wooden_bowl_01.glb | Bol en bois | Sauce graine | https://polyhaven.com/a/wooden_bowl_01 |
+
+### Remplacer par les modèles des vrais plats
+
+1. Scanner le plat (photogrammétrie : Apple Object Capture, Polycam, RealityScan…), nettoyer le modèle.
+2. Exporter en GLB, viser **moins de 5 Mo** (`npx @gltf-transform/cli optimize plat.glb plat-opt.glb --texture-size 1024`).
+3. Vérifier le rendu sur la page 3D, puis la RA sur un iPhone et un Android réels.
+4. Avant Supabase : déposer le fichier dans `public/models/plats/` et mettre à jour `model` dans
+   `src/data/demo-dishes.ts` (`isDemo: false`). Après Supabase : téléverser depuis l'administration.

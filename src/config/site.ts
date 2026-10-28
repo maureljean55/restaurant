@@ -6,17 +6,14 @@
  * (Elles seront ensuite gérées depuis l'administration via Supabase.)
  */
 
-export type Placeholder<T> = { value: T; placeholder: boolean };
-
 export const site = {
   name: { value: "Nom du restaurant", placeholder: true },
-  tagline: {
-    value: "Cuisine ivoirienne · Abidjan",
-    placeholder: false,
-  },
+  tagline: { value: "Cuisine ivoirienne · Abidjan", placeholder: false },
+  /** Quartier affiché sous le nom dans l'en-tête. */
+  area: { value: "Abidjan", placeholder: true },
   description: {
     value:
-      "Restaurant de cuisine ivoirienne traditionnelle à Abidjan. Commande en ligne, réservation de table et plats à découvrir en 3D.",
+      "Restaurant de cuisine ivoirienne à Abidjan. Commande en ligne, réservation de table et plats à découvrir en 3D.",
     placeholder: false,
   },
   address: { value: "Adresse à venir, Abidjan", placeholder: true },
@@ -37,11 +34,34 @@ export const site = {
   },
 } as const;
 
+/** Règles de réservation (provisoires, à valider avec le restaurant). */
+export const reservation = {
+  placeholder: true,
+  /** Choix rapides du nombre de convives ; au-delà, contact direct. */
+  guestOptions: [1, 2, 3, 4, 6, 8],
+  maxGuestsOnline: 8,
+  /** Nombre de jours réservables à l'avance. */
+  daysAhead: 21,
+  /** Jours fermés (0 = dimanche … 6 = samedi). */
+  closedWeekdays: [] as number[],
+  services: [
+    { id: "dejeuner", label: "Déjeuner", slots: ["12:00", "12:30", "13:00", "13:30"] },
+    { id: "diner", label: "Dîner", slots: ["19:00", "19:30", "20:00", "20:30", "21:00", "21:30"] },
+  ],
+  /** Zones proposées. Laisser vide si le restaurant n'en a qu'une. */
+  zones: [
+    { id: "indifferent", label: "Sans préférence", detail: "Nous vous plaçons au mieux" },
+    { id: "interieur", label: "Salle intérieure", detail: "À confirmer" },
+    { id: "terrasse", label: "Terrasse", detail: "À confirmer" },
+  ],
+  policy: "Conditions d'annulation et de retard à définir par le restaurant.",
+};
+
 export const nav = [
   { href: "/", label: "Accueil" },
-  { href: "/menu", label: "Menu" },
+  { href: "/menu", label: "Carte" },
+  { href: "/experience-3d", label: "Expérience 3D" },
   { href: "/reservation", label: "Réserver" },
-  { href: "/contact", label: "Contact" },
 ] as const;
 
 export function whatsappUrl(message = "Bonjour, je souhaite passer commande.") {

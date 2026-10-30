@@ -13,10 +13,12 @@ type Props = {
   available: boolean;
   /** « compact » sur les cartes, « large » pour le bouton pleine largeur */
   variant?: "compact" | "large";
+  /** Propose « Complétez votre repas » après l'ajout (par défaut : oui). */
+  suggest?: boolean;
 };
 
-export function AddToCartButton({ slug, name, price, available, variant = "compact" }: Props) {
-  const { add } = useCart();
+export function AddToCartButton({ slug, name, price, available, variant = "compact", suggest = true }: Props) {
+  const { add, openUpsell } = useCart();
   const [added, setAdded] = useState(false);
 
   useEffect(() => {
@@ -35,6 +37,7 @@ export function AddToCartButton({ slug, name, price, available, variant = "compa
       onClick={() => {
         add(slug);
         setAdded(true);
+        if (suggest) openUpsell(slug);
       }}
       aria-label={disabled ? `${name} : ${label}` : `Ajouter ${name} au panier`}
       className={`${btn.primary} ${variant === "large" ? `${btn.md} w-full` : "h-9 px-3.5"} ${added ? "!bg-vert !text-ivoire" : ""}`}

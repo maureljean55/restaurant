@@ -51,6 +51,8 @@ export type DemoDish = {
   /** true = photo d'illustration, pas une photo du restaurant */
   photoIsIllustration: boolean;
   model: Model3D | null;
+  /** Accompagnements et boissons à proposer quand on ajoute ce plat (ordre de préférence). */
+  pairsWith?: string[];
 };
 
 /**
@@ -81,6 +83,7 @@ export const demoDishes: DemoDish[] = [
     photo: "/demo/poisson-braise-alloco.jpg",
     photoIsIllustration: true,
     model: apercu3d("poisson-braise-attieke", 325),
+    pairsWith: ["alloco", "bissap"],
   },
   {
     slug: "kedjenou-poulet",
@@ -97,6 +100,7 @@ export const demoDishes: DemoDish[] = [
     photo: "/demo/kedjenou.jpg",
     photoIsIllustration: true,
     model: apercu3d("kedjenou-poulet", 300),
+    pairsWith: ["banane-braisee", "gnamakoudji"],
   },
   {
     slug: "alloco",
@@ -113,6 +117,7 @@ export const demoDishes: DemoDish[] = [
     photo: "/demo/alloco.jpg",
     photoIsIllustration: true,
     model: apercu3d("alloco", 283),
+    pairsWith: ["bissap"],
   },
   {
     slug: "sauce-graine",
@@ -128,6 +133,7 @@ export const demoDishes: DemoDish[] = [
     photo: "/demo/sauce-graine.jpg",
     photoIsIllustration: true,
     model: apercu3d("sauce-graine", 427),
+    pairsWith: ["banane-braisee", "bissap"],
   },
   {
     slug: "riz-gras-poulet",
@@ -143,6 +149,7 @@ export const demoDishes: DemoDish[] = [
     photo: "/demo/riz-gras-poulet.jpg",
     photoIsIllustration: true,
     model: apercu3d("riz-gras-poulet", 338),
+    pairsWith: ["alloco", "gnamakoudji"],
   },
   {
     slug: "sauce-feuille-foutou",
@@ -159,6 +166,7 @@ export const demoDishes: DemoDish[] = [
     photo: "/demo/sauce-feuille-foutou.jpg",
     photoIsIllustration: true,
     model: apercu3d("sauce-feuille-foutou", 274),
+    pairsWith: ["gnamakoudji"],
   },
   {
     slug: "brochettes",
@@ -174,6 +182,7 @@ export const demoDishes: DemoDish[] = [
     photo: "/demo/brochettes.jpg",
     photoIsIllustration: true,
     model: apercu3d("brochettes", 390),
+    pairsWith: ["alloco", "banane-braisee", "bissap"],
   },
   {
     slug: "bissap",
@@ -187,6 +196,36 @@ export const demoDishes: DemoDish[] = [
     popularity: 80,
     prepMinutes: null,
     photo: "/demo/bissap.jpg",
+    photoIsIllustration: true,
+    model: null,
+  },
+  {
+    slug: "banane-braisee",
+    name: "Banane braisée",
+    description: "Banane plantain mûre grillée sur la braise, fondante et caramélisée.",
+    price: 2000,
+    category: "accompagnements",
+    tags: ["Plantain", "Braise"],
+    spice: "doux",
+    available: true,
+    popularity: 82,
+    prepMinutes: 12,
+    photo: "/demo/banane-braisee.jpg",
+    photoIsIllustration: true,
+    model: null,
+  },
+  {
+    slug: "gnamakoudji",
+    name: "Gnamakoudji",
+    description: "Jus de gingembre frais, citron et une touche d'ananas, bien glacé.",
+    price: 1500,
+    category: "boissons",
+    tags: ["Gingembre", "Fait maison"],
+    spice: "doux",
+    available: true,
+    popularity: 78,
+    prepMinutes: null,
+    photo: "/demo/gnamakoudji.jpg",
     photoIsIllustration: true,
     model: null,
   },

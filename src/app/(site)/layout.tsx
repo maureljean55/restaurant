@@ -2,6 +2,7 @@ import { CartProvider } from "@/lib/cart";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { BottomTabBar } from "@/components/layout/BottomTabBar";
+import { UpsellSheet } from "@/components/cart/UpsellSheet";
 
 export default function SiteLayout({ children }: LayoutProps<"/">) {
   return (
@@ -19,6 +20,7 @@ export default function SiteLayout({ children }: LayoutProps<"/">) {
       </main>
       <SiteFooter />
       <BottomTabBar />
+      <UpsellSheet />
     </CartProvider>
   );
 }

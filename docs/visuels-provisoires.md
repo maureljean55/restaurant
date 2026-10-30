@@ -16,6 +16,8 @@ Elles **ne représentent pas** les plats du restaurant et sont signalées comme 
 | sauce-feuille-foutou.jpg | https://unsplash.com/photos/kn_ANxnwCQ0 |
 | brochettes.jpg | https://unsplash.com/photos/UC0HZdUitWY |
 | bissap.jpg | https://unsplash.com/photos/kOoMCheZesE |
+| gnamakoudji.jpg | https://unsplash.com/photos/ktwdY1TnefE |
+| banane-braisee.jpg | https://unsplash.com/photos/1OBc1LhNAXI |
 
 ## Remplacer par les photos officielles
 

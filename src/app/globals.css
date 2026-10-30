@@ -171,3 +171,16 @@
     box-shadow: 0 14px 30px -12px rgb(0 0 0 / 0.45);
   }
 }
+
+/* Ouverture du panneau « Complétez votre repas » */
+@keyframes monter {
+  from {
+    transform: translateY(100%);
+  }
+}
+@keyframes apparaitre {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+}

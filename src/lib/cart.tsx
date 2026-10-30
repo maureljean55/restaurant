@@ -14,6 +14,11 @@ type CartContext = {
   setQty: (slug: string, qty: number) => void;
   remove: (slug: string) => void;
   clear: () => void;
+  qtyOf: (slug: string) => number;
+  /** Plat qui vient d'être ajouté : ouvre le panneau « Complétez votre repas ». */
+  upsellFor: string | null;
+  openUpsell: (slug: string) => void;
+  closeUpsell: () => void;
 };
 
 const Ctx = createContext<CartContext | null>(null);
@@ -35,6 +40,7 @@ function readStorage(): CartLine[] {
 export function CartProvider({ children }: { children: ReactNode }) {
   const [raw, setRaw] = useState<CartLine[]>([]);
   const [loaded, setLoaded] = useState(false);
+  const [upsellFor, setUpsellFor] = useState<string | null>(null);
 
   useEffect(() => {
     // Lecture différée : le stockage n'existe pas pendant le rendu serveur.
@@ -86,8 +92,12 @@ export function CartProvider({ children }: { children: ReactNode }) {
       setQty,
       remove: (slug) => setQty(slug, 0),
       clear: () => setRaw([]),
+      qtyOf: (slug) => raw.find((l) => l.slug === slug)?.qty ?? 0,
+      upsellFor,
+      openUpsell: setUpsellFor,
+      closeUpsell: () => setUpsellFor(null),
     };
-  }, [raw, add, setQty]);
+  }, [raw, add, setQty, upsellFor]);
 
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }

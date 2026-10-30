@@ -75,14 +75,19 @@ export const ModelViewer = forwardRef<ModelViewerHandle, Props>(function ModelVi
       const s = (e as CustomEvent<{ status: string }>).detail.status;
       if (s === "failed") onArStatus?.("echec");
     };
+    // Le modèle peut être prêt avant que l'on écoute : on vérifie tout de suite.
+    const onVisible = (e: Event) => (e as CustomEvent<{ visible: boolean }>).detail.visible && setState("pret");
+    if (mv.loaded) setState("pret");
     mv.addEventListener("progress", onProgress);
     mv.addEventListener("load", onLoad);
+    mv.addEventListener("model-visibility", onVisible);
     mv.addEventListener("error", onError);
     mv.addEventListener("camera-change", onCamera);
     mv.addEventListener("ar-status", onAr);
     return () => {
       mv.removeEventListener("progress", onProgress);
       mv.removeEventListener("load", onLoad);
+      mv.removeEventListener("model-visibility", onVisible);
       mv.removeEventListener("error", onError);
       mv.removeEventListener("camera-change", onCamera);
       mv.removeEventListener("ar-status", onAr);

@@ -3,9 +3,9 @@ import Link from "next/link";
 import { site } from "@/config/site";
 import { demoAmbiance, demoDishes } from "@/data/demo-dishes";
 import { DishCard } from "@/components/dish/DishCard";
-import { Turntable } from "@/components/dish/Turntable";
+import { Teaser3D } from "@/components/three/Teaser3D";
 import { btn, pastille } from "@/components/ui/styles";
-import { IconCalendar, IconCarte, IconChevron, IconCube, IconRotate, IconUsers, IconLeaf } from "@/components/ui/icons";
+import { IconCalendar, IconCarte, IconChevron, IconUsers, IconLeaf } from "@/components/ui/icons";
 
 const container = "mx-auto w-full max-w-7xl px-4 md:px-8 lg:px-12";
 
@@ -97,34 +97,7 @@ export default function HomePage() {
 
       {/* ───────── Encart 3D & réalité augmentée ───────── */}
       <section aria-labelledby="teaser-3d" className={container}>
-        <div className="relative grid overflow-hidden rounded-2xl bg-vert text-ivoire shadow-flottant md:grid-cols-2 md:items-center">
-          <div className="pointer-events-none absolute -top-16 -right-16 size-64 rounded-full bg-orange/20 blur-3xl" aria-hidden />
-          <div className="relative flex flex-col gap-3 p-6 sm:p-8 lg:p-12">
-            <span className={`${pastille} self-start bg-ivoire/15 text-vert-pale uppercase backdrop-blur-md`}>
-              <IconCube width={15} height={15} />
-              Immersion réalité augmentée
-            </span>
-            <h2 id="teaser-3d" className="text-headline-sm sm:text-headline-md lg:text-headline-lg">
-              Vivez votre assiette en 360° &amp; RA avant de commander
-            </h2>
-            <p className="text-body-sm text-ivoire/75 sm:text-body-md">
-              Faites pivoter les plats, zoomez sur les textures et, sur un téléphone compatible, posez-les sur votre
-              table en réalité augmentée.
-            </p>
-            <div className="pt-2">
-              <Link href="/experience-3d" className={`${btn.primary} ${btn.md}`}>
-                <IconRotate width={18} height={18} />
-                Lancer l&apos;expérience 3D
-              </Link>
-            </div>
-          </div>
-          <div className="relative mx-auto w-full max-w-sm px-6 pb-8 md:max-w-md md:py-8">
-            <Turntable
-              centre={{ name: avec3d[0].name, photo: avec3d[0].photo! }}
-              autour={demoDishes.filter((d) => d.photo && d.slug !== avec3d[0].slug).slice(0, 5).map((d) => ({ name: d.name, photo: d.photo! }))}
-            />
-          </div>
-        </div>
+        <Teaser3D plats={avec3d.slice(0, 3)} />
       </section>
 
       {/* ───────── Terroir & modernité ───────── */}

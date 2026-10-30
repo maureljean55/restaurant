@@ -86,12 +86,6 @@
 
   --breakpoint-xs: 380px;
 
-  --animate-plateau: tourne 48s linear infinite;
-  @keyframes tourne {
-    to {
-      transform: rotate(360deg);
-    }
-  }
 }
 
 @layer base {
@@ -142,33 +136,6 @@
   /* Prix : chiffres tabulaires pour l'alignement */
   .prix {
     font-feature-settings: "tnum" 1;
-  }
-
-  /* Table en bois vue de dessus (plateau tournant) */
-  .table-bois {
-    background-color: var(--color-cacao);
-    background-image:
-      radial-gradient(circle at 30% 20%, rgb(255 255 255 / 0.06), transparent 60%),
-      repeating-radial-gradient(
-        ellipse at 50% 120%,
-        rgb(0 0 0 / 0) 0 7px,
-        rgb(0 0 0 / 0.08) 7px 9px,
-        rgb(255 255 255 / 0.025) 9px 14px
-      );
-  }
-
-  /* Assiette en céramique vue de dessus : le bord est dessiné par le dégradé (net en perspective) */
-  .assiette {
-    border-radius: 9999px;
-    background: radial-gradient(
-      circle closest-side,
-      #fffdf9 0 72%,
-      #eadcc8 76%,
-      #fffdf9 80% 93%,
-      #eee1cd 98.4%,
-      rgb(238 225 205 / 0) 100%
-    );
-    box-shadow: 0 14px 30px -12px rgb(0 0 0 / 0.45);
   }
 }
 

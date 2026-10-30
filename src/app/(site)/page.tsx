@@ -141,27 +141,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-
-      {/* ───────── Appel à réserver ───────── */}
-      <section className={container}>
-        <div className="flex flex-col items-center gap-4 rounded-xl border border-sable/70 bg-creme-fonce px-6 py-10 text-center shadow-carte md:py-14">
-          <span className="grid size-12 place-items-center rounded-full bg-orange text-charbon shadow-carte">
-            <IconCalendar />
-          </span>
-          <div className="max-w-md">
-            <p className="surtitre text-terracotta">Une table chez nous</p>
-            <h2 className="mt-1 text-headline-sm text-cacao md:text-headline-md">Préparez votre prochaine soirée</h2>
-            <p className="mt-2 text-body-sm text-cacao/75">
-              Choisissez la date, l&apos;heure et le nombre de convives : le restaurant confirme selon les places
-              disponibles.
-            </p>
-          </div>
-          <Link href="/reservation" className={`${btn.primary} ${btn.md} w-full sm:w-auto`}>
-            <IconCalendar width={18} height={18} />
-            Réserver votre table
-          </Link>
-        </div>
-      </section>
     </div>
   );
 }

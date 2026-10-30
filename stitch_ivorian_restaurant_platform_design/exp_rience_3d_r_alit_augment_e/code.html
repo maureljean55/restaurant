@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_tab" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}#drawer-toggle:checked~#nav-drawer{transform:translateX(0);pointer-events:auto;}#drawer-toggle:checked~#drawer-backdrop{opacity:1;pointer-events:auto;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = {"darkMode":"class","theme":{"extend":{"colors":{"on-surface":"#2d150d","tertiary-fixed-dim":"#e9c178","on-surface-variant":"#404944","outline-variant":"#c0c9c2","on-tertiary-fixed-variant":"#5d4202","secondary-fixed-dim":"#ffb786","tertiary-container":"#593f00","error-container":"#ffdad6","tertiary":"#3d2a00","surface-container-low":"#fff1ec","inverse-primary":"#9cd2b7","background":"#fff8f6","surface-container":"#ffe9e3","surface":"#fff8f6","primary-container":"#174c38","on-primary-fixed":"#002115","secondary-container":"#ff8928","primary-fixed":"#b8efd3","outline":"#707973","surface-tint":"#356852","on-secondary-fixed":"#311300","on-secondary":"#ffffff","on-background":"#2d150d","on-tertiary-fixed":"#271900","inverse-on-surface":"#ffede8","surface-bright":"#fff8f6","surface-container-highest":"#ffdbcf","tertiary-fixed":"#ffdea5","on-secondary-fixed-variant":"#723600","on-secondary-container":"#642f00","on-error":"#ffffff","surface-container-high":"#ffe2d9","surface-variant":"#ffdbcf","on-primary-container":"#87bba2","inverse-surface":"#452a20","surface-container-lowest":"#ffffff","surface-dim":"#fdd0c1","secondary":"#964900","on-error-container":"#93000a","on-primary":"#ffffff","primary-fixed-dim":"#9cd2b7","on-tertiary-container":"#d1ab64","on-primary-fixed-variant":"#1b503b","primary":"#003523","secondary-fixed":"#ffdcc6","error":"#ba1a1a","on-tertiary":"#ffffff"},"borderRadius":{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},"spacing":{"space-md":"1rem","gutter":"1.5rem","space-2xl":"4rem","space-xl":"2.5rem","space-xs":"0.25rem","margin-mobile":"1.25rem","space-lg":"1.5rem","space-sm":"0.5rem","margin":"3rem","gutter-mobile":"1rem"},"fontFamily":{"label-md":["Inter"],"headline-lg-mobile":["Playfair Display"],"label-sm":["Inter"],"body-md":["Inter"],"title":["Playfair Display"],"body-lg":["Inter"],"body-sm":["Inter"],"display":["Playfair Display"],"headline-lg":["Playfair Display"],"display-mobile":["Playfair Display"],"headline-sm":["Playfair Display"],"headline-md":["Playfair Display"],"label-lg":["Inter"]},"fontSize":{"label-md":["12px",{"lineHeight":"16px","letterSpacing":"0.06em","fontWeight":"600"}],"headline-lg-mobile":["30px",{"lineHeight":"36px","letterSpacing":"0em","fontWeight":"600"}],"label-sm":["11px",{"lineHeight":"14px","letterSpacing":"0.08em","fontWeight":"700"}],"body-md":["15px",{"lineHeight":"24px","letterSpacing":"0em","fontWeight":"400"}],"title":["18px",{"lineHeight":"24px","letterSpacing":"0.01em","fontWeight":"600"}],"body-lg":["18px",{"lineHeight":"28px","letterSpacing":"-0.01em","fontWeight":"400"}],"body-sm":["13px",{"lineHeight":"18px","letterSpacing":"0em","fontWeight":"400"}],"display":["56px",{"lineHeight":"64px","letterSpacing":"-0.02em","fontWeight":"600"}],"headline-lg":["40px",{"lineHeight":"48px","letterSpacing":"-0.01em","fontWeight":"600"}],"display-mobile":["38px",{"lineHeight":"44px","letterSpacing":"-0.01em","fontWeight":"600"}],"headline-sm":["22px",{"lineHeight":"28px","letterSpacing":"0em","fontWeight":"500"}],"headline-md":["28px",{"lineHeight":"36px","letterSpacing":"0em","fontWeight":"500"}],"label-lg":["14px",{"lineHeight":"20px","letterSpacing":"0.04em","fontWeight":"600"}]}}}};</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface font-body-md text-body-md text-on-surface antialiased flex flex-col min-h-screen"><input class="hidden peer" id="drawer-toggle" type="checkbox"/><header class="fixed top-0 w-full z-50 pt-safe bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 px-gutter-mobile flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm min-w-0"><label aria-label="Open Menu" class="w-11 h-11 flex items-center justify-center text-primary-container cursor-pointer rounded-full hover:bg-surface-container transition-colors" for="drawer-toggle"><span class="material-symbols-outlined text-[24px]">menu</span></label><div class="flex items-center gap-space-xs min-w-0"><img alt="L'Écrin d'Ivoire Restaurant Logo" class="h-8 w-auto object-contain shrink-0" src="https://lh3.googleusercontent.com/aida/AEtjO1WeAZ8Vau-j6gXi5LpAojlNWsu5CZj-MtWUOSWtMFLroHafM6Gi9kxVw6Mi5xIAzaOfA2f-LBIuFVwFrjSFVN7rIKiu7DFcxQo7bsAAg2id9M-Fu3znKDxSYuWZOHdEZLtUMiJodCG-_noIKEtNQfQ39Rik8UddRQaAYpsEuIZELUzf3bVNa8Q0OAvRhSshyGxvl-dffXBRxjvugiEYJz2ge6sSBMEqAvPto6U1OJNR"/><div class="flex flex-col min-w-0 pl-1"><span class="font-title text-title text-primary leading-tight truncate">L'Écrin d'Ivoire</span><div class="flex items-center gap-0.5 text-on-surface-variant"><span class="material-symbols-outlined text-[13px] text-secondary">location_on</span><span class="font-label-sm text-label-sm tracking-wide text-on-surface-variant truncate">Abidjan, Cocody</span></div></div></div></div><div class="flex items-center gap-space-xs shrink-0"><span class="hidden">3D Experience</span><a aria-label="View Cart" class="relative w-11 h-11 flex items-center justify-center text-primary-container rounded-full hover:bg-surface-container transition-colors" data-path="order-cart" href="#"><span class="material-symbols-outlined text-[24px]">shopping_bag</span><span class="absolute top-2 right-2 min-w-[16px] h-4 px-1 rounded-full bg-secondary-container text-on-secondary font-label-sm text-[10px] flex items-center justify-center leading-none shadow-[0_2px_4px_rgba(0,0,0,0.12)]">2</span></a><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><label class="fixed inset-0 z-50 bg-inverse-surface/40 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 ease-out" for="drawer-toggle" id="drawer-backdrop"></label><aside class="fixed top-0 left-0 bottom-0 w-[84%] max-w-[320px] z-50 bg-surface-container-lowest shadow-[0_24px_48px_-12px_rgba(74,46,36,0.16)] -translate-x-full pointer-events-none transition-transform duration-300 ease-out flex flex-col justify-between pt-safe pb-safe" id="nav-drawer"><div class="flex flex-col"><div class="h-16 px-gutter-mobile flex items-center justify-between"><div class="flex items-center gap-space-xs"><img alt="L'Écrin d'Ivoire Restaurant Logo" class="h-7 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1WeAZ8Vau-j6gXi5LpAojlNWsu5CZj-MtWUOSWtMFLroHafM6Gi9kxVw6Mi5xIAzaOfA2f-LBIuFVwFrjSFVN7rIKiu7DFcxQo7bsAAg2id9M-Fu3znKDxSYuWZOHdEZLtUMiJodCG-_noIKEtNQfQ39Rik8UddRQaAYpsEuIZELUzf3bVNa8Q0OAvRhSshyGxvl-dffXBRxjvugiEYJz2ge6sSBMEqAvPto6U1OJNR"/><span class="font-title text-title text-primary-container">L'Écrin d'Ivoire</span></div><label aria-label="Close Menu" class="w-11 h-11 flex items-center justify-center text-on-surface-variant hover:text-on-surface cursor-pointer rounded-full" for="drawer-toggle"><span class="material-symbols-outlined text-[22px]">close</span></label></div><div class="px-gutter-mobile py-space-sm"><div class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-container text-on-surface-variant"><span class="material-symbols-outlined text-[14px] text-secondary">room</span><span class="font-label-sm text-label-sm">Cocody Ambassades, Abidjan</span></div></div><nav class="flex flex-col px-space-sm pt-space-xs" data-active-classes="bg-surface-container text-primary font-semibold"><a class="flex items-center gap-space-md h-12 px-space-md rounded-xl text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors" data-path="home" href="#"><span class="material-symbols-outlined text-[22px]">home</span><span class="font-label-lg text-label-lg">Home</span></a><a class="flex items-center gap-space-md h-12 px-space-md rounded-xl text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors" data-path="menu" href="#"><span class="material-symbols-outlined text-[22px]">restaurant_menu</span><span class="font-label-lg text-label-lg">Menu</span></a><a aria-current="page" class="flex items-center gap-space-md h-12 px-space-md rounded-xl transition-colors bg-surface-container text-primary font-semibold" data-path="3d-experience" href="#"><span class="material-symbols-outlined text-[22px]">view_in_ar</span><span class="font-label-lg text-label-lg">3D Experience</span></a><a class="flex items-center gap-space-md h-12 px-space-md rounded-xl text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors" data-path="our-story" href="#"><span class="material-symbols-outlined text-[22px]">auto_stories</span><span class="font-label-lg text-label-lg">Our Story</span></a><a class="flex items-center gap-space-md h-12 px-space-md rounded-xl text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors" data-path="reservations" href="#"><span class="material-symbols-outlined text-[22px]">calendar_today</span><span class="font-label-lg text-label-lg">Reservations</span></a><a class="flex items-center gap-space-md h-12 px-space-md rounded-xl text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors" data-path="admin-portal" href="#"><span class="material-symbols-outlined text-[22px]">admin_panel_settings</span><span class="font-label-lg text-label-lg">Admin Portal</span></a></nav></div><div class="p-gutter-mobile flex flex-col gap-space-sm bg-surface-container-low rounded-t-xl mx-space-sm mb-space-sm"><div class="flex items-center justify-between"><span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Service Gastronomique</span><span class="w-2 h-2 rounded-full bg-primary-container animate-pulse"></span></div><p class="font-body-sm text-body-sm text-on-surface">Ouvert ce soir pour le dîner d'exception • 19:30 - 23:30</p></div></aside><main class="flex-1 w-full pt-16 pb-20 bg-surface flex flex-col relative"><div class="flex flex-col w-full pb-10">
+<!-- Top Sensory Intro -->
+<section class="px-gutter-mobile pt-3 pb-4">
+<div class="flex items-center gap-2 mb-1.5">
+<span class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-secondary-fixed text-secondary">
+<span class="material-symbols-outlined text-[14px]">view_in_ar</span>
+</span>
+<span class="font-label-sm text-label-sm text-secondary tracking-widest uppercase">Atelier Technologique</span>
+</div>
+<h1 class="font-headline-md text-headline-md text-on-surface leading-tight">Visualisation Culinaire 3D &amp; Réalité Augmentée</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1 leading-relaxed">
+      Explorez l'artisanat gastronomique avant la première bouchée. Portions fidèles et textures authentiques à l'échelle 1:1.
+    </p>
+</section>
+<!-- Main 3D Experience Canvas -->
+<section class="px-gutter-mobile mb-5">
+<div class="relative w-full rounded-xl bg-surface-container overflow-hidden shadow-lg select-none">
+<!-- Precision Stamp Tag -->
+<div class="absolute top-3 left-3 z-20 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container-lowest/90 backdrop-blur-md shadow-sm">
+<span class="material-symbols-outlined text-[15px] text-primary">verified</span>
+<span class="font-label-sm text-label-sm text-primary tracking-wide">Modèle 3D Certifié • Portions 99%</span>
+</div>
+<!-- Live Stream Badge & Steam Toggle -->
+<div class="absolute top-3 right-3 z-20 flex items-center gap-1">
+<button class="w-8 h-8 rounded-full bg-surface-container-lowest/90 backdrop-blur-md flex items-center justify-center text-on-surface hover:bg-surface transition-all shadow-sm" id="steamToggle" title="Vapeur Aromatique">
+<span class="material-symbols-outlined text-[17px] text-secondary">air</span>
+</button>
+<button class="px-2 h-8 rounded-full bg-surface-container-lowest/90 backdrop-blur-md flex items-center justify-center gap-1 text-on-surface shadow-sm font-label-sm text-label-sm" id="hdToggle">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+<span>HD</span>
+</button>
+</div>
+<!-- Interactive 3D Mock Stage -->
+<div class="relative w-full h-[360px] cursor-grab active:cursor-grabbing flex items-center justify-center overflow-hidden bg-gradient-to-b from-surface-container-high/40 via-surface-container to-surface-container-highest/60" id="canvasViewport">
+<!-- Ambient Radial Light -->
+<div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.75)_0%,transparent_75%)] pointer-events-none"></div>
+<!-- Render Plate Center Stage -->
+<div class="relative w-64 h-64 flex items-center justify-center transition-transform duration-75 ease-out" id="dishRotator">
+<!-- Soft Drop Shadow on Table -->
+<div class="absolute -bottom-4 w-48 h-8 rounded-full bg-on-surface/15 blur-md pointer-events-none transform scale-90"></div>
+<!-- Terracotta Canari 3D Render Placeholder -->
+<img alt="Kédjénou en canari 3D" class="relative z-10 w-56 h-56 object-contain pointer-events-none drop-shadow-xl" data-alt="Exquisite photorealistic culinary 3D render of an artisanal Ivorian terracotta pot canari filled with rich simmering Kedjenou stew, succulent browned country chicken pieces, aromatic herbs, glossy cherry tomatoes, tiny purple ndrowa eggplants in warm ambient natural daylight, studio gourmet lighting, ultra detailed textured clay." id="mainDishImage" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC7V9ujwDJSAvK8LEhx5fA3rrOxGCzT9tPg0REO0XTsGvpVgkrxUmWB5DRDKrBT1DxmkAk4FLrDeYVWVAJD58n_CgXsgLehIR8AyHHoG2MnIVfUKtRXZCZ19uFdSvf4LCcjTPfQnauRsv9hcwCK10Gh68E9ZzxResDrVy1ncEJCLv5C6BC4-MQWPHMEx7cITXfXoSAL9ZGYZ2gZj2jg7BQ9MbU3rOmAF636e8XYbJ2z"/>
+<!-- Gentle Steam FX Container -->
+<div class="absolute -top-8 z-15 inset-x-0 h-40 pointer-events-none flex justify-center items-end opacity-75" id="steamOverlay">
+<svg class="w-36 h-36 opacity-60 text-surface-bright" fill="none" viewbox="0 0 100 100">
+<path class="animate-pulse" d="M40 85 C35 70, 50 55, 42 40 C35 25, 48 10, 44 0" stroke="currentColor" stroke-linecap="round" stroke-width="4">
+<animate attributename="opacity" dur="3s" repeatcount="indefinite" values="0.2;0.7;0.2"></animate>
+<animatetransform attributename="transform" dur="3s" repeatcount="indefinite" type="translate" values="0 0; -2 -15; 0 -25"></animatetransform>
+</path>
+<path d="M52 90 C58 75, 45 60, 55 45 C65 30, 50 15, 56 0" stroke="currentColor" stroke-linecap="round" stroke-width="3">
+<animate attributename="opacity" begin="0.5s" dur="2.5s" repeatcount="indefinite" values="0.1;0.6;0.1"></animate>
+<animatetransform attributename="transform" begin="0.5s" dur="2.5s" repeatcount="indefinite" type="translate" values="0 0; 3 -12; 1 -20"></animatetransform>
+</path>
+<path d="M62 82 C66 68, 55 52, 64 38 C70 24, 60 12, 65 0" stroke="currentColor" stroke-linecap="round" stroke-width="3.5">
+<animate attributename="opacity" begin="1s" dur="3.5s" repeatcount="indefinite" values="0.3;0.8;0.3"></animate>
+<animatetransform attributename="transform" begin="1s" dur="3.5s" repeatcount="indefinite" type="translate" values="0 0; -1 -10; 2 -22"></animatetransform>
+</path>
+</svg>
+</div>
+</div>
+<!-- 360 Dragging Assist Hint -->
+<div class="absolute bottom-14 flex items-center gap-1.5 px-3 py-1 rounded-full bg-on-surface/80 text-surface-container-lowest backdrop-blur-md pointer-events-none transition-opacity duration-300" id="dragHint">
+<span class="material-symbols-outlined text-[16px] text-tertiary-fixed-dim animate-spin" style="animation-duration: 4s;">sync</span>
+<span class="font-label-sm text-label-sm tracking-wider">Glissez pour pivoter 360°</span>
+</div>
+<!-- On-Canvas Controls Dock -->
+<div class="absolute bottom-3 inset-x-3 z-20 flex items-center justify-between pointer-events-auto">
+<div class="flex items-center gap-1 bg-surface-container-lowest/90 backdrop-blur-md rounded-full p-1 shadow-sm">
+<button aria-label="Agrandir" class="w-8 h-8 rounded-full flex items-center justify-center text-on-surface hover:bg-surface-container transition-colors" id="btnZoomIn">
+<span class="material-symbols-outlined text-[18px]">add</span>
+</button>
+<button aria-label="Réduire" class="w-8 h-8 rounded-full flex items-center justify-center text-on-surface hover:bg-surface-container transition-colors" id="btnZoomOut">
+<span class="material-symbols-outlined text-[18px]">remove</span>
+</button>
+</div>
+<div class="flex items-center gap-1">
+<button class="h-8 px-3 rounded-full bg-surface-container-lowest/90 backdrop-blur-md flex items-center gap-1 text-on-surface-variant hover:text-on-surface shadow-sm transition-colors" id="btnResetView">
+<span class="material-symbols-outlined text-[15px]">restart_alt</span>
+<span class="font-label-sm text-label-sm">Réinitialiser</span>
+</button>
+<button class="w-8 h-8 rounded-full bg-surface-container-lowest/90 backdrop-blur-md flex items-center justify-center text-on-surface shadow-sm hover:text-secondary transition-colors" id="btnLighting" title="Changer l'éclairage de salle">
+<span class="material-symbols-outlined text-[17px]">wb_sunny</span>
+</button>
+</div>
+</div>
+</div>
+<!-- AR Quick Look Action Strip -->
+<div class="p-3 bg-gradient-to-r from-primary-container via-primary to-primary-container text-on-primary flex items-center justify-between gap-2">
+<div class="flex items-center gap-2 min-w-0">
+<div class="w-10 h-10 rounded-full bg-primary-fixed-dim/20 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[22px] text-primary-fixed">view_in_ar</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md font-semibold text-primary-fixed truncate">Réalité Augmentée Instantanée</span>
+<span class="font-body-sm text-body-sm text-on-primary/80 truncate">Projeter sur votre nappe en temps réel</span>
+</div>
+</div>
+<button class="shrink-0 h-10 px-4 rounded-full bg-secondary-container text-on-secondary font-label-md text-label-md uppercase tracking-wider flex items-center gap-1.5 shadow-md active:scale-95 transition-transform" id="btnArLaunch">
+<span class="material-symbols-outlined text-[18px]">open_in_new</span>
+<span>Sur Votre Table</span>
+</button>
+</div>
+</div>
+</section>
+<!-- AR Modal Simulator Notification (Hidden by default, triggered on AR click) -->
+<div class="hidden mx-gutter-mobile mb-4 p-3 rounded-xl bg-surface-container-high text-on-surface shadow-md items-center justify-between animate-fade-in" id="arFeedback">
+<div class="flex items-center gap-2 min-w-0">
+<span class="material-symbols-outlined text-secondary text-[22px]">sensors</span>
+<p class="font-body-sm text-body-sm text-on-surface truncate">Calibration AR prête. Pointez votre caméra vers une surface plane.</p>
+</div>
+<button class="w-7 h-7 rounded-full flex items-center justify-center text-on-surface-variant hover:text-on-surface" id="arFeedbackClose">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+</div>
+<!-- Dish Specifications Accordion / Meta -->
+<section class="px-gutter-mobile mb-6">
+<div class="p-4 rounded-xl bg-surface-container-lowest shadow-sm flex flex-col gap-3">
+<div class="flex items-start justify-between gap-3">
+<div class="flex flex-col">
+<div class="flex items-center gap-2 mb-1">
+<span class="px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm">Signature Ivoire</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">• Plat Mijoté 120 min</span>
+</div>
+<h2 class="font-title text-title text-on-surface leading-snug" id="dishTitleDisplay">Kédjénou de Poulet au Canari Traditionnel</h2>
+</div>
+<div class="flex flex-col items-end shrink-0">
+<span class="font-title text-title text-primary font-bold tracking-tight" id="dishPriceDisplay">9 500 FCFA</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">TTC par personne</span>
+</div>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">
+        Cuit à l'étouffée sans eau ajoutée dans une argile réfractaire de Katiola. Vapeur hermétique préservant chaque note épicée et la tendreté du poulet bicyclette.
+      </p>
+<!-- Key Ingredients Tags -->
+<div class="flex flex-col gap-1.5 pt-1">
+<span class="font-label-sm text-label-sm text-on-surface font-semibold uppercase tracking-wider">Ingrédients Clés &amp; Terroirs</span>
+<div class="flex flex-wrap gap-1.5">
+<span class="px-2.5 py-1 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm">Poulet fermier d'Agneby</span>
+<span class="px-2.5 py-1 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm">Tomates cerises fraîches</span>
+<span class="px-2.5 py-1 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm">Aubergines N'drowa</span>
+<span class="px-2.5 py-1 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm">Gingembre blanc sauvage</span>
+<span class="px-2.5 py-1 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm">Piment végétarien doux</span>
+</div>
+</div>
+<!-- Macro Details & Nutritional Transparency -->
+<div class="grid grid-cols-3 gap-2 pt-2 text-center">
+<div class="p-2 rounded-lg bg-surface-container-low flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Portion Servie</span>
+<span class="font-body-sm text-body-sm font-semibold text-on-surface mt-0.5">480g</span>
+</div>
+<div class="p-2 rounded-lg bg-surface-container-low flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Temp. Idéale</span>
+<span class="font-body-sm text-body-sm font-semibold text-on-surface mt-0.5">82°C canari</span>
+</div>
+<div class="p-2 rounded-lg bg-surface-container-low flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Accompagnement</span>
+<span class="font-body-sm text-body-sm font-semibold text-on-surface mt-0.5">Attiéké fin</span>
+</div>
+</div>
+<!-- Action CTA Primary -->
+<div class="pt-2">
+<button class="w-full h-12 rounded-full bg-secondary-container hover:bg-secondary text-on-secondary font-label-lg text-label-lg uppercase tracking-wider flex items-center justify-center gap-2 shadow-md transition-colors active:scale-[0.99]" id="btnOrderDish">
+<span class="material-symbols-outlined text-[20px]">shopping_bag</span>
+<span>Commander ce plat • 9 500 FCFA</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Interactive 3D Dish Selector Tray -->
+<section class="flex flex-col gap-2.5 mb-6">
+<div class="px-gutter-mobile flex items-center justify-between">
+<div class="flex flex-col">
+<h3 class="font-title text-title text-on-surface">Galerie des Plats Modélisés</h3>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Sélectionnez une assiette pour charger son jumeau 3D</span>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-primary-fixed text-primary font-label-sm text-label-sm">3 Modèles Prêts</span>
+</div>
+<!-- Horizontal Swipe Carousel -->
+<div class="flex gap-3 overflow-x-auto px-gutter-mobile py-1 scrollbar-none" style="scroll-snap-type: x mandatory;">
+<!-- Dish 1: Kedjenou (Active) -->
+<div class="dish-card shrink-0 w-44 rounded-xl bg-surface-container-lowest p-2.5 shadow-sm ring-2 ring-primary cursor-pointer transition-all" data-dish="kedjenou" style="scroll-snap-align: start;">
+<div class="relative w-full h-28 rounded-lg overflow-hidden bg-surface-container mb-2">
+<img alt="Kedjenou" class="w-full h-full object-cover" data-alt="Traditional Kedjenou chicken stew in brown clay pot with fresh green aromatic leaves and chili, modern fine dining perspective top angle warm sunbeam." src="https://lh3.googleusercontent.com/aida-public/AB6AXuClzulN8ciEqwBYjNvAQ4KA9GH4ppzfor4Nov0k-ojc9kD4fFZSpawB39Mlf5mDe8ZAy0Ru0JwqtyLfWC1-QpCpmdmI9ZjAhMpNzXYe8YS8LVH1chXnN9BMWVTHxrpaGiJum94TQKAZt6el3z7j_xRjIsi0BDV_mhRzeuB1OpB-5GeW-6v7Bdno71-i_UXg82pNNoZOdCxfVX006CxuBkUC9KrYBx7VSRI6eYTOJd0e"/>
+<span class="absolute top-1.5 right-1.5 px-1.5 py-0.5 rounded bg-primary text-on-primary font-label-sm text-[10px]">Actif</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md text-on-surface truncate">Kédjénou Poulet</span>
+<span class="font-body-sm text-body-sm font-semibold text-secondary">9 500 FCFA</span>
+<span class="font-label-sm text-[10px] text-on-surface-variant mt-0.5 flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px] text-primary">view_in_ar</span> 3D Ready • 45 MB
+          </span>
+</div>
+</div>
+<!-- Dish 2: Garba Royal -->
+<div class="dish-card shrink-0 w-44 rounded-xl bg-surface-container-lowest p-2.5 shadow-sm cursor-pointer transition-all hover:bg-surface-container-low" data-dish="garba" style="scroll-snap-align: start;">
+<div class="relative w-full h-28 rounded-lg overflow-hidden bg-surface-container mb-2">
+<img alt="Garba Royal" class="w-full h-full object-cover" data-alt="Fine dining Garba Royal composed of grilled whole fresh red tuna steak over steaming seasoned golden attieke semolina topped with finely diced red onions and green habanero peppers on luxury ceramic plate." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB_bAeESbhKoMfngEegFPEnBZRr4ZNm7lupnL_7XeWn8IT24VVkPA3_y7gfaZ1dqBQxLjIFjFQYJT0xacWpCKvCm00YKa8O5QhMSLnLpT4AZSgEfBAov5Zq46vfKwHhcbgsQfum8enqJAH0g0QTw4v224-iYb-S3ScPaH5ZNasQv6Imqj2VEikpQdzRCu8y4y-c6TrDmS8fmeDT-6fgbyH_uKw9kpuYzdbhFtpN4wAD"/>
+<span class="absolute top-1.5 right-1.5 px-1.5 py-0.5 rounded bg-surface-container-highest/90 text-on-surface font-label-sm text-[10px]">3D</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md text-on-surface truncate">Garba Royal Thon</span>
+<span class="font-body-sm text-body-sm font-semibold text-secondary">12 000 FCFA</span>
+<span class="font-label-sm text-[10px] text-on-surface-variant mt-0.5 flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px] text-primary">view_in_ar</span> 3D Ready • 52 MB
+          </span>
+</div>
+</div>
+<!-- Dish 3: Langouste Grillée d'Assinie -->
+<div class="dish-card shrink-0 w-44 rounded-xl bg-surface-container-lowest p-2.5 shadow-sm cursor-pointer transition-all hover:bg-surface-container-low" data-dish="langouste" style="scroll-snap-align: start;">
+<div class="relative w-full h-28 rounded-lg overflow-hidden bg-surface-container mb-2">
+<img alt="Langouste Grillée" class="w-full h-full object-cover" data-alt="Flame grilled succulent whole spiny lobster from Assinie served with clarified spiced herb butter, fresh lime slices, and grilled sweet plantain alloco on artisanal dark slate." src="https://lh3.googleusercontent.com/aida-public/AB6AXuACbpB9TrBIFRZdVEsC0jRKGmC9M13kllvJ8D8A9F6CZnpxZ7mYzxv3xQ1yLOLjWfcEA_kBVIc_ngRZPTUS0pFkoLarZ94AvomX3ZCXI1IuXIEfbBr92RvnZDqKu2m1hA5mVibZy9VtROS7fUGsItuO52xO7bxWyzQArZW2t5v5WLJYLntBGNL04FQT6VXf4jHq2_ms63LNjjLhrP8kn6mJ_4HPL2SQ-oJJCwUvc4GR"/>
+<span class="absolute top-1.5 right-1.5 px-1.5 py-0.5 rounded bg-surface-container-highest/90 text-on-surface font-label-sm text-[10px]">3D</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md text-on-surface truncate">Langouste Assinie</span>
+<span class="font-body-sm text-body-sm font-semibold text-secondary">24 000 FCFA</span>
+<span class="font-label-sm text-[10px] text-on-surface-variant mt-0.5 flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px] text-primary">view_in_ar</span> 3D Ready • 68 MB
+          </span>
+</div>
+</div>
+<!-- Dish 4: Alloco & Brochettes -->
+<div class="dish-card shrink-0 w-44 rounded-xl bg-surface-container-lowest p-2.5 shadow-sm cursor-pointer transition-all hover:bg-surface-container-low" data-dish="alloco" style="scroll-snap-align: start;">
+<div class="relative w-full h-28 rounded-lg overflow-hidden bg-surface-container mb-2">
+<img alt="Alloco &amp; Brochettes" class="w-full h-full object-cover" data-alt="Crispy caramelized golden alloco fried plantains accompanied by tender beef tenderloin brochettes with house kankan seasoning and spicy tomato reduction dip." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_OC9jgS3TG2ahx_YGQwxCuDCXQXfpnzlM_E7nlC-JAmHw5e_lMLql_8zz96DubCPn33Iv9bj9GhQpQORishTfYVu5bcZ4SLjnN2aiZuldJQ9RVXqxuCm0sGINlMjuDlbEETPDpjW1nBS8pCSbbDa-FhFvr27LGnwYvymLzyQ9YQ2zfcMJEqHUyHPyTQdDg7WIy2bxEKqiMpoaPHZgLYCHJ3E0ZjEoG_SYcWcAgntO"/>
+<span class="absolute top-1.5 right-1.5 px-1.5 py-0.5 rounded bg-surface-container-highest/90 text-on-surface font-label-sm text-[10px]">3D</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md text-on-surface truncate">Alloco &amp; Filet Suya</span>
+<span class="font-body-sm text-body-sm font-semibold text-secondary">8 000 FCFA</span>
+<span class="font-label-sm text-[10px] text-on-surface-variant mt-0.5 flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px] text-primary">view_in_ar</span> 3D Ready • 39 MB
+          </span>
+</div>
+</div>
+</div>
+</section>
+<!-- Device Compatibility & Technology Note -->
+<section class="px-gutter-mobile mb-4">
+<div class="p-3.5 rounded-xl bg-surface-container-low flex items-start gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center shrink-0 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">devices</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md text-on-surface font-semibold">WebXR &amp; AR Quick Look Natif</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5 leading-snug">
+          Fonctionne sur Safari iOS (USDZ) &amp; Chrome Android (Scene Viewer) sans application requise. Rendu photoréaliste basé sur la physique (PBR).
+        </p>
+</div>
+</div>
+</section>
+<!-- Interactive Client-side Script -->
+<script>
+    (function init3DViewer() {
+      const rotator = document.getElementById('dishRotator');
+      const viewport = document.getElementById('canvasViewport');
+      const dragHint = document.getElementById('dragHint');
+      const steamOverlay = document.getElementById('steamOverlay');
+      const steamToggle = document.getElementById('steamToggle');
+      const hdToggle = document.getElementById('hdToggle');
+      const btnZoomIn = document.getElementById('btnZoomIn');
+      const btnZoomOut = document.getElementById('btnZoomOut');
+      const btnResetView = document.getElementById('btnResetView');
+      const btnLighting = document.getElementById('btnLighting');
+      const btnArLaunch = document.getElementById('btnArLaunch');
+      const arFeedback = document.getElementById('arFeedback');
+      const arFeedbackClose = document.getElementById('arFeedbackClose');
+      const btnOrderDish = document.getElementById('btnOrderDish');
+
+      let currentRotation = 0;
+      let currentScale = 1;
+      let isDragging = false;
+      let startX = 0;
+      let isSteamActive = true;
+      let lightModeNight = false;
+
+      // Drag to rotate simulation
+      const onStart = (e) => {
+        isDragging = true;
+        startX = e.pageX || (e.touches && e.touches[0].pageX);
+        if (dragHint) dragHint.classList.add('opacity-0');
+      };
+
+      const onMove = (e) => {
+        if (!isDragging) return;
+        const currentX = e.pageX || (e.touches && e.touches[0].pageX);
+        const deltaX = currentX - startX;
+        currentRotation += deltaX * 0.7;
+        startX = currentX;
+        updateTransform();
+      };
+
+      const onEnd = () => {
+        isDragging = false;
+      };
+
+      const updateTransform = () => {
+        if (rotator) {
+          rotator.style.transform = `scale(${currentScale}) rotateY(${currentRotation}deg) rotateZ(${currentRotation * 0.05}deg)`;
+        }
+      };
+
+      viewport.addEventListener('mousedown', onStart);
+      window.addEventListener('mousemove', onMove);
+      window.addEventListener('mouseup', onEnd);
+
+      viewport.addEventListener('touchstart', onStart, { passive: true });
+      window.addEventListener('touchmove', onMove, { passive: true });
+      window.addEventListener('touchend', onEnd);
+
+      // Zoom Controls
+      btnZoomIn.addEventListener('click', () => {
+        if (currentScale < 1.4) {
+          currentScale += 0.15;
+          updateTransform();
+        }
+      });
+
+      btnZoomOut.addEventListener('click', () => {
+        if (currentScale > 0.75) {
+          currentScale -= 0.15;
+          updateTransform();
+        }
+      });
+
+      btnResetView.addEventListener('click', () => {
+        currentRotation = 0;
+        currentScale = 1;
+        updateTransform();
+        if (dragHint) dragHint.classList.remove('opacity-0');
+      });
+
+      // Steam Toggle
+      steamToggle.addEventListener('click', () => {
+        isSteamActive = !isSteamActive;
+        steamOverlay.style.display = isSteamActive ? 'flex' : 'none';
+        steamToggle.classList.toggle('text-secondary', isSteamActive);
+        steamToggle.classList.toggle('text-outline', !isSteamActive);
+      });
+
+      // HD Quality toggle
+      hdToggle.addEventListener('click', () => {
+        hdToggle.classList.toggle('bg-primary');
+        hdToggle.classList.toggle('text-on-primary');
+      });
+
+      // Lighting mood switch
+      btnLighting.addEventListener('click', () => {
+        lightModeNight = !lightModeNight;
+        if (lightModeNight) {
+          viewport.classList.remove('from-surface-container-high/40', 'via-surface-container', 'to-surface-container-highest/60');
+          viewport.classList.add('from-inverse-surface', 'via-primary-container', 'to-inverse-surface');
+          btnLighting.classList.add('text-secondary');
+        } else {
+          viewport.classList.remove('from-inverse-surface', 'via-primary-container', 'to-inverse-surface');
+          viewport.classList.add('from-surface-container-high/40', 'via-surface-container', 'to-surface-container-highest/60');
+          btnLighting.classList.remove('text-secondary');
+        }
+      });
+
+      // AR Launch Feedback
+      btnArLaunch.addEventListener('click', () => {
+        arFeedback.classList.remove('hidden');
+        arFeedback.classList.add('flex');
+      });
+
+      arFeedbackClose.addEventListener('click', () => {
+        arFeedback.classList.add('hidden');
+        arFeedback.classList.remove('flex');
+      });
+
+      // Carousel Dish Switcher
+      const dishData = {
+        kedjenou: {
+          title: "Kédjénou de Poulet au Canari Traditionnel",
+          price: "9 500 FCFA"
+        },
+        garba: {
+          title: "Garba Royal au Pavé de Thon Rouge Braisé",
+          price: "12 000 FCFA"
+        },
+        langouste: {
+          title: "Langouste d'Assinie Braisée aux Épices Douces",
+          price: "24 000 FCFA"
+        },
+        alloco: {
+          title: "Alloco Caramel & Brochettes de Filet Suya",
+          price: "8 000 FCFA"
+        }
+      };
+
+      const dishCards = document.querySelectorAll('.dish-card');
+      const titleDisplay = document.getElementById('dishTitleDisplay');
+      const priceDisplay = document.getElementById('dishPriceDisplay');
+
+      dishCards.forEach(card => {
+        card.addEventListener('click', () => {
+          dishCards.forEach(c => {
+            c.classList.remove('ring-2', 'ring-primary');
+            const badge = c.querySelector('span.rounded');
+            if (badge && badge.textContent === 'Actif') {
+              badge.textContent = '3D';
+              badge.className = 'absolute top-1.5 right-1.5 px-1.5 py-0.5 rounded bg-surface-container-highest/90 text-on-surface font-label-sm text-[10px]';
+            }
+          });
+
+          card.classList.add('ring-2', 'ring-primary');
+          const currentBadge = card.querySelector('span.rounded');
+          if (currentBadge) {
+            currentBadge.textContent = 'Actif';
+            currentBadge.className = 'absolute top-1.5 right-1.5 px-1.5 py-0.5 rounded bg-primary text-on-primary font-label-sm text-[10px]';
+          }
+
+          const dishKey = card.getAttribute('data-dish');
+          if (dishData[dishKey]) {
+            titleDisplay.textContent = dishData[dishKey].title;
+            priceDisplay.textContent = dishData[dishKey].price;
+            btnOrderDish.innerHTML = `<span class="material-symbols-outlined text-[20px]">shopping_bag</span><span>Commander ce plat • ${dishData[dishKey].price}</span>`;
+            
+            // Subtly wobble 3D object to confirm asset load
+            currentRotation = 0;
+            currentScale = 1;
+            rotator.style.transition = 'transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)';
+            rotator.style.transform = 'scale(1.08) rotateY(15deg)';
+            setTimeout(() => {
+              rotator.style.transform = 'scale(1) rotateY(0deg)';
+              setTimeout(() => {
+                rotator.style.transition = 'transform 75ms ease-out';
+              }, 400);
+            }, 300);
+          }
+        });
+      });
+
+      // Quick Order Button Microinteraction
+      btnOrderDish.addEventListener('click', () => {
+        btnOrderDish.classList.add('bg-primary');
+        btnOrderDish.innerHTML = `<span class="material-symbols-outlined text-[20px]">check</span><span>Ajouté au panier !</span>`;
+        setTimeout(() => {
+          btnOrderDish.classList.remove('bg-primary');
+          const currentPrice = priceDisplay.textContent;
+          btnOrderDish.innerHTML = `<span class="material-symbols-outlined text-[20px]">shopping_bag</span><span>Commander ce plat • ${currentPrice}</span>`;
+        }, 1800);
+      });
+    })();
+  </script>
+</div></main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface/85 backdrop-blur-xl shadow-[0_-4px_16px_rgba(74,46,36,0.06)]" data-active-classes="text-secondary"><div class="h-20 px-gutter-mobile flex items-center justify-around gap-2"><a class="flex flex-col items-center justify-center gap-1 w-14 h-14 text-on-surface-variant hover:text-primary transition-colors" data-path="home" href="#"><span class="material-symbols-outlined text-[24px]">home</span><span class="font-label-sm text-label-sm">Accueil</span></a><a class="flex flex-col items-center justify-center gap-1 w-14 h-14 text-on-surface-variant hover:text-primary transition-colors" data-path="menu" href="#"><span class="material-symbols-outlined text-[24px]">restaurant_menu</span><span class="font-label-sm text-label-sm">Carte</span></a><a aria-label="Réserver une table" class="flex items-center justify-center gap-2 h-11 px-5 rounded-full bg-secondary text-on-secondary shadow-md hover:bg-on-secondary-container transition-colors" data-path="reservations" href="#"><span class="material-symbols-outlined text-[20px]">table_bar</span><span class="font-label-md text-label-md uppercase tracking-wider">Réserver</span></a><a class="flex flex-col items-center justify-center gap-1 w-14 h-14 text-on-surface-variant hover:text-primary transition-colors" data-path="order-cart" href="#"><span class="material-symbols-outlined text-[24px]">shopping_bag</span><span class="font-label-sm text-label-sm">Commande</span></a><a class="flex flex-col items-center justify-center gap-1 w-14 h-14 text-on-surface-variant hover:text-primary transition-colors" data-path="profile" href="#"><span class="material-symbols-outlined text-[24px]">person</span><span class="font-label-sm text-label-sm">Compte</span></a></div></nav></body></html>

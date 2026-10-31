@@ -4,7 +4,7 @@ import Image from "next/image";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useRef, useState } from "react";
 import { useCatalogue } from "@/lib/catalogue/context";
-import { categoryLabel, spiceLabel, type Dish } from "@/lib/catalogue/types";
+import { categoryLabel, isProvisional, spiceLabel, type Dish } from "@/lib/catalogue/types";
 import { formatFCFA } from "@/lib/format";
 import { ModelViewer, type ModelViewerHandle } from "@/components/three/ModelViewer";
 import { AddToCartButton } from "@/components/dish/AddToCartButton";
@@ -26,7 +26,7 @@ const outil =
   "grid size-9 place-items-center rounded-full text-texte transition-colors hover:bg-surface-haute focus-visible:outline-offset-1";
 
 export function Experience3D({ plats }: { plats: Dish[] }) {
-  const { categories } = useCatalogue();
+  const { categories, settings } = useCatalogue();
   const params = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
@@ -96,7 +96,7 @@ export function Experience3D({ plats }: { plats: Dish[] }) {
 
               <span className={`${pastille} absolute top-3 left-3 z-10 bg-surface/90 text-or shadow-sm backdrop-blur-md`}>
                 <IconInfo width={14} height={14} />
-                {model.isDemo ? "Aperçu 3D provisoire" : "Modèle 3D validé"}
+                {model.isDemo ? "Aperçu 3D provisoire" : "Aperçu 3D · photo du restaurant"}
               </span>
 
               {aide && (
@@ -196,7 +196,7 @@ export function Experience3D({ plats }: { plats: Dish[] }) {
               </div>
               <div className="shrink-0 text-right">
                 <p className="prix font-display text-title text-or">{plat.price === null ? "Prix à venir" : formatFCFA(plat.price)}</p>
-                <p className="text-label-sm font-medium text-texte/55">Prix d&apos;exemple</p>
+                {isProvisional(settings, "prices") && <p className="text-label-sm font-medium text-texte/55">Prix d&apos;exemple</p>}
               </div>
             </div>
             <p className="text-body-md text-texte/80">{plat.description}</p>
@@ -232,6 +232,12 @@ export function Experience3D({ plats }: { plats: Dish[] }) {
                   <strong>Aperçu provisoire</strong> : la photo d&apos;illustration du plat est posée sur une assiette
                   en 3D. Ce n&apos;est pas un scan ; le vrai modèle 3D sera créé après la séance de prise de vue.
                 </span>
+              </p>
+            )}
+            {!model.isDemo && (
+              <p className="flex gap-2 rounded-lg border border-ligne bg-surface-haute/60 p-3 text-body-sm text-texte/75">
+                <IconInfo width={16} height={16} className="mt-0.5 shrink-0 text-champagne" />
+                <span>La photo réelle du plat est posée sur une assiette modélisée en 3D. Ce n&apos;est pas un scan : les proportions sont indicatives.</span>
               </p>
             )}
 

@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
+import { useCatalogue } from "@/lib/catalogue/context";
+import { isProvisional } from "@/lib/catalogue/types";
 import type { Category, Dish, Spice } from "@/lib/catalogue/types";
 import { DishCard } from "@/components/dish/DishCard";
 import { useCart } from "@/lib/cart";
@@ -22,6 +24,7 @@ const chip = (actif: boolean) =>
   }`;
 
 export function MenuExplorer({ dishes, categories }: { dishes: Dish[]; categories: Category[] }) {
+  const { settings } = useCatalogue();
   const [categorie, setCategorie] = useState("toutes");
   const [recherche, setRecherche] = useState("");
   const [dispoSeulement, setDispoSeulement] = useState(false);
@@ -70,10 +73,12 @@ export function MenuExplorer({ dishes, categories }: { dishes: Dish[]; categorie
         </span>
       </div>
 
-      <p className="mt-3 flex items-start gap-2 rounded-lg border border-dashed border-champagne/60 bg-or-sombre/40 px-3 py-2 text-body-sm text-texte/80">
-        <IconInfo width={16} height={16} className="mt-0.5 shrink-0 text-champagne" />
-        Carte de démonstration : plats, prix, photos et modèles 3D sont des exemples, à remplacer par la carte réelle.
-      </p>
+      {isProvisional(settings, "prices") && (
+        <p className="mt-3 flex items-start gap-2 rounded-lg border border-dashed border-champagne/60 bg-or-sombre/40 px-3 py-2 text-body-sm text-texte/80">
+          <IconInfo width={16} height={16} className="mt-0.5 shrink-0 text-champagne" />
+          Carte en préparation : certains plats, prix et photos sont encore des exemples.
+        </p>
+      )}
 
       {/* Barre d'outils : collante sous l'en-tête sur ordinateur uniquement (trop haute sur téléphone) */}
       <div className="z-30 -mx-4 mt-4 bg-fond/95 px-4 py-3 backdrop-blur-md md:-mx-8 md:px-8 lg:sticky lg:top-[4.5rem] lg:-mx-12 lg:px-12">

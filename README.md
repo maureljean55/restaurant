@@ -46,6 +46,14 @@ Règles appliquées par la base (testées dans `tests/db/`) :
 Le site reprend les modifications en une minute environ (cache).
 Photos et modèles 3D : `docs/visuels-provisoires.md`.
 
+## Ajouter un plat avec sa photo
+
+Espace du personnel → **Carte & 3D** → **Nouveau plat** (administrateurs) : nom, catégorie, prix, photo…
+La photo est réduite dans le navigateur, envoyée dans Supabase Storage (espace `carte`), puis le serveur
+crée l'aperçu 3D (assiette modélisée + photo, `src/lib/three/apercu-3d.mjs`) : le plat apparaît sur le site
+client avec sa 3D et la réalité augmentée. Le bouton 3D d'un plat remplace sa photo et régénère l'aperçu.
+Ce n'est pas un scan : le site l'indique.
+
 ## Personnel
 
 ```bash

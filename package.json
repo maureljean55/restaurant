@@ -12,6 +12,7 @@
     "compte:personnel": "node --env-file=.env.local scripts/creer-compte-personnel.mjs"
   },
   "dependencies": {
+    "@gltf-transform/core": "^4.5.1",
     "@google/model-viewer": "^4.4.0",
     "@supabase/ssr": "^0.12.7",
     "@supabase/supabase-js": "^2.118.0",
@@ -19,12 +20,12 @@
     "react": "19.3.0",
     "react-dom": "19.3.0",
     "server-only": "^0.0.1",
+    "sharp": "^0.35.5",
     "three": "^0.183.2",
     "zod": "^4.6.7"
   },
   "devDependencies": {
     "@electric-sql/pglite": "^0.5.14",
-    "@gltf-transform/core": "^4.5.1",
     "@playwright/test": "^1.64.1",
     "@tailwindcss/turbopack": "^4",
     "@types/node": "^20",
@@ -33,7 +34,6 @@
     "@types/three": "^0.183.1",
     "eslint": "^9",
     "eslint-config-next": "16.4.3",
-    "sharp": "^0.35.5",
     "tailwindcss": "^4",
     "typescript": "^5",
     "vitest": "^3.2.7"

@@ -4,6 +4,8 @@ import Link from "next/link";
 import { Suspense } from "react";
 import { ActionButton } from "@/components/admin/client";
 import { DishEditor } from "@/components/admin/DishEditor";
+import { NewDishForm } from "@/components/admin/NewDishForm";
+import { PhotoUpdater } from "@/components/admin/PhotoUpdater";
 import { Badge, compteurClasse, EmptyState, Kpi, ongletClasse, PageHeader, Panel } from "@/components/admin/ui";
 import { updateDish } from "@/lib/actions/admin";
 import { requireStaff } from "@/lib/admin/session";
@@ -57,13 +59,14 @@ async function Carte({ searchParams }: { searchParams: Promise<Record<string, st
       <PageHeader
         eyebrow="Carte & expérience 3D"
         title="Catalogue des plats"
-        description={admin ? "Prix, descriptions et disponibilités. Chaque modification est visible tout de suite sur le site." : "Consultation de la carte. Seul un administrateur peut la modifier."}
+        description={admin ? "Ajoutez vos plats avec leurs vraies photos : l'aperçu 3D est créé automatiquement et le plat apparaît tout de suite sur le site." : "Consultation de la carte. Seul un administrateur peut la modifier."}
+        actions={admin ? <NewDishForm categories={cats} /> : undefined}
       />
 
       <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
         <Kpi label="Plats à la carte" value={tous.length} hint={`${cats.length} catégories`} icon={<IconCarte width={18} height={18} />} />
         <Kpi label="Disponibles" value={tous.filter((p) => p.available).length} hint="Commandables en ligne" />
-        <Kpi label="Avec aperçu 3D" value={avec3d.length} unit={`/ ${tous.length}`} hint={`${avec3d.filter((p) => !p.model?.isDemo).length} modèle(s) validé(s)`} icon={<IconCube width={18} height={18} />} />
+        <Kpi label="Avec aperçu 3D" value={avec3d.length} unit={`/ ${tous.length}`} hint={`${avec3d.filter((p) => !p.model?.isDemo).length} sur photo réelle`} icon={<IconCube width={18} height={18} />} />
         <Kpi accent label="Indisponibles" value={tous.filter((p) => !p.available).length} hint="Masqués à la commande" />
       </div>
 
@@ -87,7 +90,7 @@ async function Carte({ searchParams }: { searchParams: Promise<Record<string, st
                 {p.photo && <Image src={p.photo} alt="" fill sizes="(min-width: 1280px) 25vw, (min-width: 640px) 50vw, 100vw" className={`object-cover ${p.available ? "" : "opacity-40 grayscale"}`} />}
                 <div className="absolute inset-0 bg-gradient-to-t from-noir/85 via-transparent to-noir/30" />
                 <span className="absolute top-2.5 left-2.5 rounded-full bg-noir/75 backdrop-blur-sm">
-                  {p.model ? <Badge ton={p.model.isDemo ? "or" : "succes"}>{p.model.isDemo ? "Aperçu 3D provisoire" : "3D validée"}</Badge> : <Badge ton="neutre">Sans 3D</Badge>}
+                  {p.model ? <Badge ton={p.model.isDemo ? "or" : "succes"}>{p.model.isDemo ? "Aperçu 3D provisoire" : "3D · photo réelle"}</Badge> : <Badge ton="neutre">Sans 3D</Badge>}
                 </span>
                 {!p.available && (
                   <span className="absolute top-2.5 right-2.5 rounded-full bg-noir/75 backdrop-blur-sm">
@@ -125,6 +128,7 @@ async function Carte({ searchParams }: { searchParams: Promise<Record<string, st
                       <ActionButton size="sm" tone={p.available ? "danger" : "secondaire"} action={updateDish.bind(null, p.slug, { available: !p.available })}>
                         {p.available ? "Retirer" : "Remettre"}
                       </ActionButton>
+                      <PhotoUpdater slug={p.slug} nom={p.name} />
                       <DishEditor plat={p} />
                     </span>
                   )}
@@ -156,7 +160,7 @@ async function Carte({ searchParams }: { searchParams: Promise<Record<string, st
                   </td>
                   <td className="px-3 py-3 text-texte/75">GLB{p.model!.usdz ? ", USDZ" : " (USDZ généré sur iPhone)"}</td>
                   <td className="prix px-3 py-3 text-texte/75">{(p.model!.sizeKb / 1024).toFixed(1).replace(".", ",")} Mo</td>
-                  <td className="px-3 py-3">{p.model!.isDemo ? <Badge ton="or">Provisoire</Badge> : <Badge ton="succes">Validé</Badge>}</td>
+                  <td className="px-3 py-3">{p.model!.isDemo ? <Badge ton="or">Illustration</Badge> : <Badge ton="succes">Photo réelle</Badge>}</td>
                   <td className="px-4 py-3 text-right sm:px-5">
                     <Link href={`/experience-3d?plat=${p.slug}`} target="_blank" className="text-label-md text-or underline">
                       Ouvrir ↗
@@ -169,7 +173,7 @@ async function Carte({ searchParams }: { searchParams: Promise<Record<string, st
         </div>
         <p className="mt-4 flex gap-2 text-[12px] text-texte/55">
           <IconInfo width={14} height={14} className="mt-0.5 shrink-0 text-champagne" />
-          Les aperçus actuels sont générés à partir des photos d&apos;illustration. Les vrais modèles (photogrammétrie des plats du restaurant) remplaceront ces fichiers : voir docs/visuels-provisoires.md.
+          Chaque aperçu est une assiette modélisée en 3D avec la photo du plat posée dedans (ce n&apos;est pas un scan). Ajoutez une photo réelle avec « Nouveau plat » ou le bouton 3D d&apos;un plat : l&apos;aperçu est recréé automatiquement.
         </p>
       </Panel>
     </div>

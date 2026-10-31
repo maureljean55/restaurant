@@ -1,10 +1,14 @@
 import { CartProvider } from "@/lib/cart";
+import { CatalogueProvider } from "@/lib/catalogue/context";
+import { getCatalogue } from "@/lib/catalogue/server";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { UpsellSheet } from "@/components/cart/UpsellSheet";
 
-export default function SiteLayout({ children }: LayoutProps<"/">) {
+export default async function SiteLayout({ children }: LayoutProps<"/">) {
+  const catalogue = await getCatalogue();
   return (
+    <CatalogueProvider catalogue={catalogue}>
     <CartProvider>
       <a
         href="#contenu"
@@ -17,8 +21,9 @@ export default function SiteLayout({ children }: LayoutProps<"/">) {
       <main id="contenu" className="flex-1 pt-[calc(4rem+env(safe-area-inset-top))] lg:pt-[4.5rem]">
         {children}
       </main>
-      <SiteFooter />
+      <SiteFooter settings={catalogue.settings} />
       <UpsellSheet />
     </CartProvider>
+    </CatalogueProvider>
   );
 }

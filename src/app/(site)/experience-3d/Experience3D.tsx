@@ -3,7 +3,8 @@
 import Image from "next/image";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useRef, useState } from "react";
-import { categoryLabel, spiceLabel, type DemoDish } from "@/data/demo-dishes";
+import { useCatalogue } from "@/lib/catalogue/context";
+import { categoryLabel, spiceLabel, type Dish } from "@/lib/catalogue/types";
 import { formatFCFA } from "@/lib/format";
 import { ModelViewer, type ModelViewerHandle } from "@/components/three/ModelViewer";
 import { AddToCartButton } from "@/components/dish/AddToCartButton";
@@ -24,7 +25,8 @@ import {
 const outil =
   "grid size-9 place-items-center rounded-full text-texte transition-colors hover:bg-surface-haute focus-visible:outline-offset-1";
 
-export function Experience3D({ plats }: { plats: DemoDish[] }) {
+export function Experience3D({ plats }: { plats: Dish[] }) {
+  const { categories } = useCatalogue();
   const params = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
@@ -186,7 +188,7 @@ export function Experience3D({ plats }: { plats: DemoDish[] }) {
               <div>
                 <div className="mb-1 flex flex-wrap items-center gap-2">
                   {plat.badge && <span className={`${pastille} bg-or-sombre text-champagne`}>{plat.badge}</span>}
-                  <span className="text-label-sm text-texte/60">{categoryLabel(plat.category)}</span>
+                  <span className="text-label-sm text-texte/60">{categoryLabel(categories, plat.category)}</span>
                 </div>
                 <h2 id="fiche-plat" className="text-headline-sm leading-snug text-texte">
                   {plat.name}

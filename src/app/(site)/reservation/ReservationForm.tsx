@@ -4,8 +4,9 @@ import Image from "next/image";
 import type { z } from "zod";
 import { useEffect, useMemo, useRef, useState, useTransition, type ReactNode } from "react";
 import { createReservation, getAvailability, type ServiceAvailability } from "@/lib/actions/reservation";
-import { reservation, site } from "@/config/site";
-import { demoAmbiance } from "@/data/demo-dishes";
+import { reservationLimits } from "@/config/site";
+import { useCatalogue } from "@/lib/catalogue/context";
+import { isProvisional } from "@/lib/catalogue/types";
 import { buildMonth, reservationSchema, serviceAt, slotIsPast, timeSuggestions, type ReservationInput } from "@/lib/domain/reservation";
 import { btn, pastille } from "@/components/ui/styles";
 import { IconCalendar, IconCheck, IconChevron, IconClock, IconInfo, IconMinus, IconMoon, IconPhone, IconPin, IconPlus, IconShield, IconSun, IconUsers } from "@/components/ui/icons";
@@ -46,6 +47,7 @@ const choix = (actif: boolean, desactive = false) =>
   }`;
 
 export function ReservationForm() {
+  const { settings } = useCatalogue();
   const [maintenant, setMaintenant] = useState<Date | null>(null);
   // Texte libre (le champ peut être vide pendant la saisie) ; nombre déduit ci-dessous
   const [convivesTexte, setConvivesTexte] = useState("2");
@@ -55,7 +57,7 @@ export function ReservationForm() {
   const derniereDate = useRef("");
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
-  const [zone, setZone] = useState(reservation.zones[0]?.id ?? "");
+  const [zone, setZone] = useState(settings.zones[0]?.id ?? "");
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
@@ -78,14 +80,14 @@ export function ReservationForm() {
 
   const guests = /^\d+$/.test(convivesTexte) ? Number(convivesTexte) : Number.NaN;
   const nb = Number.isFinite(guests) ? guests : 0;
-  const changerConvives = (n: number) => setConvivesTexte(String(Math.min(reservation.maxGuests, Math.max(reservation.minGuests, n))));
+  const changerConvives = (n: number) => setConvivesTexte(String(Math.min(reservationLimits.maxGuests, Math.max(reservationLimits.minGuests, n))));
 
   const semaines = useMemo(
-    () => (maintenant && mois ? buildMonth(mois.y, mois.m, maintenant, reservation.daysAhead, reservation.closedWeekdays) : []),
-    [maintenant, mois],
+    () => (maintenant && mois ? buildMonth(mois.y, mois.m, maintenant, settings.daysAhead, settings.closedWeekdays) : []),
+    [maintenant, mois, settings.daysAhead, settings.closedWeekdays],
   );
   const moisAffiche = semaines[1]?.[0]?.monthLabel ?? "";
-  const limite = maintenant ? new Date(maintenant.getFullYear(), maintenant.getMonth(), maintenant.getDate() + reservation.daysAhead) : null;
+  const limite = maintenant ? new Date(maintenant.getFullYear(), maintenant.getMonth(), maintenant.getDate() + settings.daysAhead) : null;
   const peutReculer = !!(maintenant && mois && (mois.y > maintenant.getFullYear() || mois.m > maintenant.getMonth()));
   const peutAvancer = !!(limite && mois && (mois.y < limite.getFullYear() || mois.m < limite.getMonth()));
   const decaler = (n: number) => setMois((x) => (x ? { y: x.y + Math.floor((x.m + n) / 12), m: (((x.m + n) % 12) + 12) % 12 } : x));
@@ -105,7 +107,7 @@ export function ReservationForm() {
         setChargement(false);
       });
   }
-  const services = reservation.services.map((s) => {
+  const services = settings.services.map((s) => {
     const d = dispo?.find((x) => x.id === s.id);
     return { ...s, start: d?.start ?? s.start, end: d?.end ?? s.end, remaining: d?.remaining };
   });
@@ -173,14 +175,14 @@ export function ReservationForm() {
 
   const photo = (
     <div className="relative h-52 overflow-hidden rounded-xl bg-surface-haute shadow-carte lg:h-64">
-      <Image src={demoAmbiance.partage} alt="" fill sizes="(min-width: 1024px) 40vw, 100vw" className="object-cover" />
+      <Image src={settings.images.partage} alt="" fill sizes="(min-width: 1024px) 40vw, 100vw" className="object-cover" />
       <div className="absolute inset-0 bg-gradient-to-t from-noir/95 via-noir/40 to-transparent" aria-hidden />
       <span className={`${pastille} absolute top-3 right-3 bg-fond/85 text-texte backdrop-blur-md`}>Photo d&apos;illustration</span>
       <div className="absolute inset-x-4 bottom-4 text-ivoire">
         <p className="surtitre text-champagne">Réservation</p>
-        <p className="mt-0.5 font-display text-title">{site.name.value}</p>
+        <p className="mt-0.5 font-display text-title">{settings.name}</p>
         <p className="mt-0.5 flex items-center gap-1 text-body-sm text-ivoire/85">
-          <IconPin width={14} height={14} /> {site.address.value}
+          <IconPin width={14} height={14} /> {settings.address}
         </p>
       </div>
     </div>
@@ -208,19 +210,19 @@ export function ReservationForm() {
                 <button
                   type="button"
                   onClick={() => changerConvives(nb - 1)}
-                  disabled={nb <= reservation.minGuests}
+                  disabled={nb <= reservationLimits.minGuests}
                   aria-label="Une personne de moins"
                   className="verre-survol grid size-12 shrink-0 place-items-center rounded-full border border-ligne bg-surface text-or disabled:opacity-35"
                 >
                   <IconMinus width={18} height={18} />
                 </button>
                 <label className="flex min-w-0 flex-1 flex-col items-center">
-                  <span className="sr-only">Nombre de convives (1 à {reservation.maxGuests})</span>
+                  <span className="sr-only">Nombre de convives (1 à {reservationLimits.maxGuests})</span>
                   <input
                     type="number"
                     inputMode="numeric"
-                    min={reservation.minGuests}
-                    max={reservation.maxGuests}
+                    min={reservationLimits.minGuests}
+                    max={reservationLimits.maxGuests}
                     step={1}
                     value={convivesTexte}
                     onChange={(e) => setConvivesTexte(e.target.value.replace(/\D/g, "").slice(0, 3))}
@@ -233,7 +235,7 @@ export function ReservationForm() {
                 <button
                   type="button"
                   onClick={() => changerConvives(nb + 1)}
-                  disabled={nb >= reservation.maxGuests}
+                  disabled={nb >= reservationLimits.maxGuests}
                   aria-label="Une personne de plus"
                   className="verre-survol grid size-12 shrink-0 place-items-center rounded-full border border-ligne bg-surface text-or disabled:opacity-35"
                 >
@@ -247,7 +249,7 @@ export function ReservationForm() {
                   </button>
                 ))}
               </div>
-              {nb >= reservation.groupFrom && (
+              {nb >= settings.groupFrom && (
                 <p className="mt-3 flex items-start gap-1.5 text-[12px] text-texte/70">
                   <IconInfo width={14} height={14} className="mt-0.5 shrink-0 text-champagne" />
                   Groupe de {nb} : le restaurant vous rappellera pour organiser l&apos;accueil (placement, menu).
@@ -367,15 +369,15 @@ export function ReservationForm() {
                   )}
                 </div>
               )}
-              {reservation.placeholder && <p className="mt-3 text-[12px] text-texte/55">Heures de service provisoires, à confirmer par le restaurant.</p>}
+              {isProvisional(settings, "services") && <p className="mt-3 text-[12px] text-texte/55">Heures de service provisoires, à confirmer par le restaurant.</p>}
             </Etape>
           </div>
 
           {/* 4. Zone */}
-          {reservation.zones.length > 1 && (
+          {settings.zones.length > 1 && (
             <Etape n={4} titre="Zone préférée" icone={<IconPin width={18} height={18} />}>
               <div className="flex flex-col gap-2" role="radiogroup" aria-label="Zone préférée">
-                {reservation.zones.map((z) => (
+                {settings.zones.map((z) => (
                   <label
                     key={z.id}
                     className={`flex cursor-pointer items-center gap-3 rounded-lg bg-surface p-3 shadow-[0_1px_2px_rgb(74_46_36/0.08)] ${zone === z.id ? "ring-2 ring-or" : ""}`}
@@ -394,7 +396,7 @@ export function ReservationForm() {
           {/* 5. Coordonnées */}
           <div id="etape-name">
             <Etape
-              n={reservation.zones.length > 1 ? 5 : 4}
+              n={settings.zones.length > 1 ? 5 : 4}
               titre="Vos coordonnées"
               icone={<IconPhone width={18} height={18} />}
               erreur={erreurs.name || erreurs.phone || erreurs.email}
@@ -437,14 +439,14 @@ export function ReservationForm() {
           <div className="rounded-xl border border-ligne/70 bg-surface p-4 shadow-carte sm:p-5">
             <p className="surtitre text-texte/60">Votre demande</p>
             <p className="mt-1 font-display text-title text-or first-letter:uppercase">{resume}</p>
-            {zone && reservation.zones.length > 1 && (
-              <p className="text-body-sm text-texte/65">{reservation.zones.find((z) => z.id === zone)?.label}</p>
+            {zone && settings.zones.length > 1 && (
+              <p className="text-body-sm text-texte/65">{settings.zones.find((z) => z.id === zone)?.label}</p>
             )}
             <div className="mt-4 flex items-start gap-3 rounded-lg bg-surface-haute/70 p-3">
               <IconShield width={20} height={20} className="mt-0.5 shrink-0 text-champagne" />
               <p className="text-body-sm text-texte/75">
                 <span className="font-semibold text-or">Conditions : </span>
-                {reservation.policy}
+                {settings.policy}
               </p>
             </div>
             {erreurEnvoi && (
@@ -508,7 +510,7 @@ export function ReservationForm() {
                   ["Convives", `${recap.guests} personne${recap.guests > 1 ? "s" : ""}`],
                   ["Date", new Date(`${recap.date}T12:00`).toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "long", year: "numeric" })],
                   ["Heure d'arrivée", `${heure(recap.time)}${serviceChoisi ? ` · ${serviceChoisi.label.toLowerCase()}` : ""}`],
-                  ...(reservation.zones.length > 1 ? [["Zone", reservation.zones.find((z) => z.id === recap.zone)?.label ?? "Sans préférence"]] : []),
+                  ...(settings.zones.length > 1 ? [["Zone", settings.zones.find((z) => z.id === recap.zone)?.label ?? "Sans préférence"]] : []),
                   ["Nom", recap.name],
                   ["Téléphone", `+225 ${recap.phone.replace(/(\d{2})(?=\d)/g, "$1 ")}`],
                   ...(recap.email ? [["E-mail", recap.email]] : []),
@@ -523,7 +525,7 @@ export function ReservationForm() {
               <div className="mx-5 mt-1 flex items-start gap-2.5 rounded-lg bg-surface-haute/70 p-3">
                 <IconShield width={18} height={18} className="mt-0.5 shrink-0 text-champagne" />
                 <p className="text-[12px] text-texte/70">
-                  {reservation.policy} En confirmant, votre demande est transmise au restaurant, qui vous rappelle pour
+                  {settings.policy} En confirmant, votre demande est transmise au restaurant, qui vous rappelle pour
                   valider la table.
                 </p>
               </div>

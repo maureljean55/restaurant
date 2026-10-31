@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import type { DemoDish } from "@/data/demo-dishes";
+import type { Dish } from "@/lib/catalogue/types";
 import { ModelViewer } from "./ModelViewer";
 import { btn } from "@/components/ui/styles";
 import { IconArrow, IconCube, IconDevices, IconRotate, IconSearch } from "@/components/ui/icons";
@@ -15,7 +15,7 @@ const atouts = [
 ];
 
 /** Encart d'accueil : présentation de l'expérience 3D avec un vrai visualiseur interactif. */
-export function Teaser3D({ plats }: { plats: DemoDish[] }) {
+export function Teaser3D({ plats }: { plats: Dish[] }) {
   const [actif, setActif] = useState(plats[0]);
   const scene = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);

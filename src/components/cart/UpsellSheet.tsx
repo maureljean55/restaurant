@@ -3,7 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { demoDishes, findDemoDish, type DemoDish } from "@/data/demo-dishes";
+import { useCatalogue } from "@/lib/catalogue/context";
+import type { Dish } from "@/lib/catalogue/types";
 import { useCart } from "@/lib/cart";
 import { suggestionsFor, type SuggestionGroup } from "@/lib/domain/suggestions";
 import { formatFCFA } from "@/lib/format";
@@ -16,16 +17,17 @@ import { IconArrow, IconCheck, IconClose, IconMinus, IconPlus } from "@/componen
  * Téléphone : panneau qui monte du bas · Tablette/ordinateur : fenêtre centrée.
  */
 export function UpsellSheet() {
+  const { dishes, findDish } = useCatalogue();
   const { upsellFor, closeUpsell, lines, total, count, add, setQty, qtyOf } = useCart();
   const dialog = useRef<HTMLDialogElement>(null);
 
   // Suggestions figées à l'ouverture : un article ajouté reste affiché (avec sa quantité).
   const [ouvertPour, setOuvertPour] = useState<string | null>(null);
-  const [groupes, setGroupes] = useState<SuggestionGroup<DemoDish>[]>([]);
+  const [groupes, setGroupes] = useState<SuggestionGroup<Dish>[]>([]);
   if (upsellFor !== ouvertPour) {
     setOuvertPour(upsellFor);
-    const ajoute = upsellFor ? findDemoDish(upsellFor) : undefined;
-    setGroupes(ajoute ? suggestionsFor(ajoute, demoDishes, new Set(lines.map((l) => l.slug))) : []);
+    const ajoute = upsellFor ? findDish(upsellFor) : undefined;
+    setGroupes(ajoute ? suggestionsFor(ajoute, dishes, new Set(lines.map((l) => l.slug))) : []);
   }
 
   useEffect(() => {
@@ -39,7 +41,7 @@ export function UpsellSheet() {
     }
   }, [upsellFor, groupes, closeUpsell]);
 
-  const plat = upsellFor ? findDemoDish(upsellFor) : undefined;
+  const plat = upsellFor ? findDish(upsellFor) : undefined;
 
   return (
     <dialog

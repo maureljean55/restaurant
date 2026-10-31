@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
-import { site } from "@/config/site";
+import { getCatalogue } from "@/lib/catalogue/server";
 import "./globals.css";
 
 const playfair = Playfair_Display({
@@ -15,15 +15,15 @@ const inter = Inter({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: {
-    default: `${site.name.value} — ${site.tagline.value}`,
-    template: `%s · ${site.name.value}`,
-  },
-  description: site.description.value,
-  // Site en préparation : pas d'indexation avant l'ouverture officielle.
-  robots: site.launched ? undefined : { index: false, follow: false },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const { settings } = await getCatalogue();
+  return {
+    title: { default: `${settings.name} — ${settings.tagline}`, template: `%s · ${settings.name}` },
+    description: settings.description,
+    // Site en préparation : pas d'indexation avant l'ouverture officielle (restaurant_settings.launched).
+    robots: settings.launched ? undefined : { index: false, follow: false },
+  };
+}
 
 export const viewport: Viewport = {
   themeColor: "#0B0A08",

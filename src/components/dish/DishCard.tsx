@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { categoryLabel, spiceLabel, type DemoDish } from "@/data/demo-dishes";
+import { spiceLabel, type Dish } from "@/lib/catalogue/types";
 import { formatFCFA } from "@/lib/format";
 import { carte, pastille } from "@/components/ui/styles";
 import { IconCube, IconFire, IconLeaf } from "@/components/ui/icons";
@@ -11,7 +11,7 @@ import { AddToCartButton } from "./AddToCartButton";
  * - signature : prix sur la photo, lien « Voir en 3D » en pied de carte.
  * - carte : prix à côté du titre, niveau de piment, 2 ingrédients, bouton Ajouter.
  */
-export function DishCard({ dish, variant = "carte" }: { dish: DemoDish; variant?: "signature" | "carte" }) {
+export function DishCard({ dish, variant = "carte", categoryLabel }: { dish: Dish; variant?: "signature" | "carte"; categoryLabel?: string }) {
   const prix = dish.price === null ? "Prix à venir" : formatFCFA(dish.price);
 
   return (
@@ -81,7 +81,7 @@ export function DishCard({ dish, variant = "carte" }: { dish: DemoDish; variant?
           ) : (
             <span className="flex items-center gap-1 text-label-sm text-texte/65">
               <IconLeaf width={15} height={15} className="text-or" />
-              {dish.tags[0] ?? categoryLabel(dish.category)}
+              {dish.tags[0] ?? categoryLabel}
             </span>
           )}
 

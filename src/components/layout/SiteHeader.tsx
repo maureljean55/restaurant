@@ -4,7 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { nav, site } from "@/config/site";
+import { brand, nav } from "@/config/site";
+import { useCatalogue } from "@/lib/catalogue/context";
 import { useCart } from "@/lib/cart";
 import { IconBag, IconCalendar, IconCarte, IconClose, IconCube, IconHome, IconMenu, IconPin } from "@/components/ui/icons";
 
@@ -36,6 +37,7 @@ type Lentille = { x: number; w: number; visible: boolean };
 
 /** En-tête flottant en « liquid glass » + tiroir de navigation sur téléphone/tablette. */
 export function SiteHeader() {
+  const { settings } = useCatalogue();
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
@@ -89,14 +91,14 @@ export function SiteHeader() {
           <Link
             href="/"
             className="absolute left-1/2 flex min-w-0 -translate-x-1/2 items-center gap-2.5 lg:static lg:mr-auto lg:translate-x-0"
-            aria-label={`${site.name.value} — accueil`}
+            aria-label={`${settings.name} — accueil`}
           >
-            <Image src={site.logo.medaillon} alt="" width={48} height={48} priority className="hidden size-10 shrink-0 drop-shadow-sm lg:block" />
+            <Image src={brand.logo.medaillon} alt="" width={48} height={48} priority className="hidden size-10 shrink-0 drop-shadow-sm lg:block" />
             <span className="flex min-w-0 flex-col items-center lg:items-start">
-              <span className="truncate font-display text-title tracking-[0.08em] text-or lg:text-[1.3rem]">{site.name.value}</span>
+              <span className="truncate font-display text-title tracking-[0.08em] text-or lg:text-[1.3rem]">{settings.name}</span>
               <span className="flex items-center gap-0.5 text-label-sm font-semibold text-texte/60">
                 <IconPin width={12} height={12} className="text-or" />
-                {site.area.value}
+                {settings.area}
               </span>
             </span>
           </Link>
@@ -160,8 +162,8 @@ export function SiteHeader() {
         <div>
           <div className="flex h-16 items-center justify-between px-4">
             <span className="flex items-center gap-2 font-display text-title tracking-[0.08em] text-or">
-              <Image src={site.logo.medaillon} alt="" width={36} height={36} className="size-9" />
-              {site.name.value}
+              <Image src={brand.logo.medaillon} alt="" width={36} height={36} className="size-9" />
+              {settings.name}
             </span>
             <button
               type="button"
@@ -175,7 +177,7 @@ export function SiteHeader() {
           <div className="px-4 py-2">
             <p className="flex items-center gap-1.5 rounded-full bg-surface-basse px-3 py-1.5 text-label-sm text-texte/70">
               <IconPin width={14} height={14} className="text-or" />
-              {site.address.value}
+              {settings.address}
             </p>
           </div>
           <nav aria-label="Navigation principale" className="flex flex-col px-2 pt-1">
@@ -209,7 +211,7 @@ export function SiteHeader() {
         </div>
         <div className="mx-2 mb-2 rounded-t-xl bg-surface-basse p-4">
           <p className="surtitre text-texte/60">Horaires</p>
-          {site.hours.value.map((h) => (
+          {settings.hours.map((h) => (
             <p key={h.days} className="mt-1 text-body-sm text-texte">
               {h.days} · {h.time}
             </p>

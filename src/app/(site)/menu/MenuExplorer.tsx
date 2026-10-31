@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
-import type { Category, DemoDish, Spice } from "@/data/demo-dishes";
+import type { Category, Dish, Spice } from "@/lib/catalogue/types";
 import { DishCard } from "@/components/dish/DishCard";
 import { useCart } from "@/lib/cart";
 import { formatFCFA } from "@/lib/format";
@@ -21,7 +21,7 @@ const chip = (actif: boolean) =>
     actif ? "bg-or text-noir shadow-sm" : "bg-surface-haute text-texte/75 hover:text-texte"
   }`;
 
-export function MenuExplorer({ dishes, categories }: { dishes: DemoDish[]; categories: Category[] }) {
+export function MenuExplorer({ dishes, categories }: { dishes: Dish[]; categories: Category[] }) {
   const [categorie, setCategorie] = useState("toutes");
   const [recherche, setRecherche] = useState("");
   const [dispoSeulement, setDispoSeulement] = useState(false);
@@ -40,7 +40,7 @@ export function MenuExplorer({ dishes, categories }: { dishes: DemoDish[]; categ
         (piment === "tous" || d.spice === piment) &&
         (!q || normaliser(`${d.name} ${d.description} ${d.tags.join(" ")}`).includes(q)),
     );
-    const prix = (d: DemoDish) => d.price ?? Number.MAX_SAFE_INTEGER;
+    const prix = (d: Dish) => d.price ?? Number.MAX_SAFE_INTEGER;
     return liste.sort((a, b) =>
       tri === "prix-asc" ? prix(a) - prix(b) : tri === "prix-desc" ? prix(b) - prix(a) : b.popularity - a.popularity,
     );
@@ -158,7 +158,7 @@ export function MenuExplorer({ dishes, categories }: { dishes: DemoDish[]; categ
         <ul className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
           {visibles.map((dish) => (
             <li key={dish.slug}>
-              <DishCard dish={dish} />
+              <DishCard dish={dish} categoryLabel={categories.find((c) => c.id === dish.category)?.label} />
             </li>
           ))}
         </ul>

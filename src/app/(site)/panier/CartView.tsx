@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { findDemoDish } from "@/data/demo-dishes";
+import { useCatalogue } from "@/lib/catalogue/context";
 import { Commande } from "./Commande";
 import { useCart } from "@/lib/cart";
 import { MAX_QTY_PER_LINE } from "@/lib/domain/pricing";
@@ -11,6 +11,7 @@ import { btn } from "@/components/ui/styles";
 import { IconBag, IconMinus, IconPlus, IconTrash } from "@/components/ui/icons";
 
 export function CartView() {
+  const { findDish } = useCatalogue();
   const { lines, setQty, remove } = useCart();
 
   return (
@@ -33,7 +34,7 @@ export function CartView() {
         <div className="mt-6 grid gap-6 lg:grid-cols-12 lg:items-start">
           <ul className="flex flex-col gap-3 lg:col-span-8">
             {lines.map((l) => {
-              const d = findDemoDish(l.slug)!;
+              const d = findDish(l.slug)!;
               return (
                 <li key={l.slug} className="flex gap-3 rounded-xl border border-ligne/70 bg-surface p-3 shadow-carte">
                   <span className="relative size-20 shrink-0 overflow-hidden rounded-lg bg-surface-haute sm:size-24">

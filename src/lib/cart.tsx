@@ -1,7 +1,8 @@
 "use client";
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
-import { findDemoDish } from "@/data/demo-dishes";
+import { useCatalogue } from "@/lib/catalogue/context";
+import type { Dish } from "@/lib/catalogue/types";
 import { clampQty, itemCount, priceLines, subtotal, type CartLine, type PricedLine } from "@/lib/domain/pricing";
 
 const STORAGE_KEY = "panier-v1";
@@ -23,13 +24,13 @@ type CartContext = {
 
 const Ctx = createContext<CartContext | null>(null);
 
-function readStorage(): CartLine[] {
+function readStorage(findDish: (slug: string) => Dish | undefined): CartLine[] {
   try {
     const raw = window.localStorage.getItem(STORAGE_KEY);
     const parsed: unknown = raw ? JSON.parse(raw) : [];
     if (!Array.isArray(parsed)) return [];
     return parsed.filter(
-      (l): l is CartLine => typeof l?.slug === "string" && typeof l?.qty === "number" && !!findDemoDish(l.slug),
+      (l): l is CartLine => typeof l?.slug === "string" && typeof l?.qty === "number" && !!findDish(l.slug),
     );
   } catch {
     return [];
@@ -38,6 +39,7 @@ function readStorage(): CartLine[] {
 
 /** Panier conservé dans le navigateur (aucun compte client requis). */
 export function CartProvider({ children }: { children: ReactNode }) {
+  const { findDish } = useCatalogue();
   const [raw, setRaw] = useState<CartLine[]>([]);
   const [loaded, setLoaded] = useState(false);
   const [upsellFor, setUpsellFor] = useState<string | null>(null);
@@ -45,9 +47,9 @@ export function CartProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     // Lecture différée : le stockage n'existe pas pendant le rendu serveur.
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    setRaw(readStorage());
+    setRaw(readStorage(findDish));
     setLoaded(true);
-  }, []);
+  }, [findDish]);
 
   useEffect(() => {
     if (!loaded) return;
@@ -83,7 +85,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
   );
 
   const value = useMemo<CartContext>(() => {
-    const lines = priceLines(raw, (slug) => findDemoDish(slug)?.price);
+    const lines = priceLines(raw, (slug) => findDish(slug)?.price);
     return {
       lines,
       count: itemCount(lines),
@@ -97,7 +99,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
       openUpsell: setUpsellFor,
       closeUpsell: () => setUpsellFor(null),
     };
-  }, [raw, add, setQty, upsellFor]);
+  }, [raw, add, setQty, upsellFor, findDish]);
 
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }

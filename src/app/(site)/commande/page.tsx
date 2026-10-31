@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
-import { site } from "@/config/site";
+import { getCatalogue } from "@/lib/catalogue/server";
 import { getOrderByToken, type OrderStatus } from "@/lib/orders";
 import { formatFCFA } from "@/lib/format";
 import { btn } from "@/components/ui/styles";
@@ -50,7 +50,7 @@ export default function SuiviPage({ searchParams }: PageProps<"/commande">) {
 
 async function Suivi({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
   const { suivi } = await searchParams;
-  const o = typeof suivi === "string" ? await getOrderByToken(suivi) : null;
+  const [o, { settings }] = await Promise.all([typeof suivi === "string" ? getOrderByToken(suivi) : null, getCatalogue()]);
 
   if (!o) {
     return (
@@ -137,7 +137,7 @@ async function Suivi({ searchParams }: { searchParams: Promise<Record<string, st
       </section>
 
       <p className="mt-6 flex items-center justify-center gap-2 text-body-sm text-texte/65">
-        <IconPhone width={16} height={16} /> Une question ? {site.phone.value}
+        <IconPhone width={16} height={16} /> Une question ? {settings.phone}
       </p>
     </>
   );

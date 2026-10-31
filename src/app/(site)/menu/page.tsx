@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { categories, demoDishes } from "@/data/demo-dishes";
+import { getCatalogue } from "@/lib/catalogue/server";
 import { MenuExplorer } from "./MenuExplorer";
 
 export const metadata: Metadata = {
@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   description: "Plats traditionnels ivoiriens, grillades, accompagnements et boissons. Commande en ligne.",
 };
 
-export default function MenuPage() {
-  return <MenuExplorer dishes={demoDishes} categories={categories} />;
+export default async function MenuPage() {
+  const { dishes, categories } = await getCatalogue();
+  return <MenuExplorer dishes={dishes} categories={categories} />;
 }

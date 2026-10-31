@@ -1,7 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
-import { site } from "@/config/site";
-import { demoAmbiance, demoDishes } from "@/data/demo-dishes";
+import { brand } from "@/config/site";
+import { getCatalogue } from "@/lib/catalogue/server";
+import { categoryLabel } from "@/lib/catalogue/types";
 import { DishCard } from "@/components/dish/DishCard";
 import { Teaser3D } from "@/components/three/Teaser3D";
 import { btn, pastille } from "@/components/ui/styles";
@@ -9,9 +10,10 @@ import { IconCalendar, IconCarte, IconChevron, IconUsers, IconLeaf } from "@/com
 
 const container = "mx-auto w-full max-w-7xl px-4 md:px-8 lg:px-12";
 
-export default function HomePage() {
-  const signatures = [...demoDishes].sort((a, b) => b.popularity - a.popularity).slice(0, 4);
-  const avec3d = demoDishes.filter((d) => d.model && d.photo);
+export default async function HomePage() {
+  const { dishes, categories, settings } = await getCatalogue();
+  const signatures = [...dishes].sort((a, b) => b.popularity - a.popularity).slice(0, 4);
+  const avec3d = dishes.filter((d) => d.model && d.photo);
 
   return (
     <div className="flex flex-col gap-14 pb-16 md:gap-20 lg:gap-24 lg:pb-24">
@@ -19,15 +21,15 @@ export default function HomePage() {
       <section className={`${container} grid gap-5 pt-4 md:pt-8 lg:grid-cols-12 lg:items-center lg:gap-12 lg:pt-12`}>
         <div className="relative overflow-hidden rounded-xl bg-surface-haute shadow-flottant lg:order-2 lg:col-span-7">
           <div className="relative h-80 sm:h-[26rem] lg:h-[34rem]">
-            <Image src={demoAmbiance.hero} alt="" fill priority sizes="(min-width: 1024px) 58vw, 100vw" className="object-cover" />
+            <Image src={settings.images.hero} alt="" fill priority sizes="(min-width: 1024px) 58vw, 100vw" className="object-cover" />
             <div className="absolute inset-0 bg-gradient-to-t from-noir/90 via-noir/35 to-transparent lg:from-noir/60" aria-hidden />
             <span className={`${pastille} absolute top-3 left-3 bg-fond/85 text-or uppercase shadow-sm backdrop-blur-md`}>
               <span className="size-2 animate-pulse rounded-full bg-or" />
               Gastronomie ivoirienne
             </span>
             <Image
-              src={site.logo.medaillon}
-              alt={`Logo ${site.name.value}`}
+              src={brand.logo.medaillon}
+              alt={`Logo ${settings.name}`}
               width={112}
               height={112}
               className="absolute top-3 right-3 size-16 rounded-full shadow-flottant ring-2 ring-or/60 sm:size-20 lg:top-5 lg:right-5 lg:size-28"
@@ -35,7 +37,7 @@ export default function HomePage() {
             <span className="absolute right-3 bottom-3 text-[0.65rem] text-ivoire/70">Photo d&apos;illustration</span>
             {/* Téléphone/tablette : titre sur la photo, comme la maquette */}
             <div className="absolute inset-x-4 bottom-8 text-ivoire lg:hidden">
-              <p className="surtitre text-champagne">{site.tagline.value}</p>
+              <p className="surtitre text-champagne">{settings.tagline}</p>
               <h1 className="mt-1.5 max-w-md text-headline-lg-mobile sm:text-headline-lg">
                 Découvrez l&apos;âme de la cuisine <em className="font-medium">ivoirienne</em>
               </h1>
@@ -45,7 +47,7 @@ export default function HomePage() {
 
         <div className="flex flex-col gap-5 lg:col-span-5">
           <div className="hidden lg:block">
-            <p className="surtitre text-champagne">{site.tagline.value}</p>
+            <p className="surtitre text-champagne">{settings.tagline}</p>
             <h1 className="mt-3 text-display text-or">
               Découvrez l&apos;âme de la cuisine <em className="font-medium text-texte">ivoirienne</em>
             </h1>
@@ -96,7 +98,7 @@ export default function HomePage() {
         <ul className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
           {signatures.map((dish) => (
             <li key={dish.slug}>
-              <DishCard dish={dish} variant="signature" />
+              <DishCard dish={dish} variant="signature" categoryLabel={categoryLabel(categories, dish.category)} />
             </li>
           ))}
         </ul>
@@ -120,7 +122,7 @@ export default function HomePage() {
         </div>
         <div className="mt-6 grid gap-3 md:grid-cols-3 md:gap-4 lg:gap-6">
           <div className="relative h-56 overflow-hidden rounded-xl shadow-carte md:col-span-2 md:row-span-2 md:h-auto md:min-h-80">
-            <Image src={demoAmbiance.partage} alt="Une table garnie de plats à partager" fill sizes="(min-width: 768px) 60vw, 100vw" className="object-cover" />
+            <Image src={settings.images.partage} alt="Une table garnie de plats à partager" fill sizes="(min-width: 768px) 60vw, 100vw" className="object-cover" />
             <div className="absolute inset-0 bg-gradient-to-t from-noir/85 via-noir/25 to-transparent" aria-hidden />
             <div className="absolute inset-x-4 bottom-4 text-ivoire md:inset-x-6 md:bottom-6">
               <h3 className="text-title md:text-headline-sm">L&apos;art du partage</h3>

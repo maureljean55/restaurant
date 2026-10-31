@@ -73,7 +73,7 @@ export function SiteHeader() {
   return (
     <>
       <header className="pointer-events-none fixed inset-x-0 top-0 z-50 px-2 pt-[calc(env(safe-area-inset-top)+0.375rem)] md:px-6 lg:px-10 lg:pt-2.5">
-        <div className="verre pointer-events-auto mx-auto flex h-[3.25rem] max-w-7xl items-center gap-2 rounded-2xl px-2 md:rounded-full md:px-4 lg:h-14 lg:pl-5">
+        <div className="verre pointer-events-auto relative mx-auto flex h-[3.25rem] max-w-7xl items-center gap-2 rounded-2xl px-2 md:rounded-full md:px-4 lg:h-14 lg:pl-5">
           <button
             type="button"
             onClick={() => setOpen(true)}
@@ -85,9 +85,14 @@ export function SiteHeader() {
             <IconMenu />
           </button>
 
-          <Link href="/" className="mr-auto flex min-w-0 items-center gap-2.5" aria-label={`${site.name.value} — accueil`}>
-            <Image src={site.logo.medaillon} alt="" width={48} height={48} priority className="size-9 shrink-0 drop-shadow-sm lg:size-10" />
-            <span className="flex min-w-0 flex-col">
+          {/* Téléphone/tablette : nom centré, sans logo · Ordinateur : logo + nom à gauche */}
+          <Link
+            href="/"
+            className="absolute left-1/2 flex min-w-0 -translate-x-1/2 items-center gap-2.5 lg:static lg:mr-auto lg:translate-x-0"
+            aria-label={`${site.name.value} — accueil`}
+          >
+            <Image src={site.logo.medaillon} alt="" width={48} height={48} priority className="hidden size-10 shrink-0 drop-shadow-sm lg:block" />
+            <span className="flex min-w-0 flex-col items-center lg:items-start">
               <span className="truncate font-display text-title tracking-[0.08em] text-or lg:text-[1.3rem]">{site.name.value}</span>
               <span className="flex items-center gap-0.5 text-label-sm font-semibold text-texte/60">
                 <IconPin width={12} height={12} className="text-or" />
@@ -124,6 +129,7 @@ export function SiteHeader() {
             </ul>
           </nav>
 
+          <span className="ml-auto lg:ml-0" />
           <CartButton />
           <Link
             href="/reservation"

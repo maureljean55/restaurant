@@ -179,7 +179,7 @@ export function MenuExplorer({ dishes, categories }: { dishes: DemoDish[]; categ
 
       {/* Barre panier flottante : au-dessus de la barre d'onglets sur téléphone */}
       {count > 0 && (
-        <div className="fixed inset-x-0 bottom-[calc(5rem+env(safe-area-inset-bottom))] z-30 px-4 md:bottom-6">
+        <div className="fixed inset-x-0 bottom-[calc(1rem+env(safe-area-inset-bottom))] z-30 px-4 md:bottom-6">
           <div className="mx-auto flex max-w-xl items-center justify-between gap-3 rounded-full border border-or/40 bg-surface-haute py-2 pr-2 pl-3 text-ivoire shadow-flottant">
             <div className="flex min-w-0 items-center gap-3">
               <span className="relative grid size-9 shrink-0 place-items-center rounded-full bg-encre">

@@ -30,6 +30,7 @@
   --color-texte: #efe6d6;
   /* Signal */
   --color-erreur: #f08a6c;
+  --color-succes: #8fcfa9; /* ≈ 11:1 sur fond : prêt, confirmé, payé */
 
   --font-display: var(--font-playfair), Georgia, serif;
   --font-sans: var(--font-inter), system-ui, sans-serif;

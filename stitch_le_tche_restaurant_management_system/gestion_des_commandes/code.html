@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+
+<html lang="fr"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Playfair+Display:ital,wght@0,600;0,700;1,600&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "surface": "#fff8ef", "on-tertiary-fixed-variant": "#1b503b", "surface-bright": "#fff8ef", "inverse-on-surface": "#f7f0e5", "tertiary-container": "#002115", "on-tertiary-container": "#5b8e76", "primary-container": "#1c1b1b", "surface-container": "#f4ede2", "surface-container-lowest": "#ffffff", "surface-variant": "#e8e2d7", "error": "#ba1a1a", "outline": "#747878", "tertiary-fixed": "#b8efd3", "on-primary-container": "#858383", "on-background": "#1e1b15", "on-error-container": "#93000a", "primary-fixed-dim": "#c8c6c5", "on-secondary-container": "#785a1b", "on-primary": "#ffffff", "on-primary-fixed-variant": "#474646", "tertiary-fixed-dim": "#9cd2b7", "secondary": "#775a1a", "on-tertiary": "#ffffff", "secondary-container": "#fed489", "on-surface": "#1e1b15", "secondary-fixed": "#ffdea5", "outline-variant": "#c4c7c7", "primary-fixed": "#e5e2e1", "on-surface-variant": "#444748", "surface-container-highest": "#e8e2d7", "on-secondary": "#ffffff", "tertiary": "#000000", "surface-container-low": "#faf3e8", "on-primary-fixed": "#1c1b1b", "on-secondary-fixed": "#271900", "error-container": "#ffdad6", "background": "#fff8ef", "on-tertiary-fixed": "#002115", "inverse-surface": "#333029", "surface-tint": "#5f5e5e", "surface-dim": "#e0d9cf", "on-secondary-fixed-variant": "#5d4202", "inverse-primary": "#c8c6c5", "primary": "#000000", "surface-container-high": "#eee7dd", "on-error": "#ffffff", "secondary-fixed-dim": "#e9c178" }, "borderRadius": { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" }, "spacing": { "margin": "2rem", "gutter": "1.25rem", "space-md": "0.875rem", "space-xl": "2rem", "margin-mobile": "0.875rem", "space-xs": "0.25rem", "space-sm": "0.5rem", "margin-tablet": "1.25rem", "gutter-mobile": "0.75rem", "space-lg": "1.25rem", "gutter-tablet": "1rem" }, "fontFamily": { "label-sm": ["Inter"], "data-mono-num": ["Inter"], "body-sm": ["Inter"], "display-lg-mobile": ["Playfair Display"], "headline-md": ["Playfair Display"], "label-md": ["Inter"], "body-md": ["Inter"], "title-md": ["Inter"], "headline-sm": ["Playfair Display"], "headline-lg": ["Playfair Display"], "display-lg": ["Playfair Display"], "body-lg": ["Inter"], "headline-lg-mobile": ["Playfair Display"] }, "fontSize": { "label-sm": ["0.6875rem", { "lineHeight": "0.875rem", "letterSpacing": "0.08em", "fontWeight": "700" }], "data-mono-num": ["0.875rem", { "lineHeight": "1.25rem", "letterSpacing": "0.01em", "fontWeight": "600" }], "body-sm": ["0.75rem", { "lineHeight": "1.125rem", "fontWeight": "400" }], "display-lg-mobile": ["2.25rem", { "lineHeight": "2.75rem", "letterSpacing": "-0.01em", "fontWeight": "700" }], "headline-md": ["1.375rem", { "lineHeight": "1.875rem", "fontWeight": "600" }], "label-md": ["0.75rem", { "lineHeight": "1rem", "letterSpacing": "0.06em", "fontWeight": "600" }], "body-md": ["0.875rem", { "lineHeight": "1.375rem", "fontWeight": "400" }], "title-md": ["1rem", { "lineHeight": "1.5rem", "letterSpacing": "-0.01em", "fontWeight": "600" }], "headline-sm": ["1.125rem", { "lineHeight": "1.625rem", "fontWeight": "600" }], "headline-lg": ["2rem", { "lineHeight": "2.5rem", "fontWeight": "600" }], "display-lg": ["3rem", { "lineHeight": "3.5rem", "letterSpacing": "-0.02em", "fontWeight": "700" }], "body-lg": ["1rem", { "lineHeight": "1.625rem", "fontWeight": "400" }], "headline-lg-mobile": ["1.5rem", { "lineHeight": "2rem", "fontWeight": "600" }] } } } };</script></head><body class="bg-background font-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-full w-72 bg-[#111111] border-r border-[#C6A15B]/20 z-50 flex flex-col justify-between overflow-y-auto"><div class="flex flex-col"><div class="h-20 px-space-lg flex items-center gap-space-sm border-b border-[#C6A15B]/20 bg-[#0d0d0d]"><img alt="LE-TCHE Restaurant Official Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1XNy2PPSOY7OIASl6HYHet3ZNG_rPmzf_tnExOFgJ9UUecMRVgZIGmLTBaZUKNHkWy38DaTfsEmL0wNuab2szvumrRpxi9ZAv-IsKDKzZlRskUHqENVRRBphj_bCdfdMR9OVcmkIBA_ctt2yxEZI0NbopgSoJwV68LlSaWaJn0WLTFXFHhKz9-FoIdZn1Hf7zYTdN2IpsyRUcjJ-JWfVJ0mRVvTJI32KaGfGU9cl0lq"/><div class="flex flex-col min-w-0"><span class="font-headline-sm text-headline-sm text-[#F5E6CA] tracking-wide truncate">LE-TCHE</span><span class="font-label-sm text-label-sm uppercase tracking-widest text-[#C6A15B]">Haute Gastronomie • Abidjan</span></div></div><div class="px-space-md py-space-sm"><div class="flex items-center justify-between px-space-sm py-space-xs rounded bg-[#1c1b1b] border border-[#C6A15B]/20"><div class="flex items-center gap-space-xs"><span class="w-2 h-2 rounded-full bg-[#1b503b] animate-pulse"></span><span class="font-label-sm text-label-sm uppercase text-[#b8efd3]">Service Midi : Actif</span></div><span class="font-label-sm text-label-sm text-[#C6A15B] font-bold">SALLE &amp; TERRASSE</span></div></div><nav class="flex flex-col px-space-sm space-y-space-xs mt-space-xs" data-active-classes="bg-[#1c1b1b] text-[#F5E6CA] font-semibold border-l-2 border-[#C6A15B]"><div class="px-space-sm pt-space-xs pb-1"><span class="font-label-sm text-label-sm uppercase tracking-wider text-[#858383]">Gouvernance</span></div><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded text-[#c8c6c5] hover:bg-[#1c1b1b] hover:text-[#ffffff] transition-colors" data-path="tableau-de-bord" href="#"><span class="material-symbols-outlined text-[1.125rem] text-[#C6A15B]">dashboard</span><span class="font-body-md text-body-md">Tableau de Bord</span></a><div class="px-space-sm pt-space-sm pb-1"><span class="font-label-sm text-label-sm uppercase tracking-wider text-[#858383]">Opérations de Salle &amp; Cuisine</span></div><a aria-current="page" class="flex items-center gap-space-sm px-space-sm py-space-xs rounded transition-colors bg-[#1c1b1b] text-[#F5E6CA] font-semibold border-l-2 border-[#C6A15B]" data-path="commandes-et-ventes" href="#"><span class="material-symbols-outlined text-[1.125rem] text-[#C6A15B]">receipt_long</span><span class="font-body-md text-body-md">Commandes &amp; Ventes</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded text-[#c8c6c5] hover:bg-[#1c1b1b] hover:text-[#ffffff] transition-colors" data-path="cuisine-et-kds" href="#"><span class="material-symbols-outlined text-[1.125rem] text-[#C6A15B]">soup_kitchen</span><span class="font-body-md text-body-md">Cuisine &amp; KDS</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded text-[#c8c6c5] hover:bg-[#1c1b1b] hover:text-[#ffffff] transition-colors" data-path="salle-et-reservations" href="#"><span class="material-symbols-outlined text-[1.125rem] text-[#C6A15B]">table_restaurant</span><span class="font-body-md text-body-md">Salle &amp; Réservations</span></a><div class="px-space-sm pt-space-sm pb-1"><span class="font-label-sm text-label-sm uppercase tracking-wider text-[#858383]">Culinaire &amp; Approvisionnement</span></div><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded text-[#c8c6c5] hover:bg-[#1c1b1b] hover:text-[#ffffff] transition-colors" data-path="menu-et-gastronomie" href="#"><span class="material-symbols-outlined text-[1.125rem] text-[#C6A15B]">restaurant_menu</span><span class="font-body-md text-body-md">Menu &amp; Gastronomie</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded text-[#c8c6c5] hover:bg-[#1c1b1b] hover:text-[#ffffff] transition-colors" data-path="stocks-et-ingredients" href="#"><span class="material-symbols-outlined text-[1.125rem] text-[#C6A15B]">inventory_2</span><span class="font-body-md text-body-md">Stocks &amp; Ingrédients</span></a><div class="px-space-sm pt-space-sm pb-1"><span class="font-label-sm text-label-sm uppercase tracking-wider text-[#858383]">Gestion &amp; Administration</span></div><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded text-[#c8c6c5] hover:bg-[#1c1b1b] hover:text-[#ffffff] transition-colors" data-path="clients-et-fidelite" href="#"><span class="material-symbols-outlined text-[1.125rem] text-[#C6A15B]">loyalty</span><span class="font-body-md text-body-md">Clients &amp; Fidélité</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded text-[#c8c6c5] hover:bg-[#1c1b1b] hover:text-[#ffffff] transition-colors" data-path="finances-et-caisse" href="#"><span class="material-symbols-outlined text-[1.125rem] text-[#C6A15B]">payments</span><span class="font-body-md text-body-md">Finances &amp; Caisse</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded text-[#c8c6c5] hover:bg-[#1c1b1b] hover:text-[#ffffff] transition-colors" data-path="personnel-et-equipe" href="#"><span class="material-symbols-outlined text-[1.125rem] text-[#C6A15B]">badge</span><span class="font-body-md text-body-md">Personnel &amp; Équipe</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded text-[#c8c6c5] hover:bg-[#1c1b1b] hover:text-[#ffffff] transition-colors" data-path="configuration-et-parametres" href="#"><span class="material-symbols-outlined text-[1.125rem] text-[#C6A15B]">tune</span><span class="font-body-md text-body-md">Configuration &amp; Paramètres</span></a></nav></div><div class="p-space-md border-t border-[#C6A15B]/20 bg-[#0d0d0d]"><div class="flex items-center justify-between text-[#858383]"><span class="font-label-sm text-label-sm">Plateforme Concierge v3.4</span><span class="font-data-mono-num text-data-mono-num text-[#C6A15B]">Abidjan TZ</span></div></div></aside><div class="pl-72"><header class="fixed top-0 left-72 right-0 h-20 bg-surface/90 backdrop-blur-xl border-b border-surface-variant z-40 flex items-center justify-between px-space-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex items-center gap-space-md flex-1 max-w-xl"><div class="relative w-full"><span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[1.25rem]">search</span><input class="w-full pl-10 pr-4 py-2 bg-surface-container-lowest border border-outline-variant rounded-lg font-body-md text-body-md text-on-surface focus:outline-none focus:border-secondary shadow-sm transition-all" placeholder="Rechercher commande, client VIP, table..." type="text"/></div></div><div class="flex items-center gap-space-md"><div class="hidden lg:flex items-center gap-space-xs px-3 py-1.5 rounded-lg bg-surface-container border border-surface-variant"><span class="font-label-md text-label-md uppercase text-secondary font-bold">Devise</span><span class="font-data-mono-num text-data-mono-num text-on-surface">XOF (FCFA)</span></div><button class="flex items-center gap-space-xs px-4 py-2 bg-primary text-surface rounded-lg border border-[#C6A15B] hover:bg-[#1c1b1b] hover:text-[#ffffff] transition-all shadow-sm"><span class="material-symbols-outlined text-[1.125rem] text-[#fed489]">add_circle</span><span class="font-label-md text-label-md font-semibold tracking-wide">Nouvelle Commande</span></button><div class="relative flex items-center"><button class="p-2 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface transition-colors"><span class="material-symbols-outlined text-[1.25rem]">notifications</span></button><span class="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-error text-[0.625rem] font-bold text-on-error">3</span></div><div class="h-8 w-px bg-surface-variant"></div><div class="flex items-center gap-space-sm pl-space-xs"><img alt="Profile" class="w-8 h-8 rounded-full object-cover ring-1 ring-[#C6A15B]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_pZ6wROvCPHADqWJ4gDYQg9EiMlftDgeo9rw_Y1YKtxN3QswFE8LcbXbyRJIp_z2OQGuOx3hi55v8QfQlNfWkAU3fJQmPgDvIkwf9WL8E8PdhXMkx71wxd1f8wMpGJv15sfdAuJXdHRmFdKvdIZR44ThtdH3muuAvxetJdA8t-tIt_2FC4whTKhSsa0QJDg533VCVEzwKKckl1oby4tQ7FH5yLI45XjBKQF7p7C0"/><div class="hidden sm:flex flex-col text-left"><span class="font-title-md text-body-md font-semibold text-on-surface leading-tight">Directeur Général</span><span class="font-label-sm text-label-sm text-secondary">LE-TCHE Abidjan</span></div></div></div></header><main class="w-full pt-20 px-space-xl pb-space-xl bg-surface min-h-screen"><div class="flex flex-col w-full space-y-space-lg">
+<div class="flex flex-col lg:flex-row lg:items-end justify-between gap-space-md">
+<div class="space-y-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-secondary">Service Soir • Flux Continu</span>
+<span class="font-data-mono-num text-body-sm text-on-surface-variant">• 19:54 UTC</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">Gestion Complète des Commandes</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Supervision en direct des bons de commande, livraisons Cocody/Plateau et flux de table.</p>
+</div>
+<div class="flex flex-wrap items-center gap-space-sm">
+<button class="flex items-center gap-space-xs px-4 py-2.5 rounded-lg bg-surface-container-high text-on-surface hover:bg-surface-variant shadow-sm transition-all">
+<span class="material-symbols-outlined text-[1.125rem] text-secondary">tune</span>
+<span class="font-label-md text-label-md">Colonnes Visibles</span>
+</button>
+<button class="flex items-center gap-space-xs px-4 py-2.5 rounded-lg bg-surface-container-high text-on-surface hover:bg-surface-variant shadow-sm transition-all">
+<span class="material-symbols-outlined text-[1.125rem] text-on-surface-variant">download</span>
+<span class="font-label-md text-label-md">Export Grand Livre XOF</span>
+</button>
+<button class="flex items-center gap-space-xs px-5 py-2.5 rounded-lg bg-primary text-surface-container-lowest shadow-md hover:bg-primary-container transition-all">
+<span class="material-symbols-outlined text-[1.25rem] text-secondary-fixed">add_circle</span>
+<span class="font-label-md text-label-md font-semibold tracking-wide">+ Créer une Commande Manuelle</span>
+</button>
+</div>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-space-xs p-1 rounded-xl bg-surface-container-low shadow-sm">
+<button class="flex items-center justify-between px-3 py-2.5 rounded-lg bg-surface-container-lowest text-on-surface shadow-sm font-semibold transition-all">
+<span class="font-label-md text-label-md">Toutes</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container text-on-surface font-data-mono-num text-body-sm">142</span>
+</button>
+<button class="flex items-center justify-between px-3 py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container transition-all">
+<span class="font-label-md text-label-md">En Attente</span>
+<span class="px-2 py-0.5 rounded-full bg-error-container text-on-error-container font-data-mono-num text-body-sm font-bold">6</span>
+</button>
+<button class="flex items-center justify-between px-3 py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container transition-all">
+<span class="font-label-md text-label-md">En Cuisine</span>
+<span class="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-data-mono-num text-body-sm">12</span>
+</button>
+<button class="flex items-center justify-between px-3 py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container transition-all">
+<span class="font-label-md text-label-md">Prêtes</span>
+<span class="px-2 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed-variant font-data-mono-num text-body-sm">4</span>
+</button>
+<button class="flex items-center justify-between px-3 py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container transition-all">
+<span class="font-label-md text-label-md">En Livraison</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-high text-secondary font-data-mono-num text-body-sm">8</span>
+</button>
+<button class="flex items-center justify-between px-3 py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container transition-all">
+<span class="font-label-md text-label-md">Livrées</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container text-on-surface-variant font-data-mono-num text-body-sm">108</span>
+</button>
+<button class="flex items-center justify-between px-3 py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container transition-all">
+<span class="font-label-md text-label-md">Annulées</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container text-error font-data-mono-num text-body-sm">4</span>
+</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-4 gap-space-md">
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex items-center justify-between">
+<div class="space-y-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Chiffre d'Affaires Soir</span>
+<div class="font-headline-md text-headline-md text-on-surface font-bold">4 892 500 <span class="font-label-sm text-label-sm text-secondary">FCFA</span></div>
+<div class="flex items-center gap-1 font-label-sm text-label-sm text-on-tertiary-fixed-variant">
+<span class="material-symbols-outlined text-[1rem]">trending_up</span> +14.2% vs hier
+        </div>
+</div>
+<div class="p-3 rounded-xl bg-surface-container text-secondary">
+<span class="material-symbols-outlined text-[1.75rem]">point_of_sale</span>
+</div>
+</div>
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex items-center justify-between">
+<div class="space-y-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Panier Moyen</span>
+<div class="font-headline-md text-headline-md text-on-surface font-bold">34 450 <span class="font-label-sm text-label-sm text-secondary">FCFA</span></div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">Livraison prestige: 52 000 FCFA</div>
+</div>
+<div class="p-3 rounded-xl bg-surface-container text-secondary">
+<span class="material-symbols-outlined text-[1.75rem]">shopping_bag</span>
+</div>
+</div>
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex items-center justify-between">
+<div class="space-y-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Temps Moyen Cuisine</span>
+<div class="font-headline-md text-headline-md text-on-surface font-bold">18m 42s</div>
+<div class="flex items-center gap-1 font-label-sm text-label-sm text-on-tertiary-fixed-variant">
+<span class="material-symbols-outlined text-[1rem]">timer</span> Pression optimale
+        </div>
+</div>
+<div class="p-3 rounded-xl bg-surface-container text-secondary">
+<span class="material-symbols-outlined text-[1.75rem]">soup_kitchen</span>
+</div>
+</div>
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex items-center justify-between">
+<div class="space-y-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Part Wave / OM</span>
+<div class="font-headline-md text-headline-md text-on-surface font-bold">78.4%</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">Instantané mobile money</div>
+</div>
+<div class="p-3 rounded-xl bg-surface-container text-secondary">
+<span class="material-symbols-outlined text-[1.75rem]">contactless</span>
+</div>
+</div>
+</div>
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm space-y-space-md">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-space-sm">
+<div class="md:col-span-4 relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[1.125rem]">search</span>
+<input class="w-full pl-10 pr-3 py-2.5 rounded-lg bg-surface-container-low text-on-surface font-body-md text-body-md focus:bg-surface-container-lowest shadow-inner transition-colors focus:outline-none" placeholder="Réf #LTC-..., Nom, Téléphone (+225...)" type="text" value="#LTC-2024-892"/>
+</div>
+<div class="md:col-span-3">
+<select class="w-full px-3 py-2.5 rounded-lg bg-surface-container-low text-on-surface font-label-md text-label-md focus:outline-none focus:bg-surface-container-lowest">
+<option>Tous Canaux (Sur Place, Livraison, À Emporter)</option>
+<option selected="">Livraison Résidentielle (Cocody / Plateau)</option>
+<option>Sur Place (Grande Salle &amp; Terrasse)</option>
+<option>Salons Privés &amp; VIP</option>
+<option>Commande WhatsApp Concierge</option>
+</select>
+</div>
+<div class="md:col-span-3">
+<select class="w-full px-3 py-2.5 rounded-lg bg-surface-container-low text-on-surface font-label-md text-label-md focus:outline-none focus:bg-surface-container-lowest">
+<option>Tous Modes (Wave, Orange, Carte, Espèces)</option>
+<option selected="">Wave &amp; Orange Money (Instantané)</option>
+<option>Espèces à la Livraison</option>
+<option>Carte Bancaire Visa / Mastercard</option>
+</select>
+</div>
+<div class="md:col-span-2">
+<select class="w-full px-3 py-2.5 rounded-lg bg-surface-container-low text-on-surface font-label-md text-label-md focus:outline-none focus:bg-surface-container-lowest">
+<option selected="">Ce Soir (18h00 - En cours)</option>
+<option>Midi (11h30 - 15h30)</option>
+<option>Dernières 24 Heures</option>
+</select>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-space-lg items-start">
+<div class="xl:col-span-8 flex flex-col space-y-space-md">
+<div class="rounded-xl bg-surface-container-lowest shadow-sm overflow-hidden">
+<div class="px-space-md py-space-sm bg-surface-container-low flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="font-headline-sm text-headline-sm text-on-surface">Registre Opérationnel des Commandes</span>
+<span class="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-bold">Direct Salle &amp; KDS</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Mise à jour il y a 8s</span>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead>
+<tr class="bg-surface-container text-on-surface-variant font-label-md text-label-md uppercase tracking-wider">
+<th class="py-3 px-4">Réf Commande</th>
+<th class="py-3 px-4">Heure / Délai</th>
+<th class="py-3 px-4">Client &amp; Contact</th>
+<th class="py-3 px-4">Destination</th>
+<th class="py-3 px-4">Plats Sélectionnés</th>
+<th class="py-3 px-4 text-right">Net XOF</th>
+<th class="py-3 px-4">Paiement</th>
+<th class="py-3 px-4">Statut Op.</th>
+<th class="py-3 px-4 text-center">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y-0 text-body-sm font-body-sm">
+<tr class="bg-surface-container-high/40 hover:bg-surface-container-high transition-colors cursor-pointer">
+<td class="py-3.5 px-4 font-data-mono-num text-body-md font-bold text-on-surface">
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+                    #LTC-2024-892
+                  </div>
+</td>
+<td class="py-3.5 px-4">
+<div class="font-data-mono-num font-semibold text-on-surface">19:42</div>
+<div class="text-[0.6875rem] text-error font-medium">Il y a 12 min</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="font-title-md text-body-md font-bold text-on-surface">Koffi Jean-Luc</div>
+<div class="text-[0.6875rem] text-on-surface-variant font-data-mono-num">+225 07 48 29 10</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-1 text-on-surface font-medium">
+<span class="material-symbols-outlined text-[1rem] text-secondary">moped</span>
+                    Livraison
+                  </div>
+<div class="text-[0.6875rem] text-on-surface-variant truncate max-w-[130px]">Cocody Ambassades</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex flex-wrap gap-1 max-w-[210px]">
+<span class="px-2 py-0.5 rounded bg-surface-container font-label-sm text-label-sm text-on-surface">2x Kedjenou Poulet</span>
+<span class="px-2 py-0.5 rounded bg-surface-container font-label-sm text-label-sm text-on-surface">1x Attiéké Capitaine</span>
+</div>
+</td>
+<td class="py-3.5 px-4 text-right font-data-mono-num text-body-md font-bold text-on-surface">
+                  45 500 <span class="text-[0.6875rem] font-normal text-secondary">FCFA</span>
+</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-tertiary-fixed text-on-tertiary-fixed-variant font-label-sm text-label-sm font-bold">
+<span class="w-1.5 h-1.5 rounded-full bg-on-tertiary-fixed-variant"></span>
+                    Wave • Payé
+                  </span>
+</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center px-2 py-1 rounded bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-semibold">
+                    En Préparation
+                  </span>
+<div class="text-[0.6875rem] text-on-surface-variant mt-0.5">Livreur: Moussa K.</div>
+</td>
+<td class="py-3.5 px-4 text-center">
+<div class="flex items-center justify-center gap-1">
+<button class="p-1.5 rounded hover:bg-surface-container text-secondary" title="Détails Rapides">
+<span class="material-symbols-outlined text-[1.125rem]">visibility</span>
+</button>
+<button class="p-1.5 rounded hover:bg-surface-container text-on-surface" title="Imprimer Bon Cuisine">
+<span class="material-symbols-outlined text-[1.125rem]">print</span>
+</button>
+<button class="p-1.5 rounded hover:bg-surface-container text-on-tertiary-fixed-variant" title="WhatsApp Direct">
+<span class="material-symbols-outlined text-[1.125rem]">chat</span>
+</button>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-surface-container transition-colors cursor-pointer">
+<td class="py-3.5 px-4 font-data-mono-num text-body-md font-bold text-on-surface">
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-outline-variant"></span>
+                    #LTC-2024-891
+                  </div>
+</td>
+<td class="py-3.5 px-4">
+<div class="font-data-mono-num font-semibold text-on-surface">19:35</div>
+<div class="text-[0.6875rem] text-on-surface-variant font-medium">Il y a 19 min</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="font-title-md text-body-md font-bold text-on-surface">Awa Traoré</div>
+<div class="text-[0.6875rem] text-on-surface-variant font-data-mono-num">+225 05 88 12 34</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-1 text-on-surface font-medium">
+<span class="material-symbols-outlined text-[1rem] text-secondary">restaurant</span>
+                    Sur Place
+                  </div>
+<div class="text-[0.6875rem] text-on-surface-variant">Table 12 • Terrasse</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex flex-wrap gap-1 max-w-[210px]">
+<span class="px-2 py-0.5 rounded bg-surface-container font-label-sm text-label-sm text-on-surface">1x Filet Mérou Braisé</span>
+<span class="px-2 py-0.5 rounded bg-surface-container font-label-sm text-label-sm text-on-surface">1x Alloco Royal</span>
+<span class="px-2 py-0.5 rounded bg-surface-container font-label-sm text-label-sm text-on-surface">2x Bissap Infusé</span>
+</div>
+</td>
+<td class="py-3.5 px-4 text-right font-data-mono-num text-body-md font-bold text-on-surface">
+                  28 000 <span class="text-[0.6875rem] font-normal text-secondary">FCFA</span>
+</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-bold">
+                    Orange Money • Attente
+                  </span>
+</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center px-2 py-1 rounded bg-tertiary-fixed text-on-tertiary-fixed-variant font-label-sm text-label-sm font-semibold">
+                    Prêt au Passe
+                  </span>
+<div class="text-[0.6875rem] text-on-surface-variant mt-0.5">Serveur: Bamba O.</div>
+</td>
+<td class="py-3.5 px-4 text-center">
+<div class="flex items-center justify-center gap-1">
+<button class="p-1.5 rounded hover:bg-surface-container text-secondary" title="Détails Rapides">
+<span class="material-symbols-outlined text-[1.125rem]">visibility</span>
+</button>
+<button class="p-1.5 rounded hover:bg-surface-container text-on-surface" title="Imprimer Bon Cuisine">
+<span class="material-symbols-outlined text-[1.125rem]">print</span>
+</button>
+<button class="p-1.5 rounded hover:bg-surface-container text-on-tertiary-fixed-variant" title="WhatsApp Direct">
+<span class="material-symbols-outlined text-[1.125rem]">chat</span>
+</button>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-surface-container transition-colors cursor-pointer">
+<td class="py-3.5 px-4 font-data-mono-num text-body-md font-bold text-on-surface">
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+                    #LTC-2024-890
+                  </div>
+</td>
+<td class="py-3.5 px-4">
+<div class="font-data-mono-num font-semibold text-on-surface">19:28</div>
+<div class="text-[0.6875rem] text-on-surface-variant font-medium">Il y a 26 min</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="font-title-md text-body-md font-bold text-on-surface">Dr. Stéphane Yao</div>
+<div class="text-[0.6875rem] text-on-surface-variant font-data-mono-num">+225 01 02 44 90</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-1 text-on-surface font-medium">
+<span class="material-symbols-outlined text-[1rem] text-secondary">stars</span>
+                    Sur Place VIP
+                  </div>
+<div class="text-[0.6875rem] text-secondary font-semibold">Salon Privé Ébène (VIP 2)</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex flex-wrap gap-1 max-w-[210px]">
+<span class="px-2 py-0.5 rounded bg-surface-container font-label-sm text-label-sm text-on-surface">3x Dégustation Ivoirienne</span>
+<span class="px-2 py-0.5 rounded bg-surface-container font-label-sm text-label-sm text-on-surface">1x Ruinart Blanc de Blancs</span>
+</div>
+</td>
+<td class="py-3.5 px-4 text-right font-data-mono-num text-body-md font-bold text-on-surface">
+                  145 000 <span class="text-[0.6875rem] font-normal text-secondary">FCFA</span>
+</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface font-label-sm text-label-sm font-bold">
+                    Carte Bancaire • Payé
+                  </span>
+</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center px-2 py-1 rounded bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-semibold">
+                    Entrées Servies
+                  </span>
+<div class="text-[0.6875rem] text-on-surface-variant mt-0.5">Maître d'hôtel: Franck S.</div>
+</td>
+<td class="py-3.5 px-4 text-center">
+<div class="flex items-center justify-center gap-1">
+<button class="p-1.5 rounded hover:bg-surface-container text-secondary" title="Détails Rapides">
+<span class="material-symbols-outlined text-[1.125rem]">visibility</span>
+</button>
+<button class="p-1.5 rounded hover:bg-surface-container text-on-surface" title="Imprimer Bon Cuisine">
+<span class="material-symbols-outlined text-[1.125rem]">print</span>
+</button>
+<button class="p-1.5 rounded hover:bg-surface-container text-on-tertiary-fixed-variant" title="WhatsApp Direct">
+<span class="material-symbols-outlined text-[1.125rem]">chat</span>
+</button>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-surface-container transition-colors cursor-pointer">
+<td class="py-3.5 px-4 font-data-mono-num text-body-md font-bold text-on-surface">
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-outline-variant"></span>
+                    #LTC-2024-889
+                  </div>
+</td>
+<td class="py-3.5 px-4">
+<div class="font-data-mono-num font-semibold text-on-surface">19:15</div>
+<div class="text-[0.6875rem] text-on-surface-variant font-medium">Il y a 39 min</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="font-title-md text-body-md font-bold text-on-surface">Mme Fatou Cissé</div>
+<div class="text-[0.6875rem] text-on-surface-variant font-data-mono-num">+225 07 19 00 81</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-1 text-on-surface font-medium">
+<span class="material-symbols-outlined text-[1rem] text-secondary">takeout_dining</span>
+                    À Emporter
+                  </div>
+<div class="text-[0.6875rem] text-on-surface-variant">Comptoir Accueil</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex flex-wrap gap-1 max-w-[210px]">
+<span class="px-2 py-0.5 rounded bg-surface-container font-label-sm text-label-sm text-on-surface">2x Garba Gastro Thon Rouge</span>
+<span class="px-2 py-0.5 rounded bg-surface-container font-label-sm text-label-sm text-on-surface">1x Tarte Mangue Flambée</span>
+</div>
+</td>
+<td class="py-3.5 px-4 text-right font-data-mono-num text-body-md font-bold text-on-surface">
+                  36 000 <span class="text-[0.6875rem] font-normal text-secondary">FCFA</span>
+</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-tertiary-fixed text-on-tertiary-fixed-variant font-label-sm text-label-sm font-bold">
+<span class="w-1.5 h-1.5 rounded-full bg-on-tertiary-fixed-variant"></span>
+                    Wave • Payé
+                  </span>
+</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center px-2 py-1 rounded bg-surface-container-high text-on-surface font-label-sm text-label-sm font-semibold">
+                    Emballé • Réception
+                  </span>
+<div class="text-[0.6875rem] text-on-surface-variant mt-0.5">Hôtesse: Mariam D.</div>
+</td>
+<td class="py-3.5 px-4 text-center">
+<div class="flex items-center justify-center gap-1">
+<button class="p-1.5 rounded hover:bg-surface-container text-secondary" title="Détails Rapides">
+<span class="material-symbols-outlined text-[1.125rem]">visibility</span>
+</button>
+<button class="p-1.5 rounded hover:bg-surface-container text-on-surface" title="Imprimer Bon Cuisine">
+<span class="material-symbols-outlined text-[1.125rem]">print</span>
+</button>
+<button class="p-1.5 rounded hover:bg-surface-container text-on-tertiary-fixed-variant" title="WhatsApp Direct">
+<span class="material-symbols-outlined text-[1.125rem]">chat</span>
+</button>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-surface-container transition-colors cursor-pointer">
+<td class="py-3.5 px-4 font-data-mono-num text-body-md font-bold text-on-surface">
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-outline-variant"></span>
+                    #LTC-2024-888
+                  </div>
+</td>
+<td class="py-3.5 px-4">
+<div class="font-data-mono-num font-semibold text-on-surface">19:04</div>
+<div class="text-[0.6875rem] text-on-surface-variant font-medium">Il y a 50 min</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="font-title-md text-body-md font-bold text-on-surface">Aimé N'Guessan</div>
+<div class="text-[0.6875rem] text-on-surface-variant font-data-mono-num">+225 07 55 33 21</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-1 text-on-surface font-medium">
+<span class="material-symbols-outlined text-[1rem] text-secondary">moped</span>
+                    Livraison
+                  </div>
+<div class="text-[0.6875rem] text-on-surface-variant">Plateau Immeuble CCIA</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex flex-wrap gap-1 max-w-[210px]">
+<span class="px-2 py-0.5 rounded bg-surface-container font-label-sm text-label-sm text-on-surface">4x Menu Affaires Express</span>
+</div>
+</td>
+<td class="py-3.5 px-4 text-right font-data-mono-num text-body-md font-bold text-on-surface">
+                  68 000 <span class="text-[0.6875rem] font-normal text-secondary">FCFA</span>
+</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container text-on-surface font-label-sm text-label-sm font-medium">
+                    Espèces • À payer
+                  </span>
+</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center px-2 py-1 rounded bg-surface-container-high text-secondary font-label-sm text-label-sm font-semibold">
+                    En Route Coursier
+                  </span>
+<div class="text-[0.6875rem] text-on-surface-variant mt-0.5">Livreur: Ibrahim T.</div>
+</td>
+<td class="py-3.5 px-4 text-center">
+<div class="flex items-center justify-center gap-1">
+<button class="p-1.5 rounded hover:bg-surface-container text-secondary" title="Détails Rapides">
+<span class="material-symbols-outlined text-[1.125rem]">visibility</span>
+</button>
+<button class="p-1.5 rounded hover:bg-surface-container text-on-surface" title="Imprimer Bon Cuisine">
+<span class="material-symbols-outlined text-[1.125rem]">print</span>
+</button>
+<button class="p-1.5 rounded hover:bg-surface-container text-on-tertiary-fixed-variant" title="WhatsApp Direct">
+<span class="material-symbols-outlined text-[1.125rem]">chat</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-space-md bg-surface-container-low flex flex-col sm:flex-row items-center justify-between gap-space-sm">
+<div class="font-body-sm text-body-sm text-on-surface-variant">
+            Affichage de <span class="font-semibold text-on-surface">5</span> commandes sur un total de <span class="font-semibold text-on-surface">142</span>
+</div>
+<div class="flex items-center gap-1">
+<button class="px-3 py-1.5 rounded bg-surface-container-lowest text-on-surface-variant hover:text-on-surface shadow-sm font-label-md text-label-md">Précédent</button>
+<button class="px-3 py-1.5 rounded bg-primary text-surface-container-lowest shadow-sm font-label-md text-label-md font-bold">1</button>
+<button class="px-3 py-1.5 rounded bg-surface-container-lowest text-on-surface hover:bg-surface-container shadow-sm font-label-md text-label-md">2</button>
+<button class="px-3 py-1.5 rounded bg-surface-container-lowest text-on-surface hover:bg-surface-container shadow-sm font-label-md text-label-md">3</button>
+<button class="px-3 py-1.5 rounded bg-surface-container-lowest text-on-surface-variant hover:text-on-surface shadow-sm font-label-md text-label-md">Suivant</button>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm space-y-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-title-md text-title-md font-bold text-on-surface">Pression Cuisine en Temps Réel</span>
+<span class="font-label-sm text-label-sm uppercase text-secondary font-bold">Postes Chauds</span>
+</div>
+<div class="space-y-space-xs">
+<div>
+<div class="flex justify-between font-label-sm text-label-sm text-on-surface mb-1">
+<span>Four &amp; Braise (Kedjenou / Capitaine)</span>
+<span class="font-data-mono-num font-bold">88% Capacité</span>
+</div>
+<div class="w-full h-2 rounded-full bg-surface-container overflow-hidden">
+<div class="h-full bg-error rounded-full" style="width: 88%;"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between font-label-sm text-label-sm text-on-surface mb-1">
+<span>Passe Dressage &amp; Sauces</span>
+<span class="font-data-mono-num font-bold">62% Capacité</span>
+</div>
+<div class="w-full h-2 rounded-full bg-surface-container overflow-hidden">
+<div class="h-full bg-secondary rounded-full" style="width: 62%;"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between font-label-sm text-label-sm text-on-surface mb-1">
+<span>Bar &amp; Cocktails Signatures</span>
+<span class="font-data-mono-num font-bold">40% Capacité</span>
+</div>
+<div class="w-full h-2 rounded-full bg-surface-container overflow-hidden">
+<div class="h-full bg-on-tertiary-fixed-variant rounded-full" style="width: 40%;"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm space-y-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-title-md text-title-md font-bold text-on-surface">Flotte Coursiers Actifs (Abidjan)</span>
+<span class="font-label-sm text-label-sm text-on-tertiary-fixed-variant font-bold flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-on-tertiary-fixed-variant animate-ping"></span> 4 en Course
+            </span>
+</div>
+<div class="space-y-2">
+<div class="p-2.5 rounded-lg bg-surface-container-low flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[1.25rem] text-secondary">sports_motorsports</span>
+<div>
+<div class="font-label-md text-label-md font-bold text-on-surface">Moussa Konaté (#LIV-03)</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">Assigné à #LTC-2024-892 • En attente de retrait</div>
+</div>
+</div>
+<span class="px-2 py-0.5 rounded bg-surface-container text-on-surface font-label-sm text-label-sm">Au Resto</span>
+</div>
+<div class="p-2.5 rounded-lg bg-surface-container-low flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[1.25rem] text-on-surface-variant">sports_motorsports</span>
+<div>
+<div class="font-label-md text-label-md font-bold text-on-surface">Ibrahim Touré (#LIV-01)</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">Commande #LTC-2024-888 • Boulevard de la République</div>
+</div>
+</div>
+<span class="px-2 py-0.5 rounded bg-secondary-container text-on-secondary-container font-label-sm text-label-sm">ETA 7 min</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="xl:col-span-4 flex flex-col space-y-space-md">
+<div class="rounded-xl bg-surface-container-lowest shadow-md overflow-hidden">
+<div class="p-space-md bg-primary text-surface-container-lowest flex items-center justify-between">
+<div class="space-y-0.5">
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm text-secondary-fixed font-bold">#LTC-2024-892</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-high text-primary font-label-sm text-label-sm font-bold uppercase tracking-wider">Livraison VIP</span>
+</div>
+<div class="font-body-sm text-body-sm text-on-primary-container">Prise en charge directe Conciergerie</div>
+</div>
+<div class="flex items-center gap-1">
+<button class="p-1.5 rounded-lg bg-surface-container-high/20 hover:bg-surface-container-high/30 text-surface-container-lowest">
+<span class="material-symbols-outlined text-[1.125rem]">share</span>
+</button>
+<button class="p-1.5 rounded-lg bg-surface-container-high/20 hover:bg-surface-container-high/30 text-surface-container-lowest">
+<span class="material-symbols-outlined text-[1.125rem]">close</span>
+</button>
+</div>
+</div>
+<div class="p-space-md bg-surface-container-low flex items-center gap-space-md">
+<img class="w-12 h-12 rounded-full object-cover ring-2 ring-secondary" data-alt="Close up photographic portrait of Koffi Jean-Luc, a distinguished West African client wearing contemporary bespoke blazer in warm lighting, editorial luxury portrait" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC0pMJPkES1OmpjVHu0KuEHQ5HxV5vkeOw5Pb7kz8RQyXesuRxumM-Q-pSioj_bdLLecK0Gew308I4stu8Nhf2IWQfz2gg-fvVQlIYVkgsJnk6vEwFyU9A8uuDXIRR5WDzmSlNHo8-9Mnv7clFJAJ_od6JAunciRR0WpL0Zc4hKp62X9OZCe0kmkOqy7HRH_FeY2wvU8EoVoasfO2Skt9oDj9aVuItSU2weXhKPt3M"/>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between">
+<h3 class="font-title-md text-title-md font-bold text-on-surface truncate">Koffi Jean-Luc</h3>
+<span class="px-2 py-0.5 rounded bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm font-bold">Client Platine</span>
+</div>
+<div class="font-data-mono-num text-body-sm text-on-surface-variant">+225 07 48 29 10</div>
+<div class="font-body-sm text-body-sm text-secondary truncate mt-0.5">Cocody Ambassades • Villa 4, Rue des Jardins</div>
+</div>
+</div>
+<div class="p-space-md space-y-space-md">
+<div class="space-y-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Progression du Bon de Commande</span>
+<span class="font-data-mono-num text-label-sm text-label-sm text-secondary font-bold">12 min écoulées</span>
+</div>
+<div class="relative pl-6 space-y-4">
+<div class="absolute left-2.5 top-1 bottom-1 w-0.5 bg-surface-variant"></div>
+<div class="relative flex items-start gap-3">
+<span class="absolute -left-6 top-1 w-3 h-3 rounded-full bg-on-tertiary-fixed-variant ring-4 ring-surface-container-lowest"></span>
+<div>
+<div class="font-label-md text-label-md font-semibold text-on-surface">Commande Enregistrée</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">19:42 via WhatsApp Concierge • Validée par bot</div>
+</div>
+</div>
+<div class="relative flex items-start gap-3">
+<span class="absolute -left-6 top-1 w-3 h-3 rounded-full bg-on-tertiary-fixed-variant ring-4 ring-surface-container-lowest"></span>
+<div>
+<div class="font-label-md text-label-md font-semibold text-on-surface">Paiement Mobile Wave Confirmé</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">19:43 • Transaction #WV-883199-CI (45 500 FCFA)</div>
+</div>
+</div>
+<div class="relative flex items-start gap-3">
+<span class="absolute -left-6 top-1 w-3 h-3 rounded-full bg-secondary ring-4 ring-surface-container-lowest"></span>
+<div>
+<div class="font-label-md text-label-md font-bold text-secondary">Cuisine : En Préparation (Poste Braise)</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">19:46 • Chef de partie: Adama B.</div>
+</div>
+</div>
+<div class="relative flex items-start gap-3 opacity-50">
+<span class="absolute -left-6 top-1 w-3 h-3 rounded-full bg-outline-variant ring-4 ring-surface-container-lowest"></span>
+<div>
+<div class="font-label-md text-label-md font-semibold text-on-surface">Prêt au Passe &amp; Remise Coursier</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">Estimé à 20:00 (Moussa Konaté)</div>
+</div>
+</div>
+</div>
+</div>
+<div class="space-y-space-xs">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Détail des Lignes de Commande</span>
+<div class="space-y-2">
+<div class="p-3 rounded-lg bg-surface-container-low space-y-1">
+<div class="flex items-center justify-between font-title-md text-body-md font-bold text-on-surface">
+<div class="flex items-center gap-2">
+<span class="w-6 h-6 rounded bg-primary text-surface-container-lowest flex items-center justify-center font-data-mono-num text-body-sm font-bold">2</span>
+<span>Kedjenou de Poulet Fermier Braisé</span>
+</div>
+<span class="font-data-mono-num">32 000 <span class="text-[0.6875rem] font-normal text-secondary">FCFA</span></span>
+</div>
+<div class="pl-8 flex flex-wrap gap-1">
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface font-label-sm text-label-sm">Piment modéré</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface font-label-sm text-label-sm">Sauce graine à part</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface font-label-sm text-label-sm">Attiéké fin d'Abidjan</span>
+</div>
+</div>
+<div class="p-3 rounded-lg bg-surface-container-low space-y-1">
+<div class="flex items-center justify-between font-title-md text-body-md font-bold text-on-surface">
+<div class="flex items-center gap-2">
+<span class="w-6 h-6 rounded bg-primary text-surface-container-lowest flex items-center justify-center font-data-mono-num text-body-sm font-bold">1</span>
+<span>Attiéké Capitaine Entier Braisé</span>
+</div>
+<span class="font-data-mono-num">11 000 <span class="text-[0.6875rem] font-normal text-secondary">FCFA</span></span>
+</div>
+<div class="pl-8 flex flex-wrap gap-1">
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface font-label-sm text-label-sm">Oignons rouges caramélisés</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface font-label-sm text-label-sm">Piment vert frais pilé</span>
+</div>
+</div>
+</div>
+</div>
+<div class="p-space-md rounded-lg bg-surface-container space-y-2">
+<div class="flex justify-between font-body-sm text-body-sm text-on-surface-variant">
+<span>Sous-total Culinaire (3 plats)</span>
+<span class="font-data-mono-num font-semibold text-on-surface">43 000 FCFA</span>
+</div>
+<div class="flex justify-between font-body-sm text-body-sm text-on-surface-variant">
+<span class="flex items-center gap-1">
+                Frais d'Acheminement (Zone Cocody)
+                <span class="material-symbols-outlined text-[0.875rem] text-secondary">info</span>
+</span>
+<span class="font-data-mono-num font-semibold text-on-surface">2 500 FCFA</span>
+</div>
+<div class="flex justify-between font-body-sm text-body-sm text-on-surface-variant">
+<span>TVA Restauration &amp; Taxes Locales (Comprises)</span>
+<span class="font-data-mono-num font-semibold text-on-surface">6 940 FCFA</span>
+</div>
+<div class="pt-2 flex justify-between items-baseline font-title-md text-headline-sm font-bold text-on-surface">
+<span>Total Réglé (Wave)</span>
+<span class="text-secondary font-headline-md font-bold">45 500 <span class="text-[0.875rem] font-semibold text-on-surface">FCFA</span></span>
+</div>
+</div>
+<div class="p-3 rounded-lg bg-surface-container-low flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[1.25rem] text-secondary">motorcycle</span>
+<div>
+<div class="font-label-md text-label-md font-semibold text-on-surface">Livreur Assigné : Moussa Konaté</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">Casque #03 • Yamaha Crux • Contact: 07 10 22 99</div>
+</div>
+</div>
+<button class="px-2.5 py-1 rounded bg-surface-container text-on-surface font-label-sm text-label-sm hover:bg-surface-container-high transition-colors">
+              Changer
+            </button>
+</div>
+<div class="space-y-2">
+<button class="w-full py-3 rounded-lg bg-primary text-surface-container-lowest font-label-md text-label-md font-bold uppercase tracking-wider shadow-md hover:bg-primary-container transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[1.25rem] text-secondary">check_circle</span>
+              Valider Prêt &amp; Transmettre au Coursier
+            </button>
+<div class="grid grid-cols-2 gap-2">
+<button class="py-2.5 px-3 rounded-lg bg-surface-container-high text-on-surface font-label-md text-label-md font-semibold hover:bg-surface-variant transition-colors flex items-center justify-center gap-1.5 shadow-sm">
+<span class="material-symbols-outlined text-[1.125rem]">print</span>
+                Ticket Thermique
+              </button>
+<button class="py-2.5 px-3 rounded-lg bg-surface-container-high text-on-tertiary-fixed-variant font-label-md text-label-md font-semibold hover:bg-surface-variant transition-colors flex items-center justify-center gap-1.5 shadow-sm">
+<span class="material-symbols-outlined text-[1.125rem]">sms</span>
+                SMS Suivi Client
+              </button>
+</div>
+</div>
+</div>
+</div>
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm space-y-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-title-md text-title-md font-bold text-on-surface">Instruction Spéciale Client</span>
+<span class="material-symbols-outlined text-[1.125rem] text-secondary">lock</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant italic bg-surface-container-low p-3 rounded-lg">
+          « Prière de sonner à la barrière extérieure de la Villa 4 et de demander le gardien Sékou. Garder les emballages hermétiques bien droits pendant le trajet. »
+        </p>
+</div>
+</div>
+</div>
+</div></main></div></body></html>

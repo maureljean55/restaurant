@@ -23,6 +23,10 @@ beforeEach(async () => {
     create function auth.uid() returns uuid language sql stable as
       $$ select nullif(current_setting('request.jwt.claim.sub', true), '')::uuid $$;
     grant usage on schema auth to anon, authenticated;
+    -- Droits par défaut de Supabase : tout est accordé, les migrations restreignent ensuite
+    grant usage on schema public to anon, authenticated, service_role;
+    alter default privileges in schema public grant all on tables to anon, authenticated, service_role;
+    alter default privileges in schema public grant all on sequences to anon, authenticated, service_role;
   `);
   for (const sql of migrations) await db.exec(sql);
 });
@@ -140,7 +144,6 @@ describe("sécurité", () => {
   it("le public lit la carte mais ni les commandes ni les réservations, et ne peut pas appeler les fonctions", async () => {
     await reserver(2);
     await commander([{ slug: "alloco", qty: 1 }]);
-    await db.exec(`grant usage on schema public to anon; grant select on all tables in schema public to anon;`);
     await db.exec(`set role anon`);
     const plats = await db.query(`select * from public.dishes`);
     expect(plats.rows.length).toBe(10);
@@ -186,8 +189,6 @@ describe("personnel", () => {
     await db.exec(`
       insert into auth.users values ('${ADMIN}'), ('${SERVEUR}'), ('${INCONNU}');
       insert into public.staff (user_id, name, role) values ('${ADMIN}', 'Gérant', 'admin'), ('${SERVEUR}', 'Serveur', 'staff');
-      grant usage on schema public to anon, authenticated;
-      grant select, insert, update, delete on all tables in schema public to anon, authenticated;
     `);
     await reserver(2);
     await commander([{ slug: "alloco", qty: 1 }]);
@@ -229,5 +230,46 @@ describe("personnel", () => {
   it("le personnel voit sa fiche, l'administrateur toute l'équipe", async () => {
     expect((await enTantQue(SERVEUR, `select name from public.staff`)).rows).toEqual([{ name: "Serveur" }]);
     expect((await enTantQue(ADMIN, `select name from public.staff order by name`)).rows).toHaveLength(2);
+  });
+});
+
+describe("administration", () => {
+  const SERVEUR = "00000000-0000-0000-0000-00000000000b";
+  beforeEach(async () => {
+    await db.exec(`insert into auth.users values ('${SERVEUR}'); insert into public.staff (user_id, name) values ('${SERVEUR}', 'Serveur');`);
+  });
+  const enTantQue = async (sql: string) => {
+    await db.exec(`set role authenticated; select set_config('request.jwt.claim.sub', '${SERVEUR}', false);`);
+    try {
+      return await db.query(sql);
+    } finally {
+      await db.exec(`reset role; select set_config('request.jwt.claim.sub', '', false);`);
+    }
+  };
+
+  it("garde l'historique des statuts avec l'auteur du changement", async () => {
+    await commander([{ slug: "alloco", qty: 1 }]);
+    await enTantQue(`update public.orders set status = 'accepted'`);
+    await enTantQue(`update public.orders set status = 'preparing', courier_name = 'Moussa'`);
+    await enTantQue(`update public.orders set courier_name = 'Ibrahim'`); // pas de changement de statut
+    const { rows } = await db.query<{ status: string; changed_by: string | null }>(`select status, changed_by from public.order_status_log order by id`);
+    expect(rows).toEqual([
+      { status: "received", changed_by: null },
+      { status: "accepted", changed_by: SERVEUR },
+      { status: "preparing", changed_by: SERVEUR },
+    ]);
+  });
+
+  it("le personnel ne peut changer que statut, paiement, frais et livreur", async () => {
+    await commander([{ slug: "alloco", qty: 1 }]);
+    await reserver(2);
+    await enTantQue(`update public.orders set payment_status = 'paid', delivery_fee = 1000`);
+    await expect(enTantQue(`update public.orders set subtotal = 1`)).rejects.toThrow(/permission denied/);
+    await expect(enTantQue(`update public.order_items set unit_price = 1`)).rejects.toThrow(/permission denied/);
+    await expect(enTantQue(`update public.reservations set guests = 50`)).rejects.toThrow(/permission denied/);
+    await expect(enTantQue(`delete from public.orders`)).rejects.toThrow(/permission denied/);
+    await enTantQue(`update public.reservations set status = 'confirmed'`);
+    const o = await db.query<{ subtotal: number; payment_status: string }>(`select subtotal, payment_status from public.orders`);
+    expect(o.rows[0]).toEqual({ subtotal: 2500, payment_status: "paid" });
   });
 });

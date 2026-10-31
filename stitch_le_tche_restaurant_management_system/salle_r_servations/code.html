@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+
+<html lang="fr"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Playfair+Display:ital,wght@0,600;0,700;1,600&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "surface": "#fff8ef", "on-tertiary-fixed-variant": "#1b503b", "surface-bright": "#fff8ef", "inverse-on-surface": "#f7f0e5", "tertiary-container": "#002115", "on-tertiary-container": "#5b8e76", "primary-container": "#1c1b1b", "surface-container": "#f4ede2", "surface-container-lowest": "#ffffff", "surface-variant": "#e8e2d7", "error": "#ba1a1a", "outline": "#747878", "tertiary-fixed": "#b8efd3", "on-primary-container": "#858383", "on-background": "#1e1b15", "on-error-container": "#93000a", "primary-fixed-dim": "#c8c6c5", "on-secondary-container": "#785a1b", "on-primary": "#ffffff", "on-primary-fixed-variant": "#474646", "tertiary-fixed-dim": "#9cd2b7", "secondary": "#775a1a", "on-tertiary": "#ffffff", "secondary-container": "#fed489", "on-surface": "#1e1b15", "secondary-fixed": "#ffdea5", "outline-variant": "#c4c7c7", "primary-fixed": "#e5e2e1", "on-surface-variant": "#444748", "surface-container-highest": "#e8e2d7", "on-secondary": "#ffffff", "tertiary": "#000000", "surface-container-low": "#faf3e8", "on-primary-fixed": "#1c1b1b", "on-secondary-fixed": "#271900", "error-container": "#ffdad6", "background": "#fff8ef", "on-tertiary-fixed": "#002115", "inverse-surface": "#333029", "surface-tint": "#5f5e5e", "surface-dim": "#e0d9cf", "on-secondary-fixed-variant": "#5d4202", "inverse-primary": "#c8c6c5", "primary": "#000000", "surface-container-high": "#eee7dd", "on-error": "#ffffff", "secondary-fixed-dim": "#e9c178" }, "borderRadius": { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" }, "spacing": { "margin": "2rem", "gutter": "1.25rem", "space-md": "0.875rem", "space-xl": "2rem", "margin-mobile": "0.875rem", "space-xs": "0.25rem", "space-sm": "0.5rem", "margin-tablet": "1.25rem", "gutter-mobile": "0.75rem", "space-lg": "1.25rem", "gutter-tablet": "1rem" }, "fontFamily": { "label-sm": ["Inter"], "data-mono-num": ["Inter"], "body-sm": ["Inter"], "display-lg-mobile": ["Playfair Display"], "headline-md": ["Playfair Display"], "label-md": ["Inter"], "body-md": ["Inter"], "title-md": ["Inter"], "headline-sm": ["Playfair Display"], "headline-lg": ["Playfair Display"], "display-lg": ["Playfair Display"], "body-lg": ["Inter"], "headline-lg-mobile": ["Playfair Display"] }, "fontSize": { "label-sm": ["0.6875rem", { "lineHeight": "0.875rem", "letterSpacing": "0.08em", "fontWeight": "700" }], "data-mono-num": ["0.875rem", { "lineHeight": "1.25rem", "letterSpacing": "0.01em", "fontWeight": "600" }], "body-sm": ["0.75rem", { "lineHeight": "1.125rem", "fontWeight": "400" }], "display-lg-mobile": ["2.25rem", { "lineHeight": "2.75rem", "letterSpacing": "-0.01em", "fontWeight": "700" }], "headline-md": ["1.375rem", { "lineHeight": "1.875rem", "fontWeight": "600" }], "label-md": ["0.75rem", { "lineHeight": "1rem", "letterSpacing": "0.06em", "fontWeight": "600" }], "body-md": ["0.875rem", { "lineHeight": "1.375rem", "fontWeight": "400" }], "title-md": ["1rem", { "lineHeight": "1.5rem", "letterSpacing": "-0.01em", "fontWeight": "600" }], "headline-sm": ["1.125rem", { "lineHeight": "1.625rem", "fontWeight": "600" }], "headline-lg": ["2rem", { "lineHeight": "2.5rem", "fontWeight": "600" }], "display-lg": ["3rem", { "lineHeight": "3.5rem", "letterSpacing": "-0.02em", "fontWeight": "700" }], "body-lg": ["1rem", { "lineHeight": "1.625rem", "fontWeight": "400" }], "headline-lg-mobile": ["1.5rem", { "lineHeight": "2rem", "fontWeight": "600" }] } } } };</script></head><body class="bg-background font-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-full w-72 bg-[#111111] border-r border-[#C6A15B]/20 z-50 flex flex-col justify-between overflow-y-auto"><div class="flex flex-col"><div class="h-20 px-space-lg flex items-center gap-space-sm border-b border-[#C6A15B]/20 bg-[#0d0d0d]"><img alt="LE-TCHE Restaurant Official Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1XNy2PPSOY7OIASl6HYHet3ZNG_rPmzf_tnExOFgJ9UUecMRVgZIGmLTBaZUKNHkWy38DaTfsEmL0wNuab2szvumrRpxi9ZAv-IsKDKzZlRskUHqENVRRBphj_bCdfdMR9OVcmkIBA_ctt2yxEZI0NbopgSoJwV68LlSaWaJn0WLTFXFHhKz9-FoIdZn1Hf7zYTdN2IpsyRUcjJ-JWfVJ0mRVvTJI32KaGfGU9cl0lq"/><div class="flex flex-col min-w-0"><span class="font-headline-sm text-headline-sm text-[#F5E6CA] tracking-wide truncate">LE-TCHE</span><span class="font-label-sm text-label-sm uppercase tracking-widest text-[#C6A15B]">Haute Gastronomie • Abidjan</span></div></div><div class="px-space-md py-space-sm"><div class="flex items-center justify-between px-space-sm py-space-xs rounded bg-[#1c1b1b] border border-[#C6A15B]/20"><div class="flex items-center gap-space-xs"><span class="w-2 h-2 rounded-full bg-[#1b503b] animate-pulse"></span><span class="font-label-sm text-label-sm uppercase text-[#b8efd3]">Service Midi : Actif</span></div><span class="font-label-sm text-label-sm text-[#C6A15B] font-bold">SALLE &amp; TERRASSE</span></div></div><nav class="flex flex-col px-space-sm space-y-space-xs mt-space-xs" data-active-classes="bg-[#1c1b1b] text-[#F5E6CA] font-semibold border-l-2 border-[#C6A15B]"><div class="px-space-sm pt-space-xs pb-1"><span class="font-label-sm text-label-sm uppercase tracking-wider text-[#858383]">Gouvernance</span></div><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded text-[#c8c6c5] hover:bg-[#1c1b1b] hover:text-[#ffffff] transition-colors" data-path="tableau-de-bord" href="#"><span class="material-symbols-outlined text-[1.125rem] text-[#C6A15B]">dashboard</span><span class="font-body-md text-body-md">Tableau de Bord</span></a><div class="px-space-sm pt-space-sm pb-1"><span class="font-label-sm text-label-sm uppercase tracking-wider text-[#858383]">Opérations de Salle &amp; Cuisine</span></div><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded text-[#c8c6c5] hover:bg-[#1c1b1b] hover:text-[#ffffff] transition-colors" data-path="commandes-et-ventes" href="#"><span class="material-symbols-outlined text-[1.125rem] text-[#C6A15B]">receipt_long</span><span class="font-body-md text-body-md">Commandes &amp; Ventes</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded text-[#c8c6c5] hover:bg-[#1c1b1b] hover:text-[#ffffff] transition-colors" data-path="cuisine-et-kds" href="#"><span class="material-symbols-outlined text-[1.125rem] text-[#C6A15B]">soup_kitchen</span><span class="font-body-md text-body-md">Cuisine &amp; KDS</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded text-[#c8c6c5] hover:bg-[#1c1b1b] hover:text-[#ffffff] transition-colors" data-path="salle-et-reservations" href="#"><span class="material-symbols-outlined text-[1.125rem] text-[#C6A15B]">table_restaurant</span><span class="font-body-md text-body-md">Salle &amp; Réservations</span></a><div class="px-space-sm pt-space-sm pb-1"><span class="font-label-sm text-label-sm uppercase tracking-wider text-[#858383]">Culinaire &amp; Approvisionnement</span></div><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded text-[#c8c6c5] hover:bg-[#1c1b1b] hover:text-[#ffffff] transition-colors" data-path="menu-et-gastronomie" href="#"><span class="material-symbols-outlined text-[1.125rem] text-[#C6A15B]">restaurant_menu</span><span class="font-body-md text-body-md">Menu &amp; Gastronomie</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded text-[#c8c6c5] hover:bg-[#1c1b1b] hover:text-[#ffffff] transition-colors" data-path="stocks-et-ingredients" href="#"><span class="material-symbols-outlined text-[1.125rem] text-[#C6A15B]">inventory_2</span><span class="font-body-md text-body-md">Stocks &amp; Ingrédients</span></a><div class="px-space-sm pt-space-sm pb-1"><span class="font-label-sm text-label-sm uppercase tracking-wider text-[#858383]">Gestion &amp; Administration</span></div><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded text-[#c8c6c5] hover:bg-[#1c1b1b] hover:text-[#ffffff] transition-colors" data-path="clients-et-fidelite" href="#"><span class="material-symbols-outlined text-[1.125rem] text-[#C6A15B]">loyalty</span><span class="font-body-md text-body-md">Clients &amp; Fidélité</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded text-[#c8c6c5] hover:bg-[#1c1b1b] hover:text-[#ffffff] transition-colors" data-path="finances-et-caisse" href="#"><span class="material-symbols-outlined text-[1.125rem] text-[#C6A15B]">payments</span><span class="font-body-md text-body-md">Finances &amp; Caisse</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded text-[#c8c6c5] hover:bg-[#1c1b1b] hover:text-[#ffffff] transition-colors" data-path="personnel-et-equipe" href="#"><span class="material-symbols-outlined text-[1.125rem] text-[#C6A15B]">badge</span><span class="font-body-md text-body-md">Personnel &amp; Équipe</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded text-[#c8c6c5] hover:bg-[#1c1b1b] hover:text-[#ffffff] transition-colors" data-path="configuration-et-parametres" href="#"><span class="material-symbols-outlined text-[1.125rem] text-[#C6A15B]">tune</span><span class="font-body-md text-body-md">Configuration &amp; Paramètres</span></a></nav></div><div class="p-space-md border-t border-[#C6A15B]/20 bg-[#0d0d0d]"><div class="flex items-center justify-between text-[#858383]"><span class="font-label-sm text-label-sm">Plateforme Concierge v3.4</span><span class="font-data-mono-num text-data-mono-num text-[#C6A15B]">Abidjan TZ</span></div></div></aside><div class="pl-72"><header class="fixed top-0 left-72 right-0 h-20 bg-surface/90 backdrop-blur-xl border-b border-surface-variant z-40 flex items-center justify-between px-space-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex items-center gap-space-md flex-1 max-w-xl"><div class="relative w-full"><span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[1.25rem]">search</span><input class="w-full pl-10 pr-4 py-2 bg-surface-container-lowest border border-outline-variant rounded-lg font-body-md text-body-md text-on-surface focus:outline-none focus:border-secondary shadow-sm transition-all" placeholder="Rechercher commande, client VIP, table..." type="text"/></div></div><div class="flex items-center gap-space-md"><div class="hidden lg:flex items-center gap-space-xs px-3 py-1.5 rounded-lg bg-surface-container border border-surface-variant"><span class="font-label-md text-label-md uppercase text-secondary font-bold">Devise</span><span class="font-data-mono-num text-data-mono-num text-on-surface">XOF (FCFA)</span></div><button class="flex items-center gap-space-xs px-4 py-2 bg-primary text-surface rounded-lg border border-[#C6A15B] hover:bg-[#1c1b1b] hover:text-[#ffffff] transition-all shadow-sm"><span class="material-symbols-outlined text-[1.125rem] text-[#fed489]">add_circle</span><span class="font-label-md text-label-md font-semibold tracking-wide">Nouvelle Commande</span></button><div class="relative flex items-center"><button class="p-2 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface transition-colors"><span class="material-symbols-outlined text-[1.25rem]">notifications</span></button><span class="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-error text-[0.625rem] font-bold text-on-error">3</span></div><div class="h-8 w-px bg-surface-variant"></div><div class="flex items-center gap-space-sm pl-space-xs"><img alt="Profile" class="w-8 h-8 rounded-full object-cover ring-1 ring-[#C6A15B]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_pZ6wROvCPHADqWJ4gDYQg9EiMlftDgeo9rw_Y1YKtxN3QswFE8LcbXbyRJIp_z2OQGuOx3hi55v8QfQlNfWkAU3fJQmPgDvIkwf9WL8E8PdhXMkx71wxd1f8wMpGJv15sfdAuJXdHRmFdKvdIZR44ThtdH3muuAvxetJdA8t-tIt_2FC4whTKhSsa0QJDg533VCVEzwKKckl1oby4tQ7FH5yLI45XjBKQF7p7C0"/><div class="hidden sm:flex flex-col text-left"><span class="font-title-md text-body-md font-semibold text-on-surface leading-tight">Directeur Général</span><span class="font-label-sm text-label-sm text-secondary">LE-TCHE Abidjan</span></div></div></div></header><main class="w-full pt-20 px-space-xl pb-space-xl bg-surface min-h-screen"><div class="flex flex-col w-full space-y-space-xl">
+<!-- En-tête de page & Commandes Opérationnelles -->
+<header class="flex flex-col lg:flex-row lg:items-end justify-between gap-space-lg">
+<div class="space-y-space-xs">
+<nav class="flex items-center gap-space-xs text-on-surface-variant font-label-sm text-label-sm uppercase tracking-widest">
+<span>Opérations de Salle</span>
+<span class="material-symbols-outlined text-[0.875rem]">chevron_right</span>
+<span class="text-secondary font-bold">Salle &amp; Réservations</span>
+</nav>
+<h1 class="font-headline-lg text-headline-lg text-primary tracking-tight">Gestion des Réservations &amp; Plan de Salle Interactif</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Supervision des flux de service, allocation protocolaire et suivi des salons exclusifs du restaurant LE-TCHE.</p>
+</div>
+<div class="flex flex-wrap items-center gap-space-sm">
+<!-- Sélecteur de Service -->
+<div class="flex items-center gap-space-sm px-space-md py-space-sm bg-surface-container-lowest rounded-lg shadow-sm">
+<span class="material-symbols-outlined text-secondary text-[1.25rem]">nightlife</span>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm uppercase text-secondary font-bold">Service Soir (19h30 - 23h30)</span>
+<span class="font-data-mono-num text-data-mono-num text-on-surface font-semibold">42 / 120 Couverts Confirmés <span class="text-on-tertiary-fixed-variant bg-tertiary-fixed px-1.5 py-0.5 rounded-full text-[0.625rem] ml-1">85% Prévu</span></span>
+</div>
+</div>
+<!-- Action: Attribution Automatique -->
+<button class="flex items-center gap-space-xs px-4 py-2.5 bg-surface-container hover:bg-surface-container-high text-on-surface rounded-lg font-label-md text-label-md uppercase tracking-wider transition-all shadow-sm">
+<span class="material-symbols-outlined text-[1.125rem] text-secondary">auto_fix_high</span>
+<span>Attribution Auto</span>
+</button>
+<!-- Action: Nouvelle Réservation VIP -->
+<button class="flex items-center gap-space-xs px-4 py-2.5 bg-primary text-on-primary rounded-lg font-label-md text-label-md uppercase tracking-wider hover:bg-primary-container transition-all shadow-md">
+<span class="material-symbols-outlined text-[1.125rem] text-secondary-container">star</span>
+<span>+ Nouvelle Réservation VIP</span>
+</button>
+</div>
+</header>
+<!-- Métriques & KPIs Clés du Service -->
+<section class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-space-md">
+<!-- KPI 1 -->
+<div class="relative overflow-hidden bg-surface-container-lowest p-space-lg rounded-xl shadow-sm space-y-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md uppercase text-on-surface-variant tracking-wider">Réservations Confirmées</span>
+<div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[1.25rem]">event_seat</span>
+</div>
+</div>
+<div class="flex items-baseline gap-space-xs">
+<span class="font-headline-lg text-headline-lg text-primary">18</span>
+<span class="font-title-md text-title-md text-on-surface-variant font-medium">(42 couverts)</span>
+</div>
+<div class="flex items-center gap-space-xs text-on-tertiary-fixed-variant font-body-sm text-body-sm pt-1">
+<span class="material-symbols-outlined text-[0.875rem]">trending_up</span>
+<span>+14% vs. service de jeudi dernier</span>
+</div>
+</div>
+<!-- KPI 2 -->
+<div class="relative overflow-hidden bg-surface-container-lowest p-space-lg rounded-xl shadow-sm space-y-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md uppercase text-on-surface-variant tracking-wider">Salons Privés VIP</span>
+<div class="w-8 h-8 rounded-lg bg-secondary-container/30 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[1.25rem]">meeting_room</span>
+</div>
+</div>
+<div class="flex items-baseline gap-space-xs">
+<span class="font-headline-lg text-headline-lg text-secondary">3 <span class="text-on-surface-variant text-headline-md font-normal">/ 4</span></span>
+<span class="font-label-sm text-label-sm text-error bg-error-container/40 px-2 py-0.5 rounded-full font-bold">1 DISPONIBLE</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Ébène VIP, Baoulé &amp; Terrasse Lagune occupés</p>
+</div>
+<!-- KPI 3 -->
+<div class="relative overflow-hidden bg-surface-container-lowest p-space-lg rounded-xl shadow-sm space-y-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md uppercase text-on-surface-variant tracking-wider">Taux d'Occupation</span>
+<div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[1.25rem]">pie_chart</span>
+</div>
+</div>
+<div class="flex items-baseline gap-space-xs">
+<span class="font-headline-lg text-headline-lg text-primary">88%</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Pic attendu à 20h45</span>
+</div>
+<div class="w-full bg-surface-container h-1.5 rounded-full overflow-hidden mt-2">
+<div class="bg-secondary h-full rounded-full" style="width: 88%"></div>
+</div>
+</div>
+<!-- KPI 4 -->
+<div class="relative overflow-hidden bg-surface-container-lowest p-space-lg rounded-xl shadow-sm space-y-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md uppercase text-on-surface-variant tracking-wider">Acomptes Wave &amp; CB</span>
+<div class="w-8 h-8 rounded-lg bg-tertiary-fixed flex items-center justify-center text-on-tertiary-fixed-variant">
+<span class="material-symbols-outlined text-[1.25rem]">verified_user</span>
+</div>
+</div>
+<div class="flex items-baseline gap-space-xs">
+<span class="font-data-mono-num text-headline-md font-bold text-primary">450 000</span>
+<span class="font-label-md text-label-md text-secondary font-bold">FCFA</span>
+</div>
+<div class="flex items-center gap-space-xs text-on-surface-variant font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-[0.875rem] text-tertiary-fixed-dim">lock</span>
+<span>100% sécurisés &amp; réconciliés</span>
+</div>
+</div>
+</section>
+<!-- Disposition Principale à Deux Colonnes Ergonomiques -->
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-space-xl items-start">
+<!-- Colonne Gauche: Plan de Salle Visuel & Statut Interactif (7 Cols) -->
+<section class="xl:col-span-7 flex flex-col space-y-space-lg">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm pb-space-xs">
+<div>
+<h2 class="font-headline-sm text-headline-sm text-primary">Plan de Salle Visuel &amp; Disposition des Espaces</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Vue d'ensemble tactique de l'ambiance et de la rotation en direct.</p>
+</div>
+<!-- Légende des Pastilles -->
+<div class="flex flex-wrap items-center gap-space-md text-body-sm">
+<div class="flex items-center gap-1.5">
+<span class="w-2.5 h-2.5 rounded-full bg-tertiary-fixed"></span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Libre</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="w-2.5 h-2.5 rounded-full bg-secondary-container"></span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Réservée</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="w-2.5 h-2.5 rounded-full bg-error"></span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Occupée</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="w-2.5 h-2.5 rounded-full bg-surface-dim"></span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Redressage</span>
+</div>
+</div>
+</div>
+<!-- Zone 1: Salons Privés Prestige (Ébène VIP) -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm space-y-space-md relative overflow-hidden">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="w-2.5 h-6 rounded-full bg-secondary"></span>
+<div>
+<h3 class="font-title-md text-title-md text-primary font-bold">Zone 1 : Salons Privés Prestige (Ébène VIP)</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Espaces isolés avec service majordome dédié &amp; cave personnalisée</p>
+</div>
+</div>
+<span class="font-label-sm text-label-sm px-2.5 py-1 bg-surface-container text-secondary rounded-full uppercase font-bold tracking-wider">Accès Réservé</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md pt-space-xs">
+<!-- Table VIP 1 -->
+<div class="bg-primary text-on-primary rounded-xl p-space-md shadow-md flex flex-col justify-between space-y-space-sm relative group cursor-pointer hover:scale-[1.01] transition-transform">
+<div class="flex items-start justify-between">
+<div>
+<div class="flex items-center gap-2">
+<span class="font-title-md text-title-md font-bold text-secondary-container">TABLE VIP 1</span>
+<span class="flex h-2 w-2 rounded-full bg-error animate-ping"></span>
+</div>
+<span class="font-label-sm text-label-sm text-on-primary-container uppercase tracking-wider">Salon Ébène • 8 Couverts</span>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-error/20 text-error-container font-label-sm text-label-sm font-semibold">Occupée</span>
+</div>
+<div class="space-y-1 bg-primary-container p-space-sm rounded-lg text-body-sm">
+<div class="flex items-center justify-between text-surface-variant">
+<span>Protocole Actif :</span>
+<span class="font-semibold text-secondary-fixed">Champagne Ruinart servi</span>
+</div>
+<div class="flex items-center justify-between text-on-primary-container">
+<span>Temps à table :</span>
+<span class="font-data-mono-num text-data-mono-num text-on-primary">1h 15min</span>
+</div>
+<div class="flex items-center justify-between text-on-primary-container">
+<span>Maître d'Hôtel :</span>
+<span class="font-medium text-surface">Kouassi Y.</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-1">
+<span class="font-body-sm text-body-sm text-on-primary-container">Menu Dégustation 7 Plats</span>
+<button class="font-label-sm text-label-sm text-secondary-container hover:underline flex items-center gap-1">Détails <span class="material-symbols-outlined text-[0.875rem]">arrow_forward</span></button>
+</div>
+</div>
+<!-- Table VIP 2 -->
+<div class="bg-surface-container rounded-xl p-space-md shadow-sm flex flex-col justify-between space-y-space-sm cursor-pointer hover:bg-surface-container-high transition-colors">
+<div class="flex items-start justify-between">
+<div>
+<span class="font-title-md text-title-md font-bold text-primary">TABLE VIP 2</span>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Salon Baoulé • 6 Couverts</p>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-semibold">Réservée 20h30</span>
+</div>
+<div class="space-y-1 bg-surface-container-lowest p-space-sm rounded-lg text-body-sm">
+<div class="flex items-center justify-between text-on-surface-variant">
+<span>Titulaire :</span>
+<span class="font-semibold text-primary">M. Stéphane Yao</span>
+</div>
+<div class="flex items-center justify-between text-on-surface-variant">
+<span>Arrivée dans :</span>
+<span class="font-data-mono-num text-data-mono-num text-secondary font-bold">25 minutes</span>
+</div>
+<div class="flex items-center justify-between text-on-surface-variant">
+<span>Affectation Service :</span>
+<span class="font-medium text-primary">Diane K.</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-1">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Dépôt Wave vérifié</span>
+<button class="font-label-sm text-label-sm text-secondary font-bold hover:underline flex items-center gap-1">Préparer Table <span class="material-symbols-outlined text-[0.875rem]">table_bar</span></button>
+</div>
+</div>
+</div>
+</div>
+<!-- Zone 2: Grande Salle Baoulé -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm space-y-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="w-2.5 h-6 rounded-full bg-primary"></span>
+<div>
+<h3 class="font-title-md text-title-md text-primary font-bold">Zone 2 : Grande Salle Baoulé</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Atmosphère feutrée, tables centrales et banquettes acoustiques</p>
+</div>
+</div>
+<span class="font-data-mono-num text-data-mono-num text-on-surface-variant">8 Tables • 26 Couverts</span>
+</div>
+<!-- Grille des tables T01 à T08 -->
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-space-sm">
+<!-- T01 - Libre -->
+<div class="bg-surface-container-low p-space-sm rounded-lg space-y-space-xs hover:bg-surface-container transition-colors">
+<div class="flex items-center justify-between">
+<span class="font-title-md text-body-md font-bold text-primary">T01</span>
+<span class="w-2.5 h-2.5 rounded-full bg-tertiary-fixed"></span>
+</div>
+<div class="text-body-sm text-on-surface-variant">
+<p>2 Couverts</p>
+<p class="font-medium text-on-tertiary-fixed-variant">Prête &amp; Dressée</p>
+</div>
+<div class="pt-1 text-label-sm text-on-surface-variant">Resp: Diane K.</div>
+</div>
+<!-- T02 - Occupée Addition -->
+<div class="bg-surface-container-low p-space-sm rounded-lg space-y-space-xs hover:bg-surface-container transition-colors">
+<div class="flex items-center justify-between">
+<span class="font-title-md text-body-md font-bold text-primary">T02</span>
+<span class="w-2.5 h-2.5 rounded-full bg-error"></span>
+</div>
+<div class="text-body-sm text-on-surface-variant">
+<p>4 Couverts</p>
+<p class="font-semibold text-error">Addition en cours</p>
+</div>
+<div class="pt-1 text-label-sm text-on-surface-variant">Resp: Kouassi Y.</div>
+</div>
+<!-- T03 - Réservée -->
+<div class="bg-surface-container-low p-space-sm rounded-lg space-y-space-xs hover:bg-surface-container transition-colors">
+<div class="flex items-center justify-between">
+<span class="font-title-md text-body-md font-bold text-primary">T03</span>
+<span class="w-2.5 h-2.5 rounded-full bg-secondary-container"></span>
+</div>
+<div class="text-body-sm text-on-surface-variant">
+<p>2 Couverts</p>
+<p class="font-medium text-secondary">Rés. 20h00</p>
+</div>
+<div class="pt-1 text-label-sm text-on-surface-variant">Resp: Diane K.</div>
+</div>
+<!-- T04 - Redressage -->
+<div class="bg-surface-container-low p-space-sm rounded-lg space-y-space-xs hover:bg-surface-container transition-colors">
+<div class="flex items-center justify-between">
+<span class="font-title-md text-body-md font-bold text-primary">T04</span>
+<span class="w-2.5 h-2.5 rounded-full bg-surface-dim"></span>
+</div>
+<div class="text-body-sm text-on-surface-variant">
+<p>4 Couverts</p>
+<p class="italic text-on-surface-variant">En redressage</p>
+</div>
+<div class="pt-1 text-label-sm text-on-surface-variant">Commis: Marc</div>
+</div>
+<!-- T05 - Occupée -->
+<div class="bg-surface-container-low p-space-sm rounded-lg space-y-space-xs hover:bg-surface-container transition-colors">
+<div class="flex items-center justify-between">
+<span class="font-title-md text-body-md font-bold text-primary">T05</span>
+<span class="w-2.5 h-2.5 rounded-full bg-error"></span>
+</div>
+<div class="text-body-sm text-on-surface-variant">
+<p>4 Couverts</p>
+<p class="font-medium text-primary">Entrée en service</p>
+</div>
+<div class="pt-1 text-label-sm text-on-surface-variant">Resp: Diane K.</div>
+</div>
+<!-- T06 - Libre -->
+<div class="bg-surface-container-low p-space-sm rounded-lg space-y-space-xs hover:bg-surface-container transition-colors">
+<div class="flex items-center justify-between">
+<span class="font-title-md text-body-md font-bold text-primary">T06</span>
+<span class="w-2.5 h-2.5 rounded-full bg-tertiary-fixed"></span>
+</div>
+<div class="text-body-sm text-on-surface-variant">
+<p>2 Couverts</p>
+<p class="font-medium text-on-tertiary-fixed-variant">Prête</p>
+</div>
+<div class="pt-1 text-label-sm text-on-surface-variant">Resp: Diane K.</div>
+</div>
+<!-- T07 - Réservée -->
+<div class="bg-surface-container-low p-space-sm rounded-lg space-y-space-xs hover:bg-surface-container transition-colors">
+<div class="flex items-center justify-between">
+<span class="font-title-md text-body-md font-bold text-primary">T07</span>
+<span class="w-2.5 h-2.5 rounded-full bg-secondary-container"></span>
+</div>
+<div class="text-body-sm text-on-surface-variant">
+<p>6 Couverts</p>
+<p class="font-medium text-secondary">Rés. 21h15</p>
+</div>
+<div class="pt-1 text-label-sm text-on-surface-variant">Resp: Kouassi Y.</div>
+</div>
+<!-- T08 - Libre -->
+<div class="bg-surface-container-low p-space-sm rounded-lg space-y-space-xs hover:bg-surface-container transition-colors">
+<div class="flex items-center justify-between">
+<span class="font-title-md text-body-md font-bold text-primary">T08</span>
+<span class="w-2.5 h-2.5 rounded-full bg-tertiary-fixed"></span>
+</div>
+<div class="text-body-sm text-on-surface-variant">
+<p>2 Couverts</p>
+<p class="font-medium text-on-tertiary-fixed-variant">Prête</p>
+</div>
+<div class="pt-1 text-label-sm text-on-surface-variant">Resp: Kouassi Y.</div>
+</div>
+</div>
+</div>
+<!-- Zone 3: Terrasse & Bar Cocktail -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm space-y-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="w-2.5 h-6 rounded-full bg-on-tertiary-container"></span>
+<div>
+<h3 class="font-title-md text-title-md text-primary font-bold">Zone 3 : Terrasse &amp; Bar Cocktail (Vue Lagune Ébrié)</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Tables hautes, lounge panoramique &amp; mixologie premium</p>
+</div>
+</div>
+<span class="font-label-sm text-label-sm px-2.5 py-1 bg-surface-container text-on-surface-variant rounded-full uppercase font-bold">Ambiance Lounge</span>
+</div>
+<div class="grid grid-cols-3 sm:grid-cols-6 gap-space-xs">
+<!-- B01 -->
+<div class="p-space-sm bg-surface-container-low rounded-lg text-center space-y-1">
+<span class="font-title-md text-title-md font-bold text-primary">B01</span>
+<div class="w-2 h-2 mx-auto rounded-full bg-error"></div>
+<span class="font-label-sm text-label-sm block text-on-surface-variant">2p • Occ</span>
+</div>
+<!-- B02 -->
+<div class="p-space-sm bg-surface-container-low rounded-lg text-center space-y-1">
+<span class="font-title-md text-title-md font-bold text-primary">B02</span>
+<div class="w-2 h-2 mx-auto rounded-full bg-error"></div>
+<span class="font-label-sm text-label-sm block text-on-surface-variant">2p • Occ</span>
+</div>
+<!-- B03 -->
+<div class="p-space-sm bg-surface-container-low rounded-lg text-center space-y-1">
+<span class="font-title-md text-title-md font-bold text-primary">B03</span>
+<div class="w-2 h-2 mx-auto rounded-full bg-secondary-container"></div>
+<span class="font-label-sm text-label-sm block text-secondary font-semibold">21h00</span>
+</div>
+<!-- B04 -->
+<div class="p-space-sm bg-surface-container-low rounded-lg text-center space-y-1">
+<span class="font-title-md text-title-md font-bold text-primary">B04</span>
+<div class="w-2 h-2 mx-auto rounded-full bg-tertiary-fixed"></div>
+<span class="font-label-sm text-label-sm block text-on-tertiary-fixed-variant">Libre</span>
+</div>
+<!-- B05 -->
+<div class="p-space-sm bg-surface-container-low rounded-lg text-center space-y-1">
+<span class="font-title-md text-title-md font-bold text-primary">B05</span>
+<div class="w-2 h-2 mx-auto rounded-full bg-tertiary-fixed"></div>
+<span class="font-label-sm text-label-sm block text-on-tertiary-fixed-variant">Libre</span>
+</div>
+<!-- B06 -->
+<div class="p-space-sm bg-surface-container-low rounded-lg text-center space-y-1">
+<span class="font-title-md text-title-md font-bold text-primary">B06</span>
+<div class="w-2 h-2 mx-auto rounded-full bg-secondary-container"></div>
+<span class="font-label-sm text-label-sm block text-secondary font-semibold">21h30</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Colonne Droite: Registre des Réservations & Détails VIP (5 Cols) -->
+<section class="xl:col-span-5 flex flex-col space-y-space-md">
+<!-- Entête & Filtres -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm space-y-space-md">
+<div class="flex items-center justify-between">
+<div>
+<h2 class="font-headline-sm text-headline-sm text-primary">Registre des Réservations</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Détails d'accueil &amp; requêtes spéciales du soir</p>
+</div>
+<span class="font-data-mono-num text-data-mono-num px-2.5 py-1 bg-surface-container rounded-lg font-bold text-primary">18 Actives</span>
+</div>
+<!-- Onglets Filtres -->
+<div class="flex items-center gap-space-xs p-1 bg-surface-container rounded-lg">
+<button class="flex-1 py-1 text-center rounded font-label-md text-label-md uppercase bg-surface-container-lowest text-primary shadow-sm font-semibold">Toutes</button>
+<button class="flex-1 py-1 text-center rounded font-label-md text-label-md uppercase text-on-surface-variant hover:text-on-surface font-semibold">VIP</button>
+<button class="flex-1 py-1 text-center rounded font-label-md text-label-md uppercase text-on-surface-variant hover:text-on-surface font-semibold">Confirmées</button>
+<button class="flex-1 py-1 text-center rounded font-label-md text-label-md uppercase text-on-surface-variant hover:text-on-surface font-semibold">En Attente</button>
+</div>
+</div>
+<!-- Liste des Réservations Remarquables -->
+<div class="space-y-space-md">
+<!-- Fiche VIP #RES-4091 -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm space-y-space-sm hover:shadow-md transition-shadow relative overflow-hidden">
+<div class="flex items-start justify-between">
+<div class="space-y-0.5">
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm text-primary">M. Patrick Achi</span>
+<span class="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-bold">PRESTIGE VIP</span>
+</div>
+<span class="font-data-mono-num text-body-sm text-on-surface-variant">#RES-4091 • 8 personnes</span>
+</div>
+<div class="text-right">
+<span class="font-title-md text-title-md font-bold text-secondary">20h30</span>
+<span class="font-label-sm text-label-sm block text-on-surface-variant uppercase">Salon Ébène VIP</span>
+</div>
+</div>
+<!-- Notes & Consignes Exécutives -->
+<div class="bg-surface-container-low p-space-sm rounded-lg space-y-1 text-body-sm">
+<div class="flex items-center gap-1.5 text-secondary font-semibold">
+<span class="material-symbols-outlined text-[1rem]">shield_person</span>
+<span>Protocole strict &amp; Table d'Honneur</span>
+</div>
+<p class="text-on-surface-variant text-body-sm">Menu Dégustation 7 plats pré-commandé. Acompte de <strong class="text-primary font-semibold">150 000 FCFA</strong> reçu via Wave Business.</p>
+</div>
+<!-- Actions Rapides -->
+<div class="flex items-center justify-between pt-space-xs">
+<div class="flex items-center gap-space-xs">
+<button class="p-2 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface transition-colors" title="Modifier">
+<span class="material-symbols-outlined text-[1.125rem]">edit</span>
+</button>
+<button class="p-2 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface transition-colors" title="Imprimer fiche de table">
+<span class="material-symbols-outlined text-[1.125rem]">print</span>
+</button>
+<button class="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm font-semibold transition-colors">
+<span class="material-symbols-outlined text-[1rem] text-secondary">chat</span>
+<span>WhatsApp</span>
+</button>
+</div>
+<span class="font-label-sm text-label-sm text-on-tertiary-fixed-variant bg-tertiary-fixed px-2 py-1 rounded-full font-bold">Table Assignée (VIP 1)</span>
+</div>
+</div>
+<!-- Fiche Réservation #RES-4092 -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm space-y-space-sm hover:shadow-md transition-shadow">
+<div class="flex items-start justify-between">
+<div class="space-y-0.5">
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm text-primary">Mme Sery Dorcas</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container text-secondary font-label-sm text-label-sm font-bold">CÉLÉBRATION</span>
+</div>
+<span class="font-data-mono-num text-body-sm text-on-surface-variant">#RES-4092 • 2 personnes</span>
+</div>
+<div class="text-right">
+<span class="font-title-md text-title-md font-bold text-primary">21h00</span>
+<span class="font-label-sm text-label-sm block text-on-surface-variant uppercase">Terrasse Lagune (B03)</span>
+</div>
+</div>
+<div class="bg-surface-container-low p-space-sm rounded-lg space-y-1 text-body-sm">
+<div class="flex items-center gap-1.5 text-primary font-medium">
+<span class="material-symbols-outlined text-[1rem] text-secondary">cake</span>
+<span>Anniversaire &amp; Accord mets &amp; vins Prestige</span>
+</div>
+<p class="text-on-surface-variant text-body-sm">Demande bougie discrète au dessert Attiéké &amp; Langouste pochée. Acompte vérifié.</p>
+</div>
+<div class="flex items-center justify-between pt-space-xs">
+<div class="flex items-center gap-space-xs">
+<button class="p-2 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface transition-colors" title="Modifier">
+<span class="material-symbols-outlined text-[1.125rem]">edit</span>
+</button>
+<button class="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm font-semibold transition-colors">
+<span class="material-symbols-outlined text-[1rem] text-secondary">chat</span>
+<span>Conciergerie</span>
+</button>
+</div>
+<span class="font-label-sm text-label-sm text-on-tertiary-fixed-variant bg-tertiary-fixed px-2 py-1 rounded-full font-bold">Confirmée</span>
+</div>
+</div>
+<!-- Fiche Réservation #RES-4093 -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm space-y-space-sm hover:shadow-md transition-shadow">
+<div class="flex items-start justify-between">
+<div class="space-y-0.5">
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm text-primary truncate max-w-[220px]">Délégation Ambassade</span>
+<span class="px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm font-bold">INSTITUTIONNEL</span>
+</div>
+<span class="font-data-mono-num text-body-sm text-on-surface-variant">#RES-4093 • 12 personnes</span>
+</div>
+<div class="text-right">
+<span class="font-title-md text-title-md font-bold text-primary">19h45</span>
+<span class="font-label-sm text-label-sm block text-error uppercase font-bold">En cours</span>
+</div>
+</div>
+<div class="bg-surface-container-low p-space-sm rounded-lg space-y-1 text-body-sm">
+<div class="flex items-center gap-1.5 text-primary font-medium">
+<span class="material-symbols-outlined text-[1rem] text-secondary">groups</span>
+<span>Grande Salle (Jonction T05 + T07)</span>
+</div>
+<p class="text-on-surface-variant text-body-sm">Facturation société sur compte diplomatique. Service coordonné par Kouassi Y.</p>
+</div>
+<div class="flex items-center justify-between pt-space-xs">
+<div class="flex items-center gap-space-xs">
+<button class="p-2 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface transition-colors" title="Modifier">
+<span class="material-symbols-outlined text-[1.125rem]">edit</span>
+</button>
+<button class="p-2 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface transition-colors" title="Imprimer">
+<span class="material-symbols-outlined text-[1.125rem]">receipt</span>
+</button>
+</div>
+<span class="font-label-sm text-label-sm text-primary bg-surface-container-high px-2 py-1 rounded-full font-bold">Service Actif</span>
+</div>
+</div>
+</div>
+<!-- Encadré Conciergerie & Support Rapide -->
+<div class="p-space-md rounded-xl bg-surface-container-low flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-secondary text-[1.5rem]">support_agent</span>
+<div>
+<p class="font-title-md text-body-md font-bold text-primary">Conciergerie &amp; Protocole LE-TCHE</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Liaison directe chauffeurs VIP &amp; demandes hors-carte</p>
+</div>
+</div>
+<button class="px-3 py-1.5 bg-primary text-on-primary rounded-lg font-label-md text-label-md font-semibold hover:bg-primary-container transition-all">Contacter</button>
+</div>
+</section>
+</div>
+</div></main></div></body></html>

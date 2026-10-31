@@ -186,3 +186,63 @@ export const IconSnow = (p: P) => (
     <path d="M12 3v18M4.2 7.5l15.6 9M4.2 16.5l15.6-9" />
   </Icon>
 );
+
+/* ─── Administration ─── */
+export const IconGrid = (p: P) => (
+  <Icon {...p}>
+    <rect x="3.5" y="3.5" width="7" height="7" rx="1.5" />
+    <rect x="13.5" y="3.5" width="7" height="7" rx="1.5" />
+    <rect x="3.5" y="13.5" width="7" height="7" rx="1.5" />
+    <rect x="13.5" y="13.5" width="7" height="7" rx="1.5" />
+  </Icon>
+);
+export const IconReceipt = (p: P) => (
+  <Icon {...p}>
+    <path d="M6 3h12v18l-3-2-3 2-3-2-3 2z" />
+    <path d="M9 8h6M9 12h6M9 16h3" />
+  </Icon>
+);
+export const IconChef = (p: P) => (
+  <Icon {...p}>
+    <path d="M7 14.5V20h10v-5.5" />
+    <path d="M7 14.5a4 4 0 0 1-.6-7.9A5 5 0 0 1 12 3a5 5 0 0 1 5.6 3.6 4 4 0 0 1-.6 7.9z" />
+    <path d="M7 17h10" />
+  </Icon>
+);
+export const IconBike = (p: P) => (
+  <Icon {...p}>
+    <circle cx="6" cy="17" r="3" />
+    <circle cx="18" cy="17" r="3" />
+    <path d="M6 17h4l3-6h4l1 6" />
+    <path d="M13 11l-2-4H8M15 7h3" />
+  </Icon>
+);
+export const IconTable = (p: P) => (
+  <Icon {...p}>
+    <path d="M3 9h18M5 9v11M19 9v11M8 9V5h8v4" />
+  </Icon>
+);
+export const IconLogout = (p: P) => (
+  <Icon {...p}>
+    <path d="M15 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3" />
+    <path d="M10 16l-4-4 4-4M6 12h10" />
+  </Icon>
+);
+export const IconEdit = (p: P) => (
+  <Icon {...p}>
+    <path d="M4 20h4L19 9l-4-4L4 16z" />
+    <path d="M13.5 6.5l4 4" />
+  </Icon>
+);
+export const IconAlert = (p: P) => (
+  <Icon {...p}>
+    <path d="M12 3l9.5 17h-19z" />
+    <path d="M12 10v4M12 17.5v.01" />
+  </Icon>
+);
+export const IconTrend = (p: P) => (
+  <Icon {...p}>
+    <path d="M3 17l6-6 4 4 8-8" />
+    <path d="M15 7h6v6" />
+  </Icon>
+);

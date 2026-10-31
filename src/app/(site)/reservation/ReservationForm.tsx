@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import type { z } from "zod";
 import { useEffect, useMemo, useRef, useState, useTransition, type ReactNode } from "react";
 import { createReservation, getAvailability, type ServiceAvailability } from "@/lib/actions/reservation";
 import { reservation, site } from "@/config/site";
@@ -61,6 +62,8 @@ export function ReservationForm() {
   const [comment, setComment] = useState("");
   const [erreurs, setErreurs] = useState<Erreurs>({});
   const [envoye, setEnvoye] = useState<string | null>(null);
+  // Demande validée, affichée dans le récapitulatif avant l'envoi
+  const [recap, setRecap] = useState<z.output<typeof reservationSchema> | null>(null);
   const [erreurEnvoi, setErreurEnvoi] = useState<string | null>(null);
   const [enCours, demarrer] = useTransition();
   const dialogue = useRef<HTMLDialogElement>(null);
@@ -124,24 +127,35 @@ export function ReservationForm() {
     ? `${personnes} · ${new Date(`${date}T12:00`).toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "long" })}${time ? ` à ${heure(time)}` : ""}`
     : personnes;
 
-  function envoyer(e: React.FormEvent) {
+  /** 1. Vérifie tout, puis ouvre le récapitulatif (rien n'est encore envoyé). */
+  function voirRecapitulatif(e: React.FormEvent) {
     e.preventDefault();
+    setErreurEnvoi(null);
     const res = reservationSchema.safeParse({ guests, date, time, zone, name, phone, email, comment });
+    const errs: Erreurs = {};
     if (!res.success) {
-      const errs: Erreurs = {};
-      for (const issue of res.error.issues) {
-        const k = issue.path[0] as keyof ReservationInput;
-        errs[k] ??= issue.message;
-      }
+      for (const issue of res.error.issues) errs[issue.path[0] as keyof ReservationInput] ??= issue.message;
+    }
+    if (!errs.time && avertissementHeure) errs.time = avertissementHeure;
+    if (!res.success || Object.keys(errs).length) {
       setErreurs(errs);
-      document.getElementById(`etape-${Object.keys(errs)[0]}`)?.scrollIntoView({ behavior: "smooth", block: "center" });
+      const ordre: (keyof ReservationInput)[] = ["guests", "date", "time", "name", "phone", "email", "comment"];
+      const premier = ordre.find((k) => errs[k]);
+      document.getElementById(`etape-${premier}`)?.scrollIntoView({ behavior: "smooth", block: "center" });
       return;
     }
     setErreurs({});
-    setErreurEnvoi(null);
+    setRecap(res.data);
+    dialogue.current?.showModal();
+  }
+
+  /** 2. Envoi après relecture du récapitulatif. */
+  function confirmer() {
+    if (!recap) return;
     demarrer(async () => {
       const r = await createReservation({ guests, date, time, zone, name, phone, email, comment });
       if (!r.ok) {
+        dialogue.current?.close();
         const champs = r.fields ?? {};
         setErreurs(champs);
         const premier = Object.keys(champs)[0];
@@ -151,7 +165,6 @@ export function ReservationForm() {
         return;
       }
       setEnvoye(r.reference);
-      dialogue.current?.showModal();
     });
   }
 
@@ -184,7 +197,7 @@ export function ReservationForm() {
         Le restaurant confirme chaque demande selon les places disponibles.
       </p>
 
-      <form onSubmit={envoyer} noValidate className="mt-5 grid gap-5 lg:grid-cols-12 lg:items-start lg:gap-10">
+      <form onSubmit={voirRecapitulatif} noValidate className="mt-5 grid gap-5 lg:grid-cols-12 lg:items-start lg:gap-10">
         <div className="lg:hidden">{photo}</div>
 
         <div className="flex flex-col gap-5 lg:col-span-7">
@@ -435,31 +448,38 @@ export function ReservationForm() {
               </p>
             </div>
             {erreurEnvoi && (
-              <p role="alert" className="mt-4 rounded-lg border border-erreur/40 bg-erreur/10 p-3 text-body-sm text-champagne">
+              <p role="alert" className="mt-4 rounded-lg border border-erreur/40 bg-erreur/10 p-3 text-body-sm text-erreur">
                 {erreurEnvoi}
               </p>
             )}
-            <button type="submit" disabled={enCours} aria-busy={enCours} className={`${btn.primary} ${btn.md} mt-4 w-full`}>
-              <IconCalendar width={18} height={18} />
-              {enCours ? "Envoi en cours…" : "Envoyer ma demande"}
+            <button type="submit" className={`${btn.primary} ${btn.md} mt-4 w-full`}>
+              Voir le récapitulatif
+              <IconChevron width={16} height={16} />
             </button>
-            <p className="mt-2 text-center text-[12px] text-texte/60">Gratuit · Le restaurant vous recontacte pour confirmer.</p>
+            <p className="mt-2 text-center text-[12px] text-texte/60">Rien n&apos;est envoyé avant votre confirmation.</p>
           </div>
         </aside>
       </form>
 
       <dialog
         ref={dialogue}
-        onClose={() => setEnvoye(null)}
-        className="m-auto w-[calc(100%-2rem)] max-w-sm rounded-xl bg-surface p-6 text-center shadow-flottant backdrop:bg-noir/50 backdrop:backdrop-blur-sm"
+        onClose={() => {
+          setRecap(null);
+          setEnvoye(null);
+        }}
+        onCancel={(e) => enCours && e.preventDefault()}
+        aria-labelledby="titre-dialogue"
+        className="m-auto max-h-[calc(100dvh-2rem)] w-[calc(100%-2rem)] max-w-md overflow-y-auto rounded-2xl border border-ligne bg-surface p-0 text-texte shadow-flottant backdrop:bg-noir/60 backdrop:backdrop-blur-sm"
       >
-        {envoye && (
-          <div className="flex flex-col items-center">
+        {envoye ? (
+          <div className="flex flex-col items-center p-6 text-center">
             <span className="grid size-14 place-items-center rounded-full bg-or-sombre text-or">
               <IconCheck width={30} height={30} />
             </span>
             <p className="surtitre mt-3 text-champagne">Akwaba</p>
-            <h2 className="mt-1 text-headline-sm text-or">Demande envoyée</h2>
+            <h2 id="titre-dialogue" className="mt-1 text-headline-sm text-or">
+              Demande envoyée
+            </h2>
             <p className="mt-1 text-label-md text-texte/60">
               Référence <span className="prix font-semibold text-texte">{envoye}</span>
             </p>
@@ -467,12 +487,57 @@ export function ReservationForm() {
               <strong className="text-texte first-letter:uppercase">{resume}</strong>
               <br />
               Votre demande est <strong className="text-texte">en attente</strong> : le restaurant vous recontacte au
-              numéro indiqué pour la confirmer.
+              numéro indiqué pour valider votre table.
             </p>
-            <form method="dialog" className="mt-4 w-full">
+            <form method="dialog" className="mt-5 w-full">
               <button className={`${btn.secondary} ${btn.md} w-full`}>Parfait, merci</button>
             </form>
           </div>
+        ) : (
+          recap && (
+            <div className="flex flex-col">
+              <div className="border-b border-ligne px-5 pt-5 pb-4">
+                <p className="surtitre text-champagne">Dernière étape</p>
+                <h2 id="titre-dialogue" className="mt-1 text-headline-sm text-or">
+                  Récapitulatif de votre réservation
+                </h2>
+                <p className="mt-1 text-body-sm text-texte/65">Vérifiez les informations avant de confirmer.</p>
+              </div>
+              <dl className="divide-y divide-ligne/70 px-5">
+                {[
+                  ["Convives", `${recap.guests} personne${recap.guests > 1 ? "s" : ""}`],
+                  ["Date", new Date(`${recap.date}T12:00`).toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "long", year: "numeric" })],
+                  ["Heure d'arrivée", `${heure(recap.time)}${serviceChoisi ? ` · ${serviceChoisi.label.toLowerCase()}` : ""}`],
+                  ...(reservation.zones.length > 1 ? [["Zone", reservation.zones.find((z) => z.id === recap.zone)?.label ?? "Sans préférence"]] : []),
+                  ["Nom", recap.name],
+                  ["Téléphone", `+225 ${recap.phone.replace(/(\d{2})(?=\d)/g, "$1 ")}`],
+                  ...(recap.email ? [["E-mail", recap.email]] : []),
+                  ...(recap.comment ? [["Demandes", recap.comment]] : []),
+                ].map(([libelle, valeur]) => (
+                  <div key={libelle} className="flex gap-4 py-3">
+                    <dt className="w-32 shrink-0 text-label-md text-texte/55">{libelle}</dt>
+                    <dd className="min-w-0 flex-1 text-body-md break-words text-texte first-letter:uppercase">{valeur}</dd>
+                  </div>
+                ))}
+              </dl>
+              <div className="mx-5 mt-1 flex items-start gap-2.5 rounded-lg bg-surface-haute/70 p-3">
+                <IconShield width={18} height={18} className="mt-0.5 shrink-0 text-champagne" />
+                <p className="text-[12px] text-texte/70">
+                  {reservation.policy} En confirmant, votre demande est transmise au restaurant, qui vous rappelle pour
+                  valider la table.
+                </p>
+              </div>
+              <div className="sticky bottom-0 mt-4 flex flex-col gap-2 border-t border-ligne bg-surface/95 p-4 backdrop-blur-md sm:flex-row-reverse">
+                <button type="button" onClick={confirmer} disabled={enCours} aria-busy={enCours} className={`${btn.primary} ${btn.md} sm:flex-1`}>
+                  <IconCheck width={18} height={18} />
+                  {enCours ? "Envoi en cours…" : "Confirmer la réservation"}
+                </button>
+                <button type="button" onClick={() => dialogue.current?.close()} disabled={enCours} className={`${btn.secondary} ${btn.md} sm:flex-1`}>
+                  Modifier
+                </button>
+              </div>
+            </div>
+          )
         )}
       </dialog>
     </div>

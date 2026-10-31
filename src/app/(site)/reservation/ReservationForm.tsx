@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import { useEffect, useMemo, useRef, useState, useTransition, type ReactNode } from "react";
+import { createReservation } from "@/lib/actions/reservation";
 import { reservation, site } from "@/config/site";
 import { demoAmbiance } from "@/data/demo-dishes";
 import { buildCalendar, reservationSchema, slotIsPast, type ReservationInput } from "@/lib/domain/reservation";
@@ -53,7 +54,9 @@ export function ReservationForm() {
   const [email, setEmail] = useState("");
   const [comment, setComment] = useState("");
   const [erreurs, setErreurs] = useState<Erreurs>({});
-  const [envoye, setEnvoye] = useState(false);
+  const [envoye, setEnvoye] = useState<string | null>(null);
+  const [erreurEnvoi, setErreurEnvoi] = useState<string | null>(null);
+  const [enCours, demarrer] = useTransition();
   const dialogue = useRef<HTMLDialogElement>(null);
 
   // La date du jour n'est connue que dans le navigateur (évite tout décalage avec le rendu serveur).
@@ -87,8 +90,17 @@ export function ReservationForm() {
       return;
     }
     setErreurs({});
-    setEnvoye(true);
-    dialogue.current?.showModal();
+    setErreurEnvoi(null);
+    demarrer(async () => {
+      const r = await createReservation({ guests, date, time, zone, name, phone, email, comment });
+      if (!r.ok) {
+        setErreurs(r.fields ?? {});
+        setErreurEnvoi(r.error);
+        return;
+      }
+      setEnvoye(r.reference);
+      dialogue.current?.showModal();
+    });
   }
 
   const champ =
@@ -311,9 +323,14 @@ export function ReservationForm() {
                 {reservation.policy}
               </p>
             </div>
-            <button type="submit" className={`${btn.primary} ${btn.md} mt-4 w-full`}>
+            {erreurEnvoi && (
+              <p role="alert" className="mt-4 rounded-lg border border-terracotta/40 bg-terracotta/10 p-3 text-body-sm text-terracotta">
+                {erreurEnvoi}
+              </p>
+            )}
+            <button type="submit" disabled={enCours} aria-busy={enCours} className={`${btn.primary} ${btn.md} mt-4 w-full`}>
               <IconCalendar width={18} height={18} />
-              Envoyer ma demande
+              {enCours ? "Envoi en cours…" : "Envoyer ma demande"}
             </button>
             <p className="mt-2 text-center text-[12px] text-cacao/60">Gratuit · Le restaurant vous recontacte pour confirmer.</p>
           </div>
@@ -322,7 +339,7 @@ export function ReservationForm() {
 
       <dialog
         ref={dialogue}
-        onClose={() => setEnvoye(false)}
+        onClose={() => setEnvoye(null)}
         className="m-auto w-[calc(100%-2rem)] max-w-sm rounded-xl bg-blanc p-6 text-center shadow-flottant backdrop:bg-cacao/50 backdrop:backdrop-blur-sm"
       >
         {envoye && (
@@ -331,15 +348,15 @@ export function ReservationForm() {
               <IconCheck width={30} height={30} />
             </span>
             <p className="surtitre mt-3 text-terracotta">Akwaba</p>
-            <h2 className="mt-1 text-headline-sm text-vert">Demande prête</h2>
+            <h2 className="mt-1 text-headline-sm text-vert">Demande envoyée</h2>
+            <p className="mt-1 text-label-md text-cacao/60">
+              Référence <span className="prix font-semibold text-cacao">{envoye}</span>
+            </p>
             <p className="mt-2 text-body-sm text-cacao/75">
               <strong className="text-cacao first-letter:uppercase">{resume}</strong>
               <br />
-              Le restaurant confirmera selon les places disponibles.
-            </p>
-            <p className="mt-3 rounded-lg bg-orange-pale/60 p-2 text-[12px] text-cacao/80">
-              Démonstration : l&apos;envoi au restaurant sera activé avec la base de données. Aucune réservation n&apos;est
-              encore enregistrée.
+              Votre demande est <strong className="text-cacao">en attente</strong> : le restaurant vous recontacte au
+              numéro indiqué pour la confirmer.
             </p>
             <form method="dialog" className="mt-4 w-full">
               <button className={`${btn.secondary} ${btn.md} w-full`}>Parfait, merci</button>

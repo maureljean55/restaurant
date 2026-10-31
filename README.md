@@ -1,36 +1,40 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Site du restaurant (provisoire : « Nom du restaurant »)
 
-## Getting Started
+Site d'un restaurant ivoirien à Abidjan : carte, aperçus 3D / réalité augmentée, panier et commande
+(retrait ou livraison, paiement sur place), demandes de réservation.
 
-First, run the development server:
+Next.js 16 · React 19 · Tailwind CSS 4 · Supabase · model-viewer · Vercel.
+
+## Démarrer
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+cp .env.example .env.local   # puis remplir SUPABASE_URL et SUPABASE_SECRET_KEY
+npm run dev                  # http://localhost:3000
+npm test                     # tests unitaires + tests de la base (Postgres embarqué)
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Sans les variables Supabase, le site fonctionne en vitrine : commandes et réservations
+affichent « pas encore ouvertes ».
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Base de données (Supabase)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Le schéma est dans `supabase/migrations/`. Pour l'appliquer au projet Supabase :
 
-## Learn More
+```bash
+supabase login
+supabase link --project-ref <identifiant-du-projet>
+supabase db push
+```
 
-To learn more about Next.js, take a look at the following resources:
+Règles appliquées par la base (testées dans `tests/db/`) :
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- le public ne peut que **lire la carte** ; réservations et commandes sont inaccessibles sans la clé secrète ;
+- les **prix et totaux sont recalculés** à partir de la table `dishes` (le prix envoyé par le navigateur est ignoré) ;
+- une réservation est toujours **« en attente »** et refusée si le service est complet (capacité provisoire : 30 couverts) ;
+- aucune donnée bancaire n'est stockée.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Valeurs provisoires
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Nom, adresse, téléphone, horaires : `src/config/site.ts`. Photos et modèles 3D : `docs/visuels-provisoires.md`.
+Carte et prix d'exemple : `src/data/demo-dishes.ts` et la migration (mêmes valeurs).

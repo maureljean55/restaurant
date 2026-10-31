@@ -3,14 +3,15 @@
 import Image from "next/image";
 import Link from "next/link";
 import { findDemoDish } from "@/data/demo-dishes";
+import { Commande } from "./Commande";
 import { useCart } from "@/lib/cart";
 import { MAX_QTY_PER_LINE } from "@/lib/domain/pricing";
 import { formatFCFA } from "@/lib/format";
 import { btn } from "@/components/ui/styles";
-import { IconBag, IconInfo, IconMinus, IconPlus, IconTrash } from "@/components/ui/icons";
+import { IconBag, IconMinus, IconPlus, IconTrash } from "@/components/ui/icons";
 
 export function CartView() {
-  const { lines, total, count, setQty, remove } = useCart();
+  const { lines, setQty, remove } = useCart();
 
   return (
     <div className="mx-auto w-full max-w-5xl px-4 pt-4 pb-16 md:px-8 md:pt-8 lg:pb-24">
@@ -64,28 +65,7 @@ export function CartView() {
             })}
           </ul>
 
-          <aside className="rounded-xl border border-sable/70 bg-blanc p-5 shadow-carte lg:sticky lg:top-24 lg:col-span-4">
-            <div className="flex justify-between text-body-md text-cacao/75">
-              <span>Sous-total ({count} article{count > 1 ? "s" : ""})</span>
-              <span className="prix">{formatFCFA(total)}</span>
-            </div>
-            <div className="mt-2 flex justify-between text-body-sm text-cacao/60">
-              <span>Livraison</span>
-              <span>Calculée à l&apos;étape suivante</span>
-            </div>
-            <div className="mt-4 flex justify-between border-t border-sable pt-4 font-display text-title text-vert">
-              <span>Total estimé</span>
-              <span className="prix">{formatFCFA(total)}</span>
-            </div>
-            <button type="button" disabled className={`${btn.primary} ${btn.md} mt-5 w-full`}>
-              Valider la commande
-            </button>
-            <p className="mt-3 flex gap-2 text-[12px] text-cacao/65">
-              <IconInfo width={14} height={14} className="mt-0.5 shrink-0 text-terracotta" />
-              Bientôt disponible : choix retrait ou livraison et paiement. Prix d&apos;exemple ; le montant final sera
-              recalculé par le restaurant.
-            </p>
-          </aside>
+          <Commande />
         </div>
       )}
     </div>

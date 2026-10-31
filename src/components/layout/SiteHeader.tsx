@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { nav, site } from "@/config/site";
 import { useCart } from "@/lib/cart";
 import { IconBag, IconCalendar, IconCarte, IconClose, IconCube, IconHome, IconMenu, IconPin } from "@/components/ui/icons";
@@ -20,7 +20,7 @@ export function CartButton() {
     <Link
       href="/panier"
       aria-label={count ? `Panier, ${count} article${count > 1 ? "s" : ""}` : "Panier (vide)"}
-      className="relative grid size-11 place-items-center rounded-full text-or transition-colors hover:bg-surface-haute"
+      className="verre-survol relative grid size-11 place-items-center rounded-full text-or"
     >
       <IconBag />
       {count > 0 && (
@@ -32,10 +32,26 @@ export function CartButton() {
   );
 }
 
-/** En-tête fixe translucide (maquette Stitch) + tiroir de navigation sur téléphone/tablette. */
+type Lentille = { x: number; w: number; visible: boolean };
+
+/** En-tête flottant en « liquid glass » + tiroir de navigation sur téléphone/tablette. */
 export function SiteHeader() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+
+  // Lentille de verre qui glisse sous le lien survolé, puis revient sur la page active
+  const liste = useRef<HTMLUListElement>(null);
+  const [lentille, setLentille] = useState<Lentille>({ x: 0, w: 0, visible: false });
+  const placer = useCallback((el: HTMLElement | null | undefined) => {
+    setLentille((l) => (el ? { x: el.offsetLeft, w: el.offsetWidth, visible: true } : { ...l, visible: false }));
+  }, []);
+  const revenir = useCallback(() => placer(liste.current?.querySelector<HTMLElement>("[aria-current=page]")), [placer]);
+
+  useEffect(() => {
+    revenir();
+    // les polices peuvent changer la largeur des liens une fois chargées
+    document.fonts?.ready.then(revenir);
+  }, [pathname, revenir]);
 
   const [lastPath, setLastPath] = useState(pathname);
   if (pathname !== lastPath) {
@@ -56,21 +72,21 @@ export function SiteHeader() {
 
   return (
     <>
-      <header className="fixed inset-x-0 top-0 z-50 bg-fond/85 pt-[env(safe-area-inset-top)] shadow-[0_1px_8px_rgb(74_46_36/0.06)] backdrop-blur-xl">
-        <div className="mx-auto flex h-16 max-w-7xl items-center gap-2 px-4 md:px-8 lg:h-[4.5rem] lg:px-12">
+      <header className="pointer-events-none fixed inset-x-0 top-0 z-50 px-2 pt-[calc(env(safe-area-inset-top)+0.375rem)] md:px-6 lg:px-10 lg:pt-2.5">
+        <div className="verre pointer-events-auto mx-auto flex h-[3.25rem] max-w-7xl items-center gap-2 rounded-2xl px-2 md:rounded-full md:px-4 lg:h-14 lg:pl-5">
           <button
             type="button"
             onClick={() => setOpen(true)}
             aria-label="Ouvrir le menu"
             aria-expanded={open}
             aria-controls="tiroir-navigation"
-            className="-ml-1 grid size-11 place-items-center rounded-full text-or hover:bg-surface-haute lg:hidden"
+            className="verre-survol grid size-11 place-items-center rounded-full text-or lg:hidden"
           >
             <IconMenu />
           </button>
 
           <Link href="/" className="mr-auto flex min-w-0 items-center gap-2.5" aria-label={`${site.name.value} — accueil`}>
-            <Image src={site.logo.medaillon} alt="" width={48} height={48} priority className="size-10 shrink-0 drop-shadow-sm lg:size-12" />
+            <Image src={site.logo.medaillon} alt="" width={48} height={48} priority className="size-9 shrink-0 drop-shadow-sm lg:size-10" />
             <span className="flex min-w-0 flex-col">
               <span className="truncate font-display text-title tracking-[0.08em] text-or lg:text-[1.3rem]">{site.name.value}</span>
               <span className="flex items-center gap-0.5 text-label-sm font-semibold text-texte/60">
@@ -81,16 +97,24 @@ export function SiteHeader() {
           </Link>
 
           <nav aria-label="Navigation principale" className="hidden lg:block">
-            <ul className="flex items-center gap-1">
+            <ul ref={liste} onMouseLeave={revenir} className="relative flex items-center gap-1">
+              <li
+                aria-hidden
+                className={`verre-lentille pointer-events-none absolute top-0 left-0 h-10 rounded-full transition-[transform,width,opacity] duration-500 ease-[cubic-bezier(.3,1.35,.45,1)] ${
+                  lentille.visible ? "opacity-100" : "opacity-0"
+                }`}
+                style={{ width: lentille.w, transform: `translateX(${lentille.x}px)` }}
+              />
               {nav.map((item) => (
                 <li key={item.href}>
                   <Link
                     href={item.href}
                     aria-current={isActive(pathname, item.href) ? "page" : undefined}
-                    className={`relative block px-4 py-2 text-label-lg transition-colors ${
-                      isActive(pathname, item.href) ? "text-or" : "text-texte/70 hover:text-or"
-                    } after:absolute after:inset-x-4 after:bottom-0.5 after:h-0.5 after:rounded-full after:bg-or ${
-                      isActive(pathname, item.href) ? "after:block" : "after:hidden"
+                    onMouseEnter={(e) => placer(e.currentTarget)}
+                    onFocus={(e) => placer(e.currentTarget)}
+                    onBlur={revenir}
+                    className={`relative flex h-10 items-center rounded-full px-4 text-label-lg transition-colors focus-visible:outline-offset-0 ${
+                      isActive(pathname, item.href) ? "text-or" : "text-texte/75 hover:text-ivoire"
                     }`}
                   >
                     {item.label}
@@ -103,7 +127,7 @@ export function SiteHeader() {
           <CartButton />
           <Link
             href="/reservation"
-            className="ml-1 hidden h-11 items-center gap-2 rounded-full bg-or px-5 text-label-md uppercase text-noir shadow-carte transition-colors hover:bg-or-clair md:inline-flex"
+            className="ml-1 hidden h-10 items-center gap-2 rounded-full bg-or px-5 text-label-md uppercase text-noir shadow-[inset_0_1px_0_rgb(255_255_255/0.45),0_6px_16px_-6px_rgb(0_0_0/0.6)] transition-colors hover:bg-or-clair md:inline-flex"
           >
             <IconCalendar width={18} height={18} />
             Réserver

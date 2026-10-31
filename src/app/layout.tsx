@@ -21,8 +21,8 @@ export const metadata: Metadata = {
     template: `%s · ${site.name.value}`,
   },
   description: site.description.value,
-  // Site en préparation : pas d'indexation tant que les infos sont provisoires.
-  robots: site.name.placeholder ? { index: false, follow: false } : undefined,
+  // Site en préparation : pas d'indexation avant l'ouverture officielle.
+  robots: site.launched ? undefined : { index: false, follow: false },
 };
 
 export const viewport: Viewport = {

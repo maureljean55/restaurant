@@ -7,7 +7,11 @@
  */
 
 export const site = {
-  name: { value: "Nom du restaurant", placeholder: true },
+  name: { value: "LE-TCHE", placeholder: false },
+  /** Logo : médaillon noir et or (fonds clairs) et emblème or détouré (fonds sombres). Voir scripts/preparer-logo.mjs. */
+  logo: { medaillon: "/brand/le-tche-medaillon.png", or: "/brand/le-tche-or.png" },
+  /** false tant que le site n'est pas officiellement ouvert : pas d'indexation par les moteurs de recherche. */
+  launched: false,
   tagline: { value: "Cuisine ivoirienne · Abidjan", placeholder: false },
   /** Quartier affiché sous le nom dans l'en-tête. */
   area: { value: "Abidjan", placeholder: true },

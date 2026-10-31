@@ -25,6 +25,13 @@ export default function HomePage() {
               <span className="size-2 animate-pulse rounded-full bg-orange" />
               Gastronomie ivoirienne
             </span>
+            <Image
+              src={site.logo.medaillon}
+              alt={`Logo ${site.name.value}`}
+              width={112}
+              height={112}
+              className="absolute top-3 right-3 size-16 rounded-full shadow-flottant ring-2 ring-or/60 sm:size-20 lg:top-5 lg:right-5 lg:size-28"
+            />
             <span className="absolute right-3 bottom-3 text-[0.65rem] text-ivoire/70">Photo d&apos;illustration</span>
             {/* Téléphone/tablette : titre sur la photo, comme la maquette */}
             <div className="absolute inset-x-4 bottom-8 text-ivoire lg:hidden">

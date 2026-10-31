@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -68,12 +69,14 @@ export function SiteHeader() {
             <IconMenu />
           </button>
 
-          <Link href="/" className="mr-auto flex min-w-0 flex-col">
-            <span className="truncate font-display text-title text-vert lg:text-[1.3rem]">{site.name.value}</span>
-            <span className="flex items-center gap-0.5 text-label-sm font-semibold text-cacao/60">
-              <IconPin width={12} height={12} className="text-orange" />
-              {site.area.value}
-              {site.name.placeholder && <span className="ml-1 text-terracotta">· provisoire</span>}
+          <Link href="/" className="mr-auto flex min-w-0 items-center gap-2.5" aria-label={`${site.name.value} — accueil`}>
+            <Image src={site.logo.medaillon} alt="" width={48} height={48} priority className="size-10 shrink-0 drop-shadow-sm lg:size-12" />
+            <span className="flex min-w-0 flex-col">
+              <span className="truncate font-display text-title tracking-[0.08em] text-vert lg:text-[1.3rem]">{site.name.value}</span>
+              <span className="flex items-center gap-0.5 text-label-sm font-semibold text-cacao/60">
+                <IconPin width={12} height={12} className="text-orange" />
+                {site.area.value}
+              </span>
             </span>
           </Link>
 
@@ -126,7 +129,10 @@ export function SiteHeader() {
       >
         <div>
           <div className="flex h-16 items-center justify-between px-4">
-            <span className="font-display text-title text-vert">{site.name.value}</span>
+            <span className="flex items-center gap-2 font-display text-title tracking-[0.08em] text-vert">
+              <Image src={site.logo.medaillon} alt="" width={36} height={36} className="size-9" />
+              {site.name.value}
+            </span>
             <button
               type="button"
               onClick={() => setOpen(false)}

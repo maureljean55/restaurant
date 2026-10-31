@@ -1,4 +1,4 @@
-# Site du restaurant (provisoire : « Nom du restaurant »)
+# LE-TCHE — site du restaurant
 
 Site d'un restaurant ivoirien à Abidjan : carte, aperçus 3D / réalité augmentée, panier et commande
 (retrait ou livraison, paiement sur place), demandes de réservation.

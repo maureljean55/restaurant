@@ -42,3 +42,6 @@ next-env.d.ts
 
 # modèle des variables, sans valeurs secrètes
 !.env.example
+
+# fichiers locaux de la CLI Supabase
+supabase/.temp/

@@ -2,21 +2,21 @@
 
 /*
  * Direction artistique « écrin noir et or », tirée du logo LE-TCHE :
- * fonds noirs profonds, or pour les titres, prix et actions, ivoire pour le texte.
+ * fonds noirs profonds, or patiné (moins saturé que le logo) pour les titres, prix et actions, ivoire pour le texte.
  *
  * Contrastes vérifiés (WCAG) :
  *  - texte (#efe6d6) sur fond (#0b0a08) ≈ 16:1 ✅
- *  - or (#d4af37) sur fond ≈ 9,6:1 ✅ (titres, prix, liens)
- *  - noir (#0b0a08) sur or ≈ 9,6:1 ✅ → texte des boutons dorés
- *  - champagne (#e9d39a) sur fond ≈ 13:1 ✅ (surtitres)
+ *  - or patiné (#c4a467) sur fond ≈ 8,3:1 ✅ (titres, prix, liens)
+ *  - noir (#0b0a08) sur or ≈ 8,3:1 ✅ → texte des boutons dorés
+ *  - champagne (#e3d3ae) sur fond ≈ 13,4:1 ✅ (surtitres)
  *  - erreur (#f08a6c) sur fond ≈ 7,6:1 ✅
  */
 @theme {
   /* Or du logo */
-  --color-or: #d4af37;
-  --color-or-clair: #e8c766;
-  --color-or-sombre: #2a2213;
-  --color-champagne: #e9d39a;
+  --color-or: #c4a467;
+  --color-or-clair: #d3b984;
+  --color-or-sombre: #221d14;
+  --color-champagne: #e3d3ae;
   /* Noirs et surfaces */
   --color-noir: #0b0a08;
   --color-encre: #050505;
@@ -81,7 +81,7 @@
 
   /* Ombres profondes + léger reflet doré au survol */
   --shadow-carte: 0 2px 6px -1px rgb(0 0 0 / 0.5), 0 8px 24px -8px rgb(0 0 0 / 0.6);
-  --shadow-carte-survol: 0 4px 10px -2px rgb(0 0 0 / 0.55), 0 18px 40px -12px rgb(212 175 55 / 0.18);
+  --shadow-carte-survol: 0 4px 10px -2px rgb(0 0 0 / 0.55), 0 18px 40px -12px rgb(196 164 103 / 0.14);
   --shadow-flottant: 0 24px 48px -12px rgb(0 0 0 / 0.75);
 
   --breakpoint-xs: 380px;

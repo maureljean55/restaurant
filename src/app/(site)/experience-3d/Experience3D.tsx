@@ -76,7 +76,7 @@ export function Experience3D({ plats }: { plats: DemoDish[] }) {
                   : "bg-gradient-to-b from-noir via-encre to-noir"
               }`}
             >
-              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,rgb(212_175_55/0.16)_0%,transparent_65%)]" aria-hidden />
+              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,rgb(196_164_103/0.12)_0%,transparent_65%)]" aria-hidden />
 
               <ModelViewer
                 key={model.glb}

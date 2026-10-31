@@ -40,9 +40,10 @@ export function SiteFooter({ settings }: { settings: Settings }) {
       <div className="border-t border-ivoire/10">
         <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-x-4 gap-y-1 px-5 py-3 text-label-sm font-medium text-ivoire/45 md:px-8 lg:px-12">
           <p>© {settings.name} · Visuels, prix et coordonnées provisoires.</p>
-          <p className="flex gap-4">
+          <p className="flex flex-wrap gap-x-4 gap-y-1">
             <Link href="/mentions-legales" className="hover:text-ivoire">Mentions légales</Link>
             <Link href="/confidentialite" className="hover:text-ivoire">Confidentialité</Link>
+            <Link href="/connexion" className="hover:text-ivoire">Espace personnel</Link>
           </p>
         </div>
       </div>

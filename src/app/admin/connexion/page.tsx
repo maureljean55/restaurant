@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { redirect } from "next/navigation";
+import { Suspense } from "react";
+import { getStaff } from "@/lib/supabase/auth";
 import { brand } from "@/config/site";
 import { IconCalendar, IconChef, IconReceipt, IconShield } from "@/components/ui/icons";
 import { LoginForm } from "./LoginForm";
@@ -16,6 +19,9 @@ const postes = [
 export default function ConnexionPage() {
   return (
     <div className="grid min-h-dvh lg:grid-cols-[1.1fr_1fr]">
+      <Suspense>
+        <DejaConnecte />
+      </Suspense>
       {/* Visuel (ordinateur) */}
       <aside className="relative hidden overflow-hidden border-r border-or/15 lg:block">
         <Image src="/demo/table-partage.jpg" alt="" fill priority sizes="55vw" className="object-cover opacity-35" />
@@ -70,4 +76,10 @@ export default function ConnexionPage() {
       </main>
     </div>
   );
+}
+
+/** Déjà connecté : direction le tableau de bord. */
+async function DejaConnecte() {
+  if (await getStaff()) redirect("/admin");
+  return null;
 }

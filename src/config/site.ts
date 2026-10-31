@@ -38,19 +38,22 @@ export const site = {
   },
 } as const;
 
-/** Règles de réservation (provisoires, à valider avec le restaurant). */
+/** Règles de réservation (provisoires, à valider avec le restaurant). Alignées sur la base (supabase/migrations). */
 export const reservation = {
   placeholder: true,
-  /** Choix rapides du nombre de convives ; au-delà, contact direct. */
-  guestOptions: [1, 2, 3, 4, 6, 8],
-  maxGuestsOnline: 8,
+  /** Nombre de convives saisi librement. */
+  minGuests: 1,
+  maxGuests: 100,
+  /** À partir de ce nombre, on prévient que le restaurant rappellera pour organiser. */
+  groupFrom: 12,
   /** Nombre de jours réservables à l'avance. */
-  daysAhead: 21,
+  daysAhead: 365,
   /** Jours fermés (0 = dimanche … 6 = samedi). */
   closedWeekdays: [] as number[],
+  /** Plages d'arrivée possibles. La capacité de chaque service est gérée dans la base. */
   services: [
-    { id: "dejeuner", label: "Déjeuner", slots: ["12:00", "12:30", "13:00", "13:30"] },
-    { id: "diner", label: "Dîner", slots: ["19:00", "19:30", "20:00", "20:30", "21:00", "21:30"] },
+    { id: "dejeuner", label: "Déjeuner", start: "11:30", end: "15:00" },
+    { id: "diner", label: "Dîner", start: "18:30", end: "22:30" },
   ],
   /** Zones proposées. Laisser vide si le restaurant n'en a qu'une. */
   zones: [

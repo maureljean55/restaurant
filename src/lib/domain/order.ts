@@ -33,10 +33,10 @@ export const dbErrorMessages: Record<string, string> = {
   UNKNOWN_DISH: "Un plat de votre panier n'est plus à la carte. Retirez-le puis réessayez.",
   DISH_UNAVAILABLE: "Un plat de votre panier n'est plus disponible aujourd'hui. Retirez-le puis réessayez.",
   ADDRESS_REQUIRED: "Indiquez l'adresse de livraison.",
-  GUESTS_OUT_OF_RANGE: "Pour plus de 8 personnes, contactez directement le restaurant.",
-  DATE_OUT_OF_RANGE: "Cette date n'est pas réservable en ligne. Choisissez-en une autre.",
-  SLOT_UNKNOWN: "Ce créneau n'existe pas. Choisissez-en un autre.",
-  SLOT_PAST: "Ce créneau est trop proche ou déjà passé. Choisissez-en un autre.",
+  GUESTS_OUT_OF_RANGE: "Indiquez entre 1 et 100 personnes. Pour un événement plus grand, contactez le restaurant.",
+  DATE_OUT_OF_RANGE: "Choisissez une date entre aujourd'hui et dans un an.",
+  SLOT_UNKNOWN: "Cette heure est en dehors des services. Choisissez une heure dans les plages indiquées.",
+  SLOT_PAST: "Cette heure est passée ou trop proche (1 h minimum à l'avance). Choisissez-en une autre.",
   SLOT_FULL: "Ce service est complet. Choisissez un autre créneau ou une autre date.",
 };
 

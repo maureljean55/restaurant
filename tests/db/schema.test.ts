@@ -44,26 +44,48 @@ describe("réservations", () => {
     expect(r.rows[0]).toEqual({ status: "pending", service_id: "diner", email: null });
   });
 
-  it("refuse au-delà de la capacité du service (demandes en attente comprises)", async () => {
-    for (let i = 0; i < 3; i++) await reserver(8); // 24 couverts sur 30
-    await reserver(6); // 30 / 30
-    await expect(reserver(1)).rejects.toThrow("SLOT_FULL");
+  it("accepte une heure libre dans la plage du service et un grand groupe", async () => {
+    await expect(reserver(2, jour(3), "19:45")).resolves.toBeTruthy();
+    await expect(reserver(25, jour(4), "12:10")).resolves.toBeTruthy();
+    const r = await db.query<{ service_id: string }>(`select service_id from public.reservations order by date`);
+    expect(r.rows.map((x) => x.service_id)).toEqual(["diner", "dejeuner"]);
+  });
+
+  it("accepte une date lointaine (jusqu'à un an)", async () => {
+    await expect(reserver(2, jour(200))).resolves.toBeTruthy();
+    await expect(reserver(2, jour(400))).rejects.toThrow("DATE_OUT_OF_RANGE");
+  });
+
+  it("refuse au-delà de la capacité et indique les places restantes", async () => {
+    await reserver(20); // 20 couverts sur 30
+    const err = await reserver(12).catch((e) => e);
+    expect(err.message).toBe("SLOT_FULL");
+    expect(err.detail).toBe("10");
+    await expect(reserver(10)).resolves.toBeTruthy(); // 30 / 30
     // Le déjeuner du même jour reste libre
     await expect(reserver(2, jour(2), "12:30")).resolves.toBeTruthy();
   });
 
-  it("une demande refusée libère les places", async () => {
-    for (let i = 0; i < 3; i++) await reserver(8);
-    await reserver(6);
-    await db.exec(`update public.reservations set status = 'declined' where guests = 6`);
-    await expect(reserver(6)).resolves.toBeTruthy();
+  it("donne les places restantes par service", async () => {
+    await reserver(8);
+    await reserver(4, jour(2), "12:00");
+    await db.exec(`update public.reservations set status = 'declined' where guests = 4`);
+    const { rows } = await db.query<{ service_id: string; remaining: number }>(
+      `select service_id, remaining from public.reservation_availability($1)`,
+      [jour(2)],
+    );
+    expect(rows).toEqual([
+      { service_id: "dejeuner", remaining: 30 }, // la demande refusée libère les places
+      { service_id: "diner", remaining: 22 },
+    ]);
   });
 
-  it("refuse les créneaux inconnus, passés ou hors période et les groupes trop grands", async () => {
+  it("refuse les heures hors service, les dates passées et les effectifs invalides", async () => {
     await expect(reserver(2, jour(2), "17:00")).rejects.toThrow("SLOT_UNKNOWN");
+    await expect(reserver(2, jour(2), "23:30")).rejects.toThrow("SLOT_UNKNOWN");
     await expect(reserver(2, jour(-1))).rejects.toThrow("DATE_OUT_OF_RANGE");
-    await expect(reserver(2, jour(30))).rejects.toThrow("DATE_OUT_OF_RANGE");
-    await expect(reserver(9)).rejects.toThrow("GUESTS_OUT_OF_RANGE");
+    await expect(reserver(0)).rejects.toThrow("GUESTS_OUT_OF_RANGE");
+    await expect(reserver(101)).rejects.toThrow("GUESTS_OUT_OF_RANGE");
   });
 });
 

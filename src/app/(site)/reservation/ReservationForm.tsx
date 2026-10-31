@@ -2,15 +2,16 @@
 
 import Image from "next/image";
 import { useEffect, useMemo, useRef, useState, useTransition, type ReactNode } from "react";
-import { createReservation } from "@/lib/actions/reservation";
+import { createReservation, getAvailability, type ServiceAvailability } from "@/lib/actions/reservation";
 import { reservation, site } from "@/config/site";
 import { demoAmbiance } from "@/data/demo-dishes";
-import { buildCalendar, reservationSchema, slotIsPast, type ReservationInput } from "@/lib/domain/reservation";
+import { buildMonth, reservationSchema, serviceAt, slotIsPast, timeSuggestions, type ReservationInput } from "@/lib/domain/reservation";
 import { btn, pastille } from "@/components/ui/styles";
-import { IconCalendar, IconCheck, IconClock, IconInfo, IconMoon, IconPhone, IconPin, IconShield, IconSun, IconUsers } from "@/components/ui/icons";
+import { IconCalendar, IconCheck, IconChevron, IconClock, IconInfo, IconMinus, IconMoon, IconPhone, IconPin, IconPlus, IconShield, IconSun, IconUsers } from "@/components/ui/icons";
 
 const JOURS = ["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"];
-const libelleConvives: Record<number, string> = { 1: "Solo", 2: "Duo", 3: "Trio", 4: "Amis", 6: "Table", 8: "Groupe" };
+const RACCOURCIS_CONVIVES = [2, 4, 6, 8, 10, 15, 20];
+const heure = (t: string) => t.replace(":", "h");
 
 type Erreurs = Partial<Record<keyof ReservationInput, string>>;
 
@@ -26,7 +27,7 @@ function Etape({ n, titre, icone, aside, erreur, children }: { n: number; titre:
       </div>
       {children}
       {erreur && (
-        <p role="alert" className="mt-2 text-body-sm text-champagne">
+        <p role="alert" className="mt-2 text-body-sm text-erreur">
           {erreur}
         </p>
       )}
@@ -45,7 +46,12 @@ const choix = (actif: boolean, desactive = false) =>
 
 export function ReservationForm() {
   const [maintenant, setMaintenant] = useState<Date | null>(null);
-  const [guests, setGuests] = useState(2);
+  // Texte libre (le champ peut être vide pendant la saisie) ; nombre déduit ci-dessous
+  const [convivesTexte, setConvivesTexte] = useState("2");
+  const [mois, setMois] = useState<{ y: number; m: number } | null>(null);
+  const [dispo, setDispo] = useState<ServiceAvailability[] | null>(null);
+  const [chargement, setChargement] = useState(false);
+  const derniereDate = useRef("");
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [zone, setZone] = useState(reservation.zones[0]?.id ?? "");
@@ -61,20 +67,62 @@ export function ReservationForm() {
 
   // La date du jour n'est connue que dans le navigateur (évite tout décalage avec le rendu serveur).
   useEffect(() => {
+    const d = new Date();
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    setMaintenant(new Date());
+    setMaintenant(d);
+    setMois({ y: d.getFullYear(), m: d.getMonth() });
   }, []);
 
-  const semaines = useMemo(
-    () => (maintenant ? buildCalendar(maintenant, reservation.daysAhead, reservation.closedWeekdays) : []),
-    [maintenant],
-  );
-  const dateChoisie = semaines.flat().find((d) => d.iso === date);
-  const moisAffiche = dateChoisie?.monthLabel ?? semaines[0]?.[0]?.monthLabel ?? "";
+  const guests = /^\d+$/.test(convivesTexte) ? Number(convivesTexte) : Number.NaN;
+  const nb = Number.isFinite(guests) ? guests : 0;
+  const changerConvives = (n: number) => setConvivesTexte(String(Math.min(reservation.maxGuests, Math.max(reservation.minGuests, n))));
 
+  const semaines = useMemo(
+    () => (maintenant && mois ? buildMonth(mois.y, mois.m, maintenant, reservation.daysAhead, reservation.closedWeekdays) : []),
+    [maintenant, mois],
+  );
+  const moisAffiche = semaines[1]?.[0]?.monthLabel ?? "";
+  const limite = maintenant ? new Date(maintenant.getFullYear(), maintenant.getMonth(), maintenant.getDate() + reservation.daysAhead) : null;
+  const peutReculer = !!(maintenant && mois && (mois.y > maintenant.getFullYear() || mois.m > maintenant.getMonth()));
+  const peutAvancer = !!(limite && mois && (mois.y < limite.getFullYear() || mois.m < limite.getMonth()));
+  const decaler = (n: number) => setMois((x) => (x ? { y: x.y + Math.floor((x.m + n) / 12), m: (((x.m + n) % 12) + 12) % 12 } : x));
+
+  // Places restantes pour la date choisie (la base fait foi ; les plages de la config servent d'affichage par défaut)
+  function choisirDate(iso: string) {
+    setDate(iso);
+    setTime("");
+    setDispo(null);
+    setChargement(true);
+    derniereDate.current = iso;
+    getAvailability(iso)
+      .catch(() => null)
+      .then((d) => {
+        if (derniereDate.current !== iso) return; // une autre date a été choisie entre-temps
+        setDispo(d);
+        setChargement(false);
+      });
+  }
+  const services = reservation.services.map((s) => {
+    const d = dispo?.find((x) => x.id === s.id);
+    return { ...s, start: d?.start ?? s.start, end: d?.end ?? s.end, remaining: d?.remaining };
+  });
+  const serviceChoisi = time ? serviceAt(time, services) : undefined;
+  const avertissementHeure = !time
+    ? null
+    : !serviceChoisi
+      ? "Cette heure est en dehors des services."
+      : date && maintenant && slotIsPast(date, time, maintenant)
+        ? "Cette heure est passée ou trop proche (1 h minimum à l'avance)."
+        : serviceChoisi.remaining !== undefined && nb > serviceChoisi.remaining
+          ? serviceChoisi.remaining === 0
+            ? `Le ${serviceChoisi.label.toLowerCase()} est complet ce jour-là.`
+            : `Il ne reste que ${serviceChoisi.remaining} place${serviceChoisi.remaining > 1 ? "s" : ""} au ${serviceChoisi.label.toLowerCase()}.`
+          : null;
+
+  const personnes = nb ? `${nb} personne${nb > 1 ? "s" : ""}` : "Nombre de convives à préciser";
   const resume = date
-    ? `${guests} personne${guests > 1 ? "s" : ""} · ${new Date(`${date}T12:00`).toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "long" })}${time ? ` à ${time.replace(":", "h")}` : ""}`
-    : `${guests} personne${guests > 1 ? "s" : ""}`;
+    ? `${personnes} · ${new Date(`${date}T12:00`).toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "long" })}${time ? ` à ${heure(time)}` : ""}`
+    : personnes;
 
   function envoyer(e: React.FormEvent) {
     e.preventDefault();
@@ -94,8 +142,12 @@ export function ReservationForm() {
     demarrer(async () => {
       const r = await createReservation({ guests, date, time, zone, name, phone, email, comment });
       if (!r.ok) {
-        setErreurs(r.fields ?? {});
-        setErreurEnvoi(r.error);
+        const champs = r.fields ?? {};
+        setErreurs(champs);
+        const premier = Object.keys(champs)[0];
+        // Le détail est affiché dans l'étape concernée : en bas, un simple renvoi
+        setErreurEnvoi(premier ? "Votre demande n'est pas partie : voir le point signalé plus haut." : r.error);
+        if (premier) document.getElementById(`etape-${premier}`)?.scrollIntoView({ behavior: "smooth", block: "center" });
         return;
       }
       setEnvoye(r.reference);
@@ -138,32 +190,56 @@ export function ReservationForm() {
         <div className="flex flex-col gap-5 lg:col-span-7">
           {/* 1. Convives */}
           <div id="etape-guests">
-            <Etape
-              n={1}
-              titre="Nombre de convives"
-              icone={<IconUsers width={18} height={18} />}
-              aside={<span className={`${pastille} bg-surface-haute text-texte/75`}>{guests} pers.</span>}
-              erreur={erreurs.guests}
-            >
-              <div className="grid grid-cols-6 gap-1.5 sm:gap-2" role="radiogroup" aria-label="Nombre de convives">
-                {reservation.guestOptions.map((n) => (
-                  <button
-                    key={n}
-                    type="button"
-                    role="radio"
-                    aria-checked={guests === n}
-                    onClick={() => setGuests(n)}
-                    className={`${choix(guests === n)} flex flex-col items-center py-2.5`}
-                  >
-                    <span className="text-label-lg">{n}</span>
-                    <span className={`text-[9px] uppercase ${guests === n ? "text-champagne" : "text-texte/55"}`}>{libelleConvives[n]}</span>
+            <Etape n={1} titre="Nombre de convives" icone={<IconUsers width={18} height={18} />} erreur={erreurs.guests}>
+              <div className="flex items-center gap-3">
+                <button
+                  type="button"
+                  onClick={() => changerConvives(nb - 1)}
+                  disabled={nb <= reservation.minGuests}
+                  aria-label="Une personne de moins"
+                  className="verre-survol grid size-12 shrink-0 place-items-center rounded-full border border-ligne bg-surface text-or disabled:opacity-35"
+                >
+                  <IconMinus width={18} height={18} />
+                </button>
+                <label className="flex min-w-0 flex-1 flex-col items-center">
+                  <span className="sr-only">Nombre de convives (1 à {reservation.maxGuests})</span>
+                  <input
+                    type="number"
+                    inputMode="numeric"
+                    min={reservation.minGuests}
+                    max={reservation.maxGuests}
+                    step={1}
+                    value={convivesTexte}
+                    onChange={(e) => setConvivesTexte(e.target.value.replace(/\D/g, "").slice(0, 3))}
+                    onBlur={() => convivesTexte && changerConvives(nb)}
+                    aria-invalid={!!erreurs.guests}
+                    className="prix h-14 w-full max-w-36 rounded-xl border border-ligne bg-surface text-center font-display text-headline-md text-or outline-none [appearance:textfield] focus:border-or focus:ring-1 focus:ring-or [&::-webkit-inner-spin-button]:appearance-none"
+                  />
+                  <span className="mt-1 text-label-sm text-texte/60">personne{nb > 1 ? "s" : ""}</span>
+                </label>
+                <button
+                  type="button"
+                  onClick={() => changerConvives(nb + 1)}
+                  disabled={nb >= reservation.maxGuests}
+                  aria-label="Une personne de plus"
+                  className="verre-survol grid size-12 shrink-0 place-items-center rounded-full border border-ligne bg-surface text-or disabled:opacity-35"
+                >
+                  <IconPlus width={18} height={18} />
+                </button>
+              </div>
+              <div className="mt-4 flex flex-wrap justify-center gap-1.5" aria-label="Raccourcis">
+                {RACCOURCIS_CONVIVES.map((n) => (
+                  <button key={n} type="button" onClick={() => setConvivesTexte(String(n))} aria-pressed={nb === n} className={`${choix(nb === n)} h-9 min-w-11 px-3`}>
+                    {n}
                   </button>
                 ))}
               </div>
-              <p className="mt-2 flex items-center gap-1 text-[12px] text-texte/65">
-                <IconInfo width={14} height={14} className="shrink-0 text-champagne" />
-                Plus de {reservation.maxGuestsOnline} personnes ? Contactez le restaurant au {site.phone.value}.
-              </p>
+              {nb >= reservation.groupFrom && (
+                <p className="mt-3 flex items-start gap-1.5 text-[12px] text-texte/70">
+                  <IconInfo width={14} height={14} className="mt-0.5 shrink-0 text-champagne" />
+                  Groupe de {nb} : le restaurant vous rappellera pour organiser l&apos;accueil (placement, menu).
+                </p>
+              )}
             </Etape>
           </div>
 
@@ -173,7 +249,17 @@ export function ReservationForm() {
               n={2}
               titre="Date"
               icone={<IconCalendar width={18} height={18} />}
-              aside={<span className="text-label-sm text-champagne capitalize">{moisAffiche}</span>}
+              aside={
+                <div className="flex items-center gap-1">
+                  <button type="button" onClick={() => decaler(-1)} disabled={!peutReculer} aria-label="Mois précédent" className="verre-survol grid size-9 place-items-center rounded-full text-or disabled:opacity-30">
+                    <IconChevron width={16} height={16} className="rotate-180" />
+                  </button>
+                  <span className="min-w-28 text-center text-label-md text-champagne capitalize" aria-live="polite">{moisAffiche}</span>
+                  <button type="button" onClick={() => decaler(1)} disabled={!peutAvancer} aria-label="Mois suivant" className="verre-survol grid size-9 place-items-center rounded-full text-or disabled:opacity-30">
+                    <IconChevron width={16} height={16} />
+                  </button>
+                </div>
+              }
               erreur={erreurs.date}
             >
               <div className="grid grid-cols-7 gap-1 text-center">
@@ -183,67 +269,92 @@ export function ReservationForm() {
                   </span>
                 ))}
                 {maintenant
-                  ? semaines.flat().map((d) => (
-                      <button
-                        key={d.iso}
-                        type="button"
-                        disabled={!d.bookable}
-                        onClick={() => {
-                          setDate(d.iso);
-                          setTime("");
-                        }}
-                        aria-pressed={date === d.iso}
-                        aria-label={new Date(`${d.iso}T12:00`).toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "long" })}
-                        className={`${choix(date === d.iso, !d.bookable)} relative h-10 sm:h-11`}
-                      >
-                        {d.day}
-                        {d.isToday && <span className="absolute bottom-1 left-1/2 size-1 -translate-x-1/2 rounded-full bg-or" />}
-                      </button>
-                    ))
-                  : Array.from({ length: 28 }, (_, i) => <span key={i} className="h-10 animate-pulse rounded-lg bg-surface-haute sm:h-11" />)}
+                  ? semaines.flat().map((d) =>
+                      d.inMonth ? (
+                        <button
+                          key={d.iso}
+                          type="button"
+                          disabled={!d.bookable}
+                          onClick={() => choisirDate(d.iso)}
+                          aria-pressed={date === d.iso}
+                          aria-label={new Date(`${d.iso}T12:00`).toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "long", year: "numeric" })}
+                          className={`${choix(date === d.iso, !d.bookable)} relative h-10 sm:h-11`}
+                        >
+                          {d.day}
+                          {d.isToday && <span className={`absolute bottom-1 left-1/2 size-1 -translate-x-1/2 rounded-full ${date === d.iso ? "bg-noir" : "bg-or"}`} />}
+                        </button>
+                      ) : (
+                        <span key={d.iso} aria-hidden className="h-10 sm:h-11" />
+                      ),
+                    )
+                  : Array.from({ length: 35 }, (_, i) => <span key={i} className="h-10 animate-pulse rounded-lg bg-surface-haute sm:h-11" />)}
               </div>
-              <div className="mt-3 flex items-center gap-4 text-[11px] text-texte/65">
-                <span className="flex items-center gap-1.5"><span className="size-2 rounded-full bg-or" /> Sélectionné</span>
-                <span className="flex items-center gap-1.5"><span className="size-2 rounded-full bg-or" /> Aujourd&apos;hui</span>
-                <span className="flex items-center gap-1.5"><span className="size-2 rounded-full bg-noir/20" /> Indisponible</span>
-              </div>
+              <p className="mt-3 text-[12px] text-texte/60">Réservable jusqu&apos;à un an à l&apos;avance. Le point indique aujourd&apos;hui.</p>
             </Etape>
           </div>
 
-          {/* 3. Créneau */}
+          {/* 3. Heure d'arrivée */}
           <div id="etape-time">
-            <Etape n={3} titre="Service & créneau" icone={<IconClock width={18} height={18} />} erreur={erreurs.time}>
-              {!date && <p className="mb-3 text-body-sm text-texte/60">Choisissez d&apos;abord une date.</p>}
-              <div className="flex flex-col gap-4">
-                {reservation.services.map((s) => (
-                  <div key={s.id}>
-                    <p className="mb-2 flex items-center gap-1.5 text-label-md text-texte">
-                      {s.id === "diner" ? <IconMoon width={16} height={16} className="text-champagne" /> : <IconSun width={16} height={16} className="text-champagne" />}
-                      {s.label}
+            <Etape n={3} titre="Heure d'arrivée" icone={<IconClock width={18} height={18} />} erreur={erreurs.time}>
+              {!date ? (
+                <p className="text-body-sm text-texte/60">Choisissez d&apos;abord une date.</p>
+              ) : (
+                <div className="flex flex-col gap-4">
+                  {services.map((s) => {
+                    const complet = s.remaining !== undefined && s.remaining < Math.max(nb, 1);
+                    return (
+                      <div key={s.id}>
+                        <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
+                          <p className="flex items-center gap-1.5 text-label-md text-texte">
+                            {s.id === "diner" ? <IconMoon width={16} height={16} className="text-champagne" /> : <IconSun width={16} height={16} className="text-champagne" />}
+                            {s.label}
+                            <span className="font-normal text-texte/55">
+                              · {heure(s.start)} – {heure(s.end)}
+                            </span>
+                          </p>
+                          <span className={`text-label-sm ${s.remaining === undefined ? "text-texte/45" : complet ? "text-erreur" : "text-champagne"}`}>
+                            {chargement
+                              ? "…"
+                              : s.remaining === undefined
+                                ? ""
+                                : s.remaining === 0
+                                  ? "Complet"
+                                  : `${s.remaining} place${s.remaining > 1 ? "s" : ""} restante${s.remaining > 1 ? "s" : ""}`}
+                          </span>
+                        </div>
+                        <div className="grid grid-cols-4 gap-2 sm:grid-cols-6 md:grid-cols-8">
+                          {timeSuggestions(s.start, s.end).map((t) => {
+                            const indispo = complet || (maintenant ? slotIsPast(date, t, maintenant) : true);
+                            return (
+                              <button key={t} type="button" disabled={indispo} aria-pressed={time === t} onClick={() => setTime(t)} className={`${choix(time === t, indispo)} h-10`}>
+                                {heure(t)}
+                              </button>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    );
+                  })}
+                  <label className="flex flex-wrap items-center gap-3 border-t border-ligne pt-4">
+                    <span className="text-label-md text-texte">Ou une autre heure :</span>
+                    <input
+                      type="time"
+                      step={300}
+                      value={time}
+                      onChange={(e) => setTime(e.target.value.slice(0, 5))}
+                      aria-invalid={!!avertissementHeure}
+                      className="h-11 rounded-lg border border-ligne bg-surface px-3 text-body-md text-texte outline-none [color-scheme:dark] focus:border-or focus:ring-1 focus:ring-or"
+                    />
+                  </label>
+                  {avertissementHeure && (
+                    <p className="flex items-start gap-1.5 text-body-sm text-erreur">
+                      <IconInfo width={16} height={16} className="mt-0.5 shrink-0" />
+                      {avertissementHeure}
                     </p>
-                    <div className="grid grid-cols-3 gap-2 sm:grid-cols-4 md:grid-cols-6">
-                      {s.slots.map((slot) => {
-                        const indispo = !date || (maintenant ? slotIsPast(date, slot, maintenant) : true);
-                        return (
-                          <button
-                            key={slot}
-                            type="button"
-                            disabled={indispo}
-                            aria-pressed={time === slot}
-                            onClick={() => setTime(slot)}
-                            className={`${choix(time === slot, indispo)} h-10`}
-                          >
-                            {slot.replace(":", "h")}
-                          </button>
-                        );
-                      })}
-                    </div>
-                  </div>
-                ))}
-              </div>
-              {reservation.placeholder && (
-                <p className="mt-3 text-[12px] text-texte/55">Horaires de service provisoires, à confirmer par le restaurant.</p>
+                  )}
+                </div>
               )}
+              {reservation.placeholder && <p className="mt-3 text-[12px] text-texte/55">Heures de service provisoires, à confirmer par le restaurant.</p>}
             </Etape>
           </div>
 

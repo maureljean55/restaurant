@@ -1,35 +1,35 @@
 @import "tailwindcss";
 
 /*
- * Direction artistique « L'Écrin d'Ébène » (voir stitch_…/l_crin_d_b_ne/DESIGN.md),
- * alignée sur la palette du cahier des charges.
+ * Direction artistique « écrin noir et or », tirée du logo LE-TCHE :
+ * fonds noirs profonds, or pour les titres, prix et actions, ivoire pour le texte.
  *
  * Contrastes vérifiés (WCAG) :
- *  - cacao sur ivoire ≈ 11,8:1 ✅ (texte courant)
- *  - charbon sur orange ≈ 5,9:1 ✅ → texte des boutons orange
- *  - blanc sur orange ≈ 2,6:1 ❌ → interdit (le DESIGN.md le prévoyait, corrigé ici)
- *  - ivoire sur vert ≈ 9,4:1 ✅
+ *  - texte (#efe6d6) sur fond (#0b0a08) ≈ 16:1 ✅
+ *  - or (#d4af37) sur fond ≈ 9,6:1 ✅ (titres, prix, liens)
+ *  - noir (#0b0a08) sur or ≈ 9,6:1 ✅ → texte des boutons dorés
+ *  - champagne (#e9d39a) sur fond ≈ 13:1 ✅ (surtitres)
+ *  - erreur (#f08a6c) sur fond ≈ 7,6:1 ✅
  */
 @theme {
-  /* Palette principale */
-  --color-orange: #f58220;
-  --color-orange-clair: #f7953f;
-  --color-orange-pale: #ffe9d6;
-  --color-vert: #174c38;
-  --color-vert-fonce: #0f3a2a;
-  --color-vert-pale: #dcebe2;
+  /* Or du logo */
+  --color-or: #d4af37;
+  --color-or-clair: #e8c766;
+  --color-or-sombre: #2a2213;
+  --color-champagne: #e9d39a;
+  /* Noirs et surfaces */
+  --color-noir: #0b0a08;
+  --color-encre: #050505;
+  --color-fond: #0b0a08;
+  --color-surface: #14120e;
+  --color-surface-basse: #1b1813;
+  --color-surface-haute: #242019;
+  --color-ligne: #3b3324;
+  /* Texte */
   --color-ivoire: #fff8ed;
-  --color-blanc: #ffffff;
-  /* Palette complémentaire */
-  --color-cacao: #4a2e24;
-  --color-terracotta: #b85c38;
-  --color-or: #c6a15b;
-  --color-or-pale: #f5e8cc;
-  --color-sable: #e8d8c3;
-  --color-creme: #f9f1e2;
-  --color-creme-fonce: #f2e6d3;
-  --color-charbon: #252522;
-  --color-sauge: #a8b7a0;
+  --color-texte: #efe6d6;
+  /* Signal */
+  --color-erreur: #f08a6c;
 
   --font-display: var(--font-playfair), Georgia, serif;
   --font-sans: var(--font-inter), system-ui, sans-serif;
@@ -79,10 +79,10 @@
   --text-label-sm--letter-spacing: 0.08em;
   --text-label-sm--font-weight: 700;
 
-  /* Ombres teintées cacao, jamais grises */
-  --shadow-carte: 0 2px 6px -1px rgb(74 46 36 / 0.05), 0 8px 24px -8px rgb(74 46 36 / 0.1);
-  --shadow-carte-survol: 0 4px 10px -2px rgb(74 46 36 / 0.07), 0 18px 36px -12px rgb(74 46 36 / 0.18);
-  --shadow-flottant: 0 24px 48px -12px rgb(74 46 36 / 0.22);
+  /* Ombres profondes + léger reflet doré au survol */
+  --shadow-carte: 0 2px 6px -1px rgb(0 0 0 / 0.5), 0 8px 24px -8px rgb(0 0 0 / 0.6);
+  --shadow-carte-survol: 0 4px 10px -2px rgb(0 0 0 / 0.55), 0 18px 40px -12px rgb(212 175 55 / 0.18);
+  --shadow-flottant: 0 24px 48px -12px rgb(0 0 0 / 0.75);
 
   --breakpoint-xs: 380px;
 
@@ -94,8 +94,9 @@
     scroll-behavior: smooth;
   }
   body {
-    background: var(--color-ivoire);
-    color: var(--color-cacao);
+    background: var(--color-fond);
+    color: var(--color-texte);
+    color-scheme: dark;
     font-family: var(--font-sans);
   }
   h1,
@@ -106,7 +107,7 @@
     text-wrap: balance;
   }
   :focus-visible {
-    outline: 2px solid var(--color-vert);
+    outline: 2px solid var(--color-or);
     outline-offset: 3px;
     border-radius: 6px;
   }

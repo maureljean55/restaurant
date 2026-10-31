@@ -30,7 +30,7 @@ export function Teaser3D({ plats }: { plats: DemoDish[] }) {
   }, []);
 
   return (
-    <div className="grid overflow-hidden rounded-2xl bg-vert text-ivoire shadow-flottant lg:grid-cols-12">
+    <div className="grid overflow-hidden rounded-2xl border border-ligne bg-surface text-ivoire shadow-flottant lg:grid-cols-12">
       {/* Texte */}
       <div className="flex flex-col p-6 sm:p-8 lg:col-span-5 lg:p-12">
         <p className="surtitre flex items-center gap-2 text-or">
@@ -71,7 +71,7 @@ export function Teaser3D({ plats }: { plats: DemoDish[] }) {
       </div>
 
       {/* Scène 3D */}
-      <div className="relative min-h-[22rem] bg-[radial-gradient(ellipse_at_center,#2a6650_0%,#174c38_55%,#0f3a2a_100%)] sm:min-h-[26rem] lg:col-span-7 lg:min-h-[32rem]">
+      <div className="relative min-h-[22rem] bg-[radial-gradient(ellipse_at_center,#2b2414_0%,#14120e_55%,#050505_100%)] sm:min-h-[26rem] lg:col-span-7 lg:min-h-[32rem]">
         <div ref={scene} className="absolute inset-0">
           {visible ? (
             <ModelViewer
@@ -93,8 +93,8 @@ export function Teaser3D({ plats }: { plats: DemoDish[] }) {
           )}
         </div>
 
-        <span className="pointer-events-none absolute top-4 left-4 flex items-center gap-1.5 rounded-full border border-ivoire/15 bg-vert-fonce/60 px-3 py-1.5 text-label-sm text-ivoire/85 backdrop-blur-md">
-          <span className="size-1.5 animate-pulse rounded-full bg-orange" />
+        <span className="pointer-events-none absolute top-4 left-4 flex items-center gap-1.5 rounded-full border border-ivoire/15 bg-encre/60 px-3 py-1.5 text-label-sm text-ivoire/85 backdrop-blur-md">
+          <span className="size-1.5 animate-pulse rounded-full bg-or" />
           Aperçu interactif · faites-le tourner
         </span>
 
@@ -111,7 +111,7 @@ export function Teaser3D({ plats }: { plats: DemoDish[] }) {
                 aria-label={p.name}
                 onClick={() => setActif(p)}
                 className={`relative size-11 overflow-hidden rounded-full ring-2 transition ${
-                  p.slug === actif.slug ? "ring-orange" : "opacity-70 ring-ivoire/25 hover:opacity-100"
+                  p.slug === actif.slug ? "ring-or" : "opacity-70 ring-ivoire/25 hover:opacity-100"
                 }`}
               >
                 {p.photo && <Image src={p.photo} alt="" fill sizes="44px" className="object-cover" />}

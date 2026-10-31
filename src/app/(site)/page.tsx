@@ -17,12 +17,12 @@ export default function HomePage() {
     <div className="flex flex-col gap-14 pb-16 md:gap-20 lg:gap-24 lg:pb-24">
       {/* ───────── Ouverture ───────── */}
       <section className={`${container} grid gap-5 pt-4 md:pt-8 lg:grid-cols-12 lg:items-center lg:gap-12 lg:pt-12`}>
-        <div className="relative overflow-hidden rounded-xl bg-creme-fonce shadow-flottant lg:order-2 lg:col-span-7">
+        <div className="relative overflow-hidden rounded-xl bg-surface-haute shadow-flottant lg:order-2 lg:col-span-7">
           <div className="relative h-80 sm:h-[26rem] lg:h-[34rem]">
             <Image src={demoAmbiance.hero} alt="" fill priority sizes="(min-width: 1024px) 58vw, 100vw" className="object-cover" />
-            <div className="absolute inset-0 bg-gradient-to-t from-cacao/90 via-cacao/35 to-transparent lg:from-cacao/60" aria-hidden />
-            <span className={`${pastille} absolute top-3 left-3 bg-ivoire/90 text-vert uppercase shadow-sm backdrop-blur-md`}>
-              <span className="size-2 animate-pulse rounded-full bg-orange" />
+            <div className="absolute inset-0 bg-gradient-to-t from-noir/90 via-noir/35 to-transparent lg:from-noir/60" aria-hidden />
+            <span className={`${pastille} absolute top-3 left-3 bg-fond/85 text-or uppercase shadow-sm backdrop-blur-md`}>
+              <span className="size-2 animate-pulse rounded-full bg-or" />
               Gastronomie ivoirienne
             </span>
             <Image
@@ -35,7 +35,7 @@ export default function HomePage() {
             <span className="absolute right-3 bottom-3 text-[0.65rem] text-ivoire/70">Photo d&apos;illustration</span>
             {/* Téléphone/tablette : titre sur la photo, comme la maquette */}
             <div className="absolute inset-x-4 bottom-8 text-ivoire lg:hidden">
-              <p className="surtitre text-or-pale">{site.tagline.value}</p>
+              <p className="surtitre text-champagne">{site.tagline.value}</p>
               <h1 className="mt-1.5 max-w-md text-headline-lg-mobile sm:text-headline-lg">
                 Découvrez l&apos;âme de la cuisine <em className="font-medium">ivoirienne</em>
               </h1>
@@ -45,12 +45,12 @@ export default function HomePage() {
 
         <div className="flex flex-col gap-5 lg:col-span-5">
           <div className="hidden lg:block">
-            <p className="surtitre text-terracotta">{site.tagline.value}</p>
-            <h1 className="mt-3 text-display text-vert">
-              Découvrez l&apos;âme de la cuisine <em className="font-medium text-cacao">ivoirienne</em>
+            <p className="surtitre text-champagne">{site.tagline.value}</p>
+            <h1 className="mt-3 text-display text-or">
+              Découvrez l&apos;âme de la cuisine <em className="font-medium text-texte">ivoirienne</em>
             </h1>
           </div>
-          <p className="text-body-md text-cacao/80 lg:text-body-lg">
+          <p className="text-body-md text-texte/80 lg:text-body-lg">
             Des saveurs authentiques et des recettes transmises, servies dans un cadre moderne à Abidjan. Commandez
             en ligne, réservez votre table et découvrez nos plats sous tous les angles.
           </p>
@@ -65,14 +65,14 @@ export default function HomePage() {
             </Link>
           </div>
           {/* Indicateurs : uniquement des faits vrais sur le service proposé */}
-          <dl className="grid grid-cols-3 gap-2 rounded-xl bg-creme p-3 text-center sm:p-4">
+          <dl className="grid grid-cols-3 gap-2 rounded-xl bg-surface-basse p-3 text-center sm:p-4">
             {[
-              ["En ligne", "Commande & réservation", "text-vert"],
-              ["360°", "Aperçu 3D & RA", "text-terracotta"],
-              ["Abidjan", "Côte d'Ivoire", "text-vert"],
+              ["En ligne", "Commande & réservation", "text-or"],
+              ["360°", "Aperçu 3D & RA", "text-champagne"],
+              ["Abidjan", "Côte d'Ivoire", "text-or"],
             ].map(([valeur, libelle, couleur]) => (
               <div key={valeur} className="flex flex-col-reverse items-center">
-                <dt className="text-label-sm font-medium text-cacao/65">{libelle}</dt>
+                <dt className="text-label-sm font-medium text-texte/65">{libelle}</dt>
                 <dd className={`font-display text-headline-sm ${couleur}`}>{valeur}</dd>
               </div>
             ))}
@@ -84,12 +84,12 @@ export default function HomePage() {
       <section aria-labelledby="signatures" className={container}>
         <div className="flex items-end justify-between gap-4">
           <div>
-            <p className="surtitre text-terracotta">Créations emblématiques</p>
-            <h2 id="signatures" className="mt-1 text-headline-sm text-cacao md:text-headline-md">
+            <p className="surtitre text-champagne">Créations emblématiques</p>
+            <h2 id="signatures" className="mt-1 text-headline-sm text-texte md:text-headline-md">
               Nos plats signatures
             </h2>
           </div>
-          <Link href="/menu" className="flex items-center gap-0.5 text-label-md text-vert hover:text-terracotta">
+          <Link href="/menu" className="flex items-center gap-0.5 text-label-md text-or hover:text-champagne">
             Voir tout <IconChevron width={16} height={16} />
           </Link>
         </div>
@@ -111,17 +111,17 @@ export default function HomePage() {
       <section aria-labelledby="terroir" className={container}>
         <div className="flex flex-wrap items-end justify-between gap-2">
           <div>
-            <p className="surtitre text-terracotta">Philosophie</p>
-            <h2 id="terroir" className="mt-1 text-headline-sm text-cacao md:text-headline-md">
+            <p className="surtitre text-champagne">Philosophie</p>
+            <h2 id="terroir" className="mt-1 text-headline-sm text-texte md:text-headline-md">
               Terroir &amp; modernité
             </h2>
           </div>
-          <span className={`${pastille} border border-dashed border-terracotta text-terracotta`}>Textes à fournir</span>
+          <span className={`${pastille} border border-dashed border-champagne text-champagne`}>Textes à fournir</span>
         </div>
         <div className="mt-6 grid gap-3 md:grid-cols-3 md:gap-4 lg:gap-6">
           <div className="relative h-56 overflow-hidden rounded-xl shadow-carte md:col-span-2 md:row-span-2 md:h-auto md:min-h-80">
             <Image src={demoAmbiance.partage} alt="Une table garnie de plats à partager" fill sizes="(min-width: 768px) 60vw, 100vw" className="object-cover" />
-            <div className="absolute inset-0 bg-gradient-to-t from-cacao/85 via-cacao/25 to-transparent" aria-hidden />
+            <div className="absolute inset-0 bg-gradient-to-t from-noir/85 via-noir/25 to-transparent" aria-hidden />
             <div className="absolute inset-x-4 bottom-4 text-ivoire md:inset-x-6 md:bottom-6">
               <h3 className="text-title md:text-headline-sm">L&apos;art du partage</h3>
               <p className="mt-1 max-w-md text-body-sm text-ivoire/80">
@@ -132,16 +132,16 @@ export default function HomePage() {
           </div>
           <div className="grid grid-cols-2 gap-3 md:contents">
             {[
-              { Icon: IconLeaf, titre: "Produits & savoir-faire", texte: "Vos producteurs, vos recettes, votre façon de cuisiner.", couleur: "text-vert bg-vert/10" },
-              { Icon: IconUsers, titre: "L'hospitalité Akwaba", texte: "L'accueil à l'ivoirienne : chaleureux, attentif, généreux.", couleur: "text-terracotta bg-terracotta/10" },
+              { Icon: IconLeaf, titre: "Produits & savoir-faire", texte: "Vos producteurs, vos recettes, votre façon de cuisiner.", couleur: "text-or bg-or/10" },
+              { Icon: IconUsers, titre: "L'hospitalité Akwaba", texte: "L'accueil à l'ivoirienne : chaleureux, attentif, généreux.", couleur: "text-champagne bg-champagne/10" },
             ].map(({ Icon, titre, texte, couleur }) => (
-              <div key={titre} className="flex flex-col justify-between gap-3 rounded-xl bg-creme p-4 shadow-carte md:p-6">
+              <div key={titre} className="flex flex-col justify-between gap-3 rounded-xl bg-surface-basse p-4 shadow-carte md:p-6">
                 <span className={`grid size-10 place-items-center rounded-full ${couleur}`}>
                   <Icon width={20} height={20} />
                 </span>
                 <div>
-                  <h3 className="text-title text-vert">{titre}</h3>
-                  <p className="mt-1 text-body-sm text-cacao/75">{texte}</p>
+                  <h3 className="text-title text-or">{titre}</h3>
+                  <p className="mt-1 text-body-sm text-texte/75">{texte}</p>
                 </div>
               </div>
             ))}

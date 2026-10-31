@@ -22,7 +22,7 @@ import {
 } from "@/components/ui/icons";
 
 const outil =
-  "grid size-9 place-items-center rounded-full text-cacao transition-colors hover:bg-creme-fonce focus-visible:outline-offset-1";
+  "grid size-9 place-items-center rounded-full text-texte transition-colors hover:bg-surface-haute focus-visible:outline-offset-1";
 
 export function Experience3D({ plats }: { plats: DemoDish[] }) {
   const params = useSearchParams();
@@ -54,13 +54,13 @@ export function Experience3D({ plats }: { plats: DemoDish[] }) {
       {/* Introduction */}
       <section className="max-w-2xl">
         <div className="flex items-center gap-2">
-          <span className="grid size-5 place-items-center rounded-full bg-orange-pale text-terracotta">
+          <span className="grid size-5 place-items-center rounded-full bg-or-sombre text-champagne">
             <IconCube width={13} height={13} />
           </span>
-          <p className="surtitre text-terracotta">Atelier 3D</p>
+          <p className="surtitre text-champagne">Atelier 3D</p>
         </div>
-        <h1 className="mt-1.5 text-headline-md text-cacao md:text-headline-lg">Visualisation 3D &amp; réalité augmentée</h1>
-        <p className="mt-1 text-body-sm text-cacao/70 md:text-body-md">
+        <h1 className="mt-1.5 text-headline-md text-texte md:text-headline-lg">Visualisation 3D &amp; réalité augmentée</h1>
+        <p className="mt-1 text-body-sm text-texte/70 md:text-body-md">
           Faites pivoter le plat, zoomez sur les détails, puis posez-le sur votre table avec un téléphone compatible.
         </p>
       </section>
@@ -68,15 +68,15 @@ export function Experience3D({ plats }: { plats: DemoDish[] }) {
       <div className="mt-5 grid gap-5 lg:grid-cols-12 lg:gap-8">
         {/* Scène 3D */}
         <section aria-label="Visualiseur 3D" className="lg:col-span-7">
-          <div className="overflow-hidden rounded-xl bg-creme-fonce shadow-flottant">
+          <div className="overflow-hidden rounded-xl bg-surface-haute shadow-flottant">
             <div
               className={`relative h-[22rem] select-none sm:h-[28rem] lg:h-[34rem] ${
                 eclairage === "jour"
-                  ? "bg-gradient-to-b from-creme via-creme-fonce to-sable"
-                  : "bg-gradient-to-b from-cacao via-vert-fonce to-cacao"
+                  ? "bg-gradient-to-b from-surface-basse via-surface-haute to-ligne"
+                  : "bg-gradient-to-b from-noir via-encre to-noir"
               }`}
             >
-              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,rgb(255_255_255/0.6)_0%,transparent_70%)]" aria-hidden />
+              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,rgb(212_175_55/0.16)_0%,transparent_65%)]" aria-hidden />
 
               <ModelViewer
                 key={model.glb}
@@ -92,13 +92,13 @@ export function Experience3D({ plats }: { plats: DemoDish[] }) {
                 className="absolute inset-0"
               />
 
-              <span className={`${pastille} absolute top-3 left-3 z-10 bg-blanc/90 text-vert shadow-sm backdrop-blur-md`}>
+              <span className={`${pastille} absolute top-3 left-3 z-10 bg-surface/90 text-or shadow-sm backdrop-blur-md`}>
                 <IconInfo width={14} height={14} />
                 {model.isDemo ? "Aperçu 3D provisoire" : "Modèle 3D validé"}
               </span>
 
               {aide && (
-                <span className="pointer-events-none absolute bottom-16 left-1/2 z-10 flex -translate-x-1/2 items-center gap-1.5 rounded-full bg-cacao/80 px-3 py-1.5 text-label-sm whitespace-nowrap text-ivoire backdrop-blur-md">
+                <span className="pointer-events-none absolute bottom-16 left-1/2 z-10 flex -translate-x-1/2 items-center gap-1.5 rounded-full bg-noir/80 px-3 py-1.5 text-label-sm whitespace-nowrap text-ivoire backdrop-blur-md">
                   <IconRotate width={15} height={15} className="text-or" />
                   Glissez pour pivoter à 360°
                 </span>
@@ -106,7 +106,7 @@ export function Experience3D({ plats }: { plats: DemoDish[] }) {
 
               {/* Commandes */}
               <div className="absolute inset-x-3 bottom-3 z-10 flex items-center justify-between">
-                <div className="flex items-center gap-0.5 rounded-full bg-blanc/90 p-1 shadow-sm backdrop-blur-md">
+                <div className="flex items-center gap-0.5 rounded-full bg-surface/90 p-1 shadow-sm backdrop-blur-md">
                   <button type="button" aria-label="Zoomer" className={outil} onClick={() => viewer.current?.zoom(0.8)}>
                     <IconPlus width={18} height={18} />
                   </button>
@@ -121,7 +121,7 @@ export function Experience3D({ plats }: { plats: DemoDish[] }) {
                       viewer.current?.reset();
                       setAide(true);
                     }}
-                    className="flex h-9 items-center gap-1 rounded-full bg-blanc/90 px-3 text-label-sm text-cacao/80 shadow-sm backdrop-blur-md hover:text-cacao"
+                    className="flex h-9 items-center gap-1 rounded-full bg-surface/90 px-3 text-label-sm text-texte/80 shadow-sm backdrop-blur-md hover:text-texte"
                   >
                     <IconReset width={15} height={15} />
                     Recentrer
@@ -131,7 +131,7 @@ export function Experience3D({ plats }: { plats: DemoDish[] }) {
                     aria-label={eclairage === "jour" ? "Éclairage du soir" : "Éclairage de jour"}
                     aria-pressed={eclairage === "soir"}
                     onClick={() => setEclairage((e) => (e === "jour" ? "soir" : "jour"))}
-                    className={`${outil} bg-blanc/90 shadow-sm backdrop-blur-md ${eclairage === "soir" ? "text-terracotta" : ""}`}
+                    className={`${outil} bg-surface/90 shadow-sm backdrop-blur-md ${eclairage === "soir" ? "text-champagne" : ""}`}
                   >
                     {eclairage === "jour" ? <IconMoon width={17} height={17} /> : <IconSun width={17} height={17} />}
                   </button>
@@ -141,20 +141,20 @@ export function Experience3D({ plats }: { plats: DemoDish[] }) {
 
             {/* Réalité augmentée */}
             {model.arEnabled && (
-              <div className="flex items-center justify-between gap-3 bg-gradient-to-r from-vert via-vert-fonce to-vert p-3 text-ivoire sm:px-5">
+              <div className="flex items-center justify-between gap-3 bg-gradient-to-r from-noir via-encre to-noir p-3 text-ivoire sm:px-5">
                 <div className="flex min-w-0 items-center gap-3">
-                  <span className="grid size-10 shrink-0 place-items-center rounded-full bg-ivoire/10 text-vert-pale">
+                  <span className="grid size-10 shrink-0 place-items-center rounded-full bg-ivoire/10 text-champagne">
                     <IconCube width={22} height={22} />
                   </span>
                   <div className="min-w-0">
-                    <p className="truncate text-label-md text-vert-pale">Réalité augmentée</p>
+                    <p className="truncate text-label-md text-champagne">Réalité augmentée</p>
                     <p className="truncate text-body-sm text-ivoire/75">Posez le plat sur votre table</p>
                   </div>
                 </div>
                 <button
                   type="button"
                   onClick={() => viewer.current?.activateAR()}
-                  className="flex h-10 shrink-0 items-center gap-1.5 rounded-full bg-orange px-4 text-label-md uppercase text-charbon shadow-carte active:scale-95"
+                  className="flex h-10 shrink-0 items-center gap-1.5 rounded-full bg-or px-4 text-label-md uppercase text-noir shadow-carte active:scale-95"
                 >
                   Sur votre table
                 </button>
@@ -163,16 +163,16 @@ export function Experience3D({ plats }: { plats: DemoDish[] }) {
           </div>
 
           {ar && (
-            <div role="alert" className="mt-3 flex items-start justify-between gap-3 rounded-xl bg-creme-fonce p-3 text-cacao shadow-carte">
+            <div role="alert" className="mt-3 flex items-start justify-between gap-3 rounded-xl bg-surface-haute p-3 text-texte shadow-carte">
               <div className="flex gap-2">
-                <IconDevices width={22} height={22} className="shrink-0 text-terracotta" />
+                <IconDevices width={22} height={22} className="shrink-0 text-champagne" />
                 <p className="text-body-sm">
                   {ar === "non-supporte"
                     ? "La réalité augmentée n'est pas disponible sur cet appareil. Ouvrez cette page sur un iPhone (Safari) ou un téléphone Android compatible ARCore. Vous pouvez toujours faire pivoter le plat ici et commander."
                     : "La réalité augmentée n'a pas pu démarrer. Vérifiez l'accès à la caméra, puis réessayez sur une surface plane et bien éclairée."}
                 </p>
               </div>
-              <button type="button" aria-label="Fermer" onClick={() => setAr(null)} className="grid size-7 shrink-0 place-items-center rounded-full text-cacao/60 hover:text-cacao">
+              <button type="button" aria-label="Fermer" onClick={() => setAr(null)} className="grid size-7 shrink-0 place-items-center rounded-full text-texte/60 hover:text-texte">
                 <IconClose width={18} height={18} />
               </button>
             </div>
@@ -181,29 +181,29 @@ export function Experience3D({ plats }: { plats: DemoDish[] }) {
 
         {/* Fiche du plat */}
         <section aria-labelledby="fiche-plat" className="lg:col-span-5">
-          <div className="flex flex-col gap-4 rounded-xl border border-sable/70 bg-blanc p-4 shadow-carte sm:p-5">
+          <div className="flex flex-col gap-4 rounded-xl border border-ligne/70 bg-surface p-4 shadow-carte sm:p-5">
             <div className="flex items-start justify-between gap-3">
               <div>
                 <div className="mb-1 flex flex-wrap items-center gap-2">
-                  {plat.badge && <span className={`${pastille} bg-orange-pale text-terracotta`}>{plat.badge}</span>}
-                  <span className="text-label-sm text-cacao/60">{categoryLabel(plat.category)}</span>
+                  {plat.badge && <span className={`${pastille} bg-or-sombre text-champagne`}>{plat.badge}</span>}
+                  <span className="text-label-sm text-texte/60">{categoryLabel(plat.category)}</span>
                 </div>
-                <h2 id="fiche-plat" className="text-headline-sm leading-snug text-cacao">
+                <h2 id="fiche-plat" className="text-headline-sm leading-snug text-texte">
                   {plat.name}
                 </h2>
               </div>
               <div className="shrink-0 text-right">
-                <p className="prix font-display text-title text-vert">{plat.price === null ? "Prix à venir" : formatFCFA(plat.price)}</p>
-                <p className="text-label-sm font-medium text-cacao/55">Prix d&apos;exemple</p>
+                <p className="prix font-display text-title text-or">{plat.price === null ? "Prix à venir" : formatFCFA(plat.price)}</p>
+                <p className="text-label-sm font-medium text-texte/55">Prix d&apos;exemple</p>
               </div>
             </div>
-            <p className="text-body-md text-cacao/80">{plat.description}</p>
+            <p className="text-body-md text-texte/80">{plat.description}</p>
 
             <div>
-              <p className="surtitre text-cacao">Ingrédients clés</p>
+              <p className="surtitre text-texte">Ingrédients clés</p>
               <div className="mt-2 flex flex-wrap gap-1.5">
                 {plat.tags.map((t) => (
-                  <span key={t} className={`${pastille} bg-creme text-cacao/75`}>
+                  <span key={t} className={`${pastille} bg-surface-basse text-texte/75`}>
                     {t}
                   </span>
                 ))}
@@ -216,16 +216,16 @@ export function Experience3D({ plats }: { plats: DemoDish[] }) {
                 ["Préparation", plat.prepMinutes ? `≈ ${plat.prepMinutes} min` : "—"],
                 ["Fichier 3D", `${(model.sizeKb / 1024).toFixed(1).replace(".", ",")} Mo`],
               ].map(([k, v]) => (
-                <div key={k} className="flex flex-col-reverse rounded-lg bg-creme p-2">
-                  <dt className="text-label-sm font-medium text-cacao/60">{k}</dt>
-                  <dd className="text-body-sm font-semibold text-cacao">{v}</dd>
+                <div key={k} className="flex flex-col-reverse rounded-lg bg-surface-basse p-2">
+                  <dt className="text-label-sm font-medium text-texte/60">{k}</dt>
+                  <dd className="text-body-sm font-semibold text-texte">{v}</dd>
                 </div>
               ))}
             </dl>
 
             {model.isDemo && (
-              <p className="flex gap-2 rounded-lg border border-dashed border-terracotta/60 bg-orange-pale/40 p-3 text-body-sm text-cacao/80">
-                <IconInfo width={16} height={16} className="mt-0.5 shrink-0 text-terracotta" />
+              <p className="flex gap-2 rounded-lg border border-dashed border-champagne/60 bg-or-sombre/40 p-3 text-body-sm text-texte/80">
+                <IconInfo width={16} height={16} className="mt-0.5 shrink-0 text-champagne" />
                 <span>
                   <strong>Aperçu provisoire</strong> : la photo d&apos;illustration du plat est posée sur une assiette
                   en 3D. Ce n&apos;est pas un scan ; le vrai modèle 3D sera créé après la séance de prise de vue.
@@ -242,12 +242,12 @@ export function Experience3D({ plats }: { plats: DemoDish[] }) {
       <section aria-labelledby="galerie" className="mt-8">
         <div className="flex items-end justify-between gap-3">
           <div>
-            <h2 id="galerie" className="text-title text-cacao md:text-headline-sm">
+            <h2 id="galerie" className="text-title text-texte md:text-headline-sm">
               Galerie des plats en 3D
             </h2>
-            <p className="text-body-sm text-cacao/65">Choisissez une assiette pour charger son modèle</p>
+            <p className="text-body-sm text-texte/65">Choisissez une assiette pour charger son modèle</p>
           </div>
-          <span className={`${pastille} shrink-0 bg-vert-pale text-vert`}>
+          <span className={`${pastille} shrink-0 bg-or-sombre text-or`}>
             {plats.length} modèle{plats.length > 1 ? "s" : ""}
           </span>
         </div>
@@ -260,20 +260,20 @@ export function Experience3D({ plats }: { plats: DemoDish[] }) {
                 type="button"
                 onClick={() => choisir(p.slug)}
                 aria-pressed={actif}
-                className={`w-44 shrink-0 snap-start rounded-xl bg-blanc p-2.5 text-left shadow-carte transition-all md:w-auto ${
-                  actif ? "ring-2 ring-vert" : "hover:bg-creme"
+                className={`w-44 shrink-0 snap-start rounded-xl bg-surface p-2.5 text-left shadow-carte transition-all md:w-auto ${
+                  actif ? "ring-2 ring-or" : "hover:bg-surface-basse"
                 }`}
               >
-                <span className="relative mb-2 block h-28 overflow-hidden rounded-lg bg-creme-fonce md:h-32">
+                <span className="relative mb-2 block h-28 overflow-hidden rounded-lg bg-surface-haute md:h-32">
                   {p.photo && <Image src={p.photo} alt="" fill sizes="(min-width: 768px) 20vw, 176px" className="object-cover" />}
-                  <span className={`absolute top-1.5 right-1.5 rounded px-1.5 py-0.5 text-[10px] font-semibold ${actif ? "bg-vert text-ivoire" : "bg-blanc/90 text-cacao"}`}>
+                  <span className={`absolute top-1.5 right-1.5 rounded px-1.5 py-0.5 text-[10px] font-semibold ${actif ? "bg-or text-noir" : "bg-surface/90 text-texte"}`}>
                     {actif ? "Affiché" : "3D"}
                   </span>
                 </span>
-                <span className="block truncate text-label-md text-cacao">{p.name}</span>
-                <span className="prix block text-body-sm font-semibold text-terracotta">{p.price === null ? "Prix à venir" : formatFCFA(p.price)}</span>
-                <span className="mt-0.5 flex items-center gap-1 text-[10px] text-cacao/60">
-                  <IconCube width={12} height={12} className="text-vert" />
+                <span className="block truncate text-label-md text-texte">{p.name}</span>
+                <span className="prix block text-body-sm font-semibold text-champagne">{p.price === null ? "Prix à venir" : formatFCFA(p.price)}</span>
+                <span className="mt-0.5 flex items-center gap-1 text-[10px] text-texte/60">
+                  <IconCube width={12} height={12} className="text-or" />
                   {(p.model!.sizeKb / 1024).toFixed(1).replace(".", ",")} Mo · RA {p.model!.arEnabled ? "oui" : "non"}
                 </span>
               </button>
@@ -283,13 +283,13 @@ export function Experience3D({ plats }: { plats: DemoDish[] }) {
       </section>
 
       {/* Compatibilité */}
-      <section className="mt-6 flex items-start gap-3 rounded-xl bg-creme p-4">
-        <span className="grid size-9 shrink-0 place-items-center rounded-full bg-creme-fonce text-cacao/70">
+      <section className="mt-6 flex items-start gap-3 rounded-xl bg-surface-basse p-4">
+        <span className="grid size-9 shrink-0 place-items-center rounded-full bg-surface-haute text-texte/70">
           <IconDevices width={19} height={19} />
         </span>
         <div>
-          <p className="text-label-md text-cacao">Compatibilité</p>
-          <p className="mt-0.5 text-body-sm text-cacao/70">
+          <p className="text-label-md text-texte">Compatibilité</p>
+          <p className="mt-0.5 text-body-sm text-texte/70">
             3D : tous les navigateurs récents. Réalité augmentée : iPhone avec Safari (AR Quick Look) et téléphones
             Android compatibles ARCore (Scene Viewer), sans application à installer. Sur les autres appareils, la vue
             3D et la commande restent disponibles.

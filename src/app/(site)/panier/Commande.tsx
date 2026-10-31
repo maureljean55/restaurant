@@ -12,7 +12,7 @@ import { IconBag, IconInfo, IconPin } from "@/components/ui/icons";
 type Champs = NonNullable<Extract<OrderResult, { ok: false }>["fields"]>;
 
 const champ =
-  "h-11 w-full rounded-lg border border-sable bg-blanc px-3 text-body-md text-cacao outline-none placeholder:text-cacao/40 focus:border-vert focus:ring-1 focus:ring-vert aria-invalid:border-terracotta";
+  "h-11 w-full rounded-lg border border-ligne bg-surface px-3 text-body-md text-texte outline-none placeholder:text-texte/40 focus:border-or focus:ring-1 focus:ring-or aria-invalid:border-erreur";
 
 /** Récapitulatif et envoi de la commande (sans compte : suivi par lien). */
 export function Commande() {
@@ -57,16 +57,16 @@ export function Commande() {
 
   const erreurChamp = (k: keyof Champs) =>
     erreurs[k] && (
-      <p id={`err-${k}`} className="mt-1 text-[12px] text-terracotta">
+      <p id={`err-${k}`} className="mt-1 text-[12px] text-champagne">
         {erreurs[k]}
       </p>
     );
 
   return (
-    <form onSubmit={envoyer} noValidate className="rounded-xl border border-sable/70 bg-blanc p-5 shadow-carte lg:sticky lg:top-24 lg:col-span-4">
+    <form onSubmit={envoyer} noValidate className="rounded-xl border border-ligne/70 bg-surface p-5 shadow-carte lg:sticky lg:top-24 lg:col-span-4">
       <fieldset>
-        <legend className="surtitre text-cacao/60">Mode de réception</legend>
-        <div className="mt-2 grid grid-cols-2 gap-1 rounded-full bg-creme p-1" role="radiogroup">
+        <legend className="surtitre text-texte/60">Mode de réception</legend>
+        <div className="mt-2 grid grid-cols-2 gap-1 rounded-full bg-surface-basse p-1" role="radiogroup">
           {(
             [
               ["pickup", "À emporter"],
@@ -79,7 +79,7 @@ export function Commande() {
               role="radio"
               aria-checked={mode === id}
               onClick={() => setMode(id)}
-              className={`h-10 rounded-full text-label-lg transition ${mode === id ? "bg-vert text-ivoire shadow-sm" : "text-cacao/70 hover:text-cacao"}`}
+              className={`h-10 rounded-full text-label-lg transition ${mode === id ? "bg-or text-noir shadow-sm" : "text-texte/70 hover:text-texte"}`}
             >
               {label}
             </button>
@@ -89,53 +89,53 @@ export function Commande() {
 
       <div className="mt-4 grid gap-3">
         <label className="block">
-          <span className="text-label-md text-cacao/80">Nom</span>
+          <span className="text-label-md text-texte/80">Nom</span>
           <input className={`${champ} mt-1`} value={name} onChange={(e) => setName(e.target.value)} autoComplete="name" placeholder="Ex. Kouamé Aya" aria-invalid={!!erreurs.name} aria-describedby={erreurs.name ? "err-name" : undefined} />
           {erreurChamp("name")}
         </label>
         <label className="block">
-          <span className="text-label-md text-cacao/80">Téléphone</span>
+          <span className="text-label-md text-texte/80">Téléphone</span>
           <input className={`${champ} mt-1`} value={phone} onChange={(e) => setPhone(e.target.value)} type="tel" inputMode="tel" autoComplete="tel-national" placeholder="07 00 12 34 56" aria-invalid={!!erreurs.phone} aria-describedby={erreurs.phone ? "err-phone" : undefined} />
           {erreurChamp("phone")}
         </label>
         {mode === "delivery" && (
           <label className="block">
-            <span className="text-label-md text-cacao/80">Adresse de livraison</span>
+            <span className="text-label-md text-texte/80">Adresse de livraison</span>
             <textarea className={`${champ} mt-1 h-20 py-2`} value={address} onChange={(e) => setAddress(e.target.value)} autoComplete="street-address" placeholder="Quartier, rue, repère (ex. Cocody, près de la pharmacie…)" aria-invalid={!!erreurs.address} aria-describedby={erreurs.address ? "err-address" : undefined} />
             {erreurChamp("address")}
           </label>
         )}
         <label className="block">
-          <span className="text-label-md text-cacao/80">
-            Précision <span className="text-cacao/50">(facultatif)</span>
+          <span className="text-label-md text-texte/80">
+            Précision <span className="text-texte/50">(facultatif)</span>
           </span>
           <input className={`${champ} mt-1`} value={note} onChange={(e) => setNote(e.target.value)} maxLength={500} placeholder="Allergie, piment à part…" />
         </label>
       </div>
 
-      <div className="mt-5 border-t border-sable pt-4">
-        <div className="flex justify-between text-body-md text-cacao/75">
+      <div className="mt-5 border-t border-ligne pt-4">
+        <div className="flex justify-between text-body-md text-texte/75">
           <span>
             Sous-total ({count} article{count > 1 ? "s" : ""})
           </span>
           <span className="prix">{formatFCFA(total)}</span>
         </div>
         {mode === "delivery" && (
-          <div className="mt-1 flex justify-between text-body-sm text-cacao/60">
+          <div className="mt-1 flex justify-between text-body-sm text-texte/60">
             <span className="flex items-center gap-1">
               <IconPin width={14} height={14} /> Livraison
             </span>
             <span>Confirmée par le restaurant</span>
           </div>
         )}
-        <div className="mt-3 flex items-baseline justify-between gap-3 font-display text-title text-vert">
+        <div className="mt-3 flex items-baseline justify-between gap-3 font-display text-title text-or">
           <span>{mode === "delivery" ? "Total hors livraison" : "Total"}</span>
           <span className="prix shrink-0">{formatFCFA(total)}</span>
         </div>
       </div>
 
       {erreur && (
-        <p role="alert" className="mt-4 rounded-lg border border-terracotta/40 bg-terracotta/10 p-3 text-body-sm text-terracotta">
+        <p role="alert" className="mt-4 rounded-lg border border-erreur/40 bg-erreur/10 p-3 text-body-sm text-champagne">
           {erreur}
         </p>
       )}
@@ -144,8 +144,8 @@ export function Commande() {
         <IconBag width={18} height={18} />
         {enCours ? "Envoi en cours…" : "Envoyer la commande"}
       </button>
-      <p className="mt-3 flex gap-2 text-[12px] text-cacao/65">
-        <IconInfo width={14} height={14} className="mt-0.5 shrink-0 text-terracotta" />
+      <p className="mt-3 flex gap-2 text-[12px] text-texte/65">
+        <IconInfo width={14} height={14} className="mt-0.5 shrink-0 text-champagne" />
         Paiement {mode === "delivery" ? "à la livraison" : "au retrait"}. Le montant est recalculé par le restaurant à
         l&apos;envoi ; vous recevez un lien pour suivre votre commande.
       </p>

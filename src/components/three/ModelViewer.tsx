@@ -169,15 +169,15 @@ export const ModelViewer = forwardRef<ModelViewerHandle, Props>(function ModelVi
 
       {state === "chargement" && !failed && (
         <div className="pointer-events-none absolute inset-x-0 bottom-16 flex flex-col items-center gap-2" role="status">
-          <div className="h-1 w-40 overflow-hidden rounded-full bg-cacao/10">
-            <div className="h-full rounded-full bg-vert transition-[width]" style={{ width: `${Math.max(8, progress * 100)}%` }} />
+          <div className="h-1 w-40 overflow-hidden rounded-full bg-noir/10">
+            <div className="h-full rounded-full bg-or transition-[width]" style={{ width: `${Math.max(8, progress * 100)}%` }} />
           </div>
-          <span className="text-label-sm text-cacao/70">Chargement du modèle 3D…</span>
+          <span className="text-label-sm text-texte/70">Chargement du modèle 3D…</span>
         </div>
       )}
 
       {failed && (
-        <p role="alert" className="absolute inset-x-4 bottom-16 rounded-lg bg-blanc/95 p-3 text-center text-body-sm text-cacao shadow-carte">
+        <p role="alert" className="absolute inset-x-4 bottom-16 rounded-lg bg-surface/95 p-3 text-center text-body-sm text-texte shadow-carte">
           Le modèle 3D n&apos;a pas pu être chargé. La photo du plat reste disponible et vous pouvez commander normalement.
         </p>
       )}

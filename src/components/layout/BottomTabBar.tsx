@@ -18,13 +18,13 @@ export function BottomTabBar() {
         href={href}
         aria-current={active ? "page" : undefined}
         className={`relative flex w-14 flex-col items-center justify-center gap-1 text-label-sm transition-colors ${
-          active ? "text-orange" : "text-cacao/60 hover:text-vert"
+          active ? "text-or" : "text-texte/60 hover:text-or"
         }`}
       >
         <Icon width={23} height={23} />
         {label}
         {!!badge && (
-          <span className="absolute -top-1 right-2 grid h-4 min-w-4 place-items-center rounded-full bg-orange px-1 text-[10px] leading-none font-bold text-charbon">
+          <span className="absolute -top-1 right-2 grid h-4 min-w-4 place-items-center rounded-full bg-or px-1 text-[10px] leading-none font-bold text-noir">
             {badge}
           </span>
         )}
@@ -35,7 +35,7 @@ export function BottomTabBar() {
   return (
     <nav
       aria-label="Navigation rapide"
-      className="fixed inset-x-0 bottom-0 z-40 bg-ivoire/90 pb-[env(safe-area-inset-bottom)] shadow-[0_-4px_16px_rgb(74_46_36/0.07)] backdrop-blur-xl md:hidden"
+      className="fixed inset-x-0 bottom-0 z-40 bg-fond/85 pb-[env(safe-area-inset-bottom)] shadow-[0_-4px_16px_rgb(74_46_36/0.07)] backdrop-blur-xl md:hidden"
     >
       <div className="flex h-[4.5rem] items-center justify-around gap-1 px-2">
         {tab("/", "Accueil", IconHome)}
@@ -43,7 +43,7 @@ export function BottomTabBar() {
         <Link
           href="/reservation"
           aria-current={isActive(pathname, "/reservation") ? "page" : undefined}
-          className="flex h-11 items-center gap-2 rounded-full bg-orange px-4 text-label-md uppercase text-charbon shadow-carte xs:px-5"
+          className="flex h-11 items-center gap-2 rounded-full bg-or px-4 text-label-md uppercase text-noir shadow-carte xs:px-5"
         >
           <IconCalendar width={19} height={19} />
           Réserver

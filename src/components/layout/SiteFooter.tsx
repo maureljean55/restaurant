@@ -5,7 +5,7 @@ import { nav, site } from "@/config/site";
 /** Pied de page compact : identité, navigation, coordonnées et horaires. */
 export function SiteFooter() {
   return (
-    <footer className="bg-vert pb-[calc(4.5rem+env(safe-area-inset-bottom))] text-body-sm text-ivoire/70 md:pb-0">
+    <footer className="border-t border-ligne bg-encre pb-[calc(4.5rem+env(safe-area-inset-bottom))] text-body-sm text-ivoire/70 md:pb-0">
       <div className="mx-auto grid max-w-7xl gap-5 px-5 py-7 md:grid-cols-3 md:gap-8 md:px-8 lg:px-12">
         <div className="flex items-center gap-3">
           <Image src={site.logo.or} alt="" width={56} height={56} className="size-14 shrink-0" />

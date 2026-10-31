@@ -9,7 +9,7 @@ export default function SiteLayout({ children }: LayoutProps<"/">) {
     <CartProvider>
       <a
         href="#contenu"
-        className="sr-only z-[60] rounded-full bg-orange px-4 py-2 font-bold text-charbon focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
+        className="sr-only z-[60] rounded-full bg-or px-4 py-2 font-bold text-noir focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
       >
         Aller au contenu
       </a>

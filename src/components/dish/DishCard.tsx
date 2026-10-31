@@ -20,7 +20,7 @@ export function DishCard({ dish, variant = "carte" }: { dish: DemoDish; variant?
         dish.available ? "" : "opacity-75"
       }`}
     >
-      <div className="relative h-48 overflow-hidden bg-creme-fonce sm:h-52">
+      <div className="relative h-48 overflow-hidden bg-surface-haute sm:h-52">
         {dish.photo && (
           <Image
             src={dish.photo}
@@ -30,28 +30,28 @@ export function DishCard({ dish, variant = "carte" }: { dish: DemoDish; variant?
             className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
           />
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-charbon/45 via-transparent to-transparent" aria-hidden />
+        <div className="absolute inset-0 bg-gradient-to-t from-noir/45 via-transparent to-transparent" aria-hidden />
 
         <div className="absolute top-3 left-3 flex flex-wrap items-center gap-1.5">
           {dish.model && (
-            <span className={`${pastille} bg-vert text-ivoire shadow-sm`}>
+            <span className={`${pastille} bg-or text-noir shadow-sm`}>
               <IconCube width={13} height={13} />
               {variant === "signature" ? "Modèle 3D disponible" : "Modèle 3D"}
             </span>
           )}
-          {!dish.available && <span className={`${pastille} bg-charbon/80 text-ivoire`}>Indisponible</span>}
+          {!dish.available && <span className={`${pastille} bg-noir/80 text-ivoire`}>Indisponible</span>}
         </div>
 
         {dish.photoIsIllustration && (
           <span className="absolute bottom-2.5 left-3 text-[0.65rem] font-medium text-ivoire/85">Photo d&apos;illustration</span>
         )}
 
-        <span className={`${pastille} absolute right-3 bottom-2.5 bg-blanc/90 text-cacao shadow-sm backdrop-blur-md`}>
+        <span className={`${pastille} absolute right-3 bottom-2.5 bg-surface/90 text-texte shadow-sm backdrop-blur-md`}>
           {variant === "signature" ? (
-            <span className="prix text-label-md text-terracotta">{prix}</span>
+            <span className="prix text-label-md text-champagne">{prix}</span>
           ) : (
             <>
-              {dish.spice === "doux" ? <IconLeaf width={13} height={13} className="text-vert" /> : <IconFire width={13} height={13} className={dish.spice === "fort" ? "text-terracotta" : "text-orange"} />}
+              {dish.spice === "doux" ? <IconLeaf width={13} height={13} className="text-or" /> : <IconFire width={13} height={13} className={dish.spice === "fort" ? "text-champagne" : "text-or"} />}
               Piment {spiceLabel[dish.spice].toLowerCase()}
             </>
           )}
@@ -60,26 +60,26 @@ export function DishCard({ dish, variant = "carte" }: { dish: DemoDish; variant?
 
       <div className="flex flex-1 flex-col gap-2 p-4">
         <div className="flex items-start justify-between gap-3">
-          <h3 className={`text-title leading-snug ${variant === "signature" ? "text-vert" : "text-cacao"}`}>{dish.name}</h3>
+          <h3 className={`text-title leading-snug ${variant === "signature" ? "text-or" : "text-texte"}`}>{dish.name}</h3>
           {variant === "carte" ? (
-            <span className="prix shrink-0 text-label-lg text-vert">{prix}</span>
+            <span className="prix shrink-0 text-label-lg text-or">{prix}</span>
           ) : (
-            dish.badge && <span className={`${pastille} shrink-0 bg-creme-fonce font-semibold text-cacao/80`}>{dish.badge}</span>
+            dish.badge && <span className={`${pastille} shrink-0 bg-surface-haute font-semibold text-texte/80`}>{dish.badge}</span>
           )}
         </div>
-        <p className="line-clamp-2 text-body-sm text-cacao/75">{dish.description}</p>
+        <p className="line-clamp-2 text-body-sm text-texte/75">{dish.description}</p>
 
         <div className="mt-auto flex items-center justify-between gap-2 pt-3">
           {variant === "carte" ? (
             <div className="flex min-w-0 flex-wrap gap-1">
               {dish.tags.map((t) => (
-                <span key={t} className={`${pastille} bg-creme text-cacao/75`}>
+                <span key={t} className={`${pastille} bg-surface-basse text-texte/75`}>
                   {t}
                 </span>
               ))}
             </div>
           ) : (
-            <span className="flex items-center gap-1 text-label-sm text-cacao/65">
+            <span className="flex items-center gap-1 text-label-sm text-texte/65">
               <IconLeaf width={15} height={15} className="text-or" />
               {dish.tags[0] ?? categoryLabel(dish.category)}
             </span>
@@ -88,7 +88,7 @@ export function DishCard({ dish, variant = "carte" }: { dish: DemoDish; variant?
           {variant === "signature" && dish.model ? (
             <Link
               href={`/experience-3d?plat=${dish.slug}`}
-              className="flex shrink-0 items-center gap-1 text-label-md text-terracotta underline decoration-or decoration-1 underline-offset-4 hover:text-vert"
+              className="flex shrink-0 items-center gap-1 text-label-md text-champagne underline decoration-or decoration-1 underline-offset-4 hover:text-or"
             >
               <IconCube width={15} height={15} />
               Voir en 3D

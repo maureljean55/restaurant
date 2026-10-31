@@ -12,7 +12,7 @@ export default function Experience3DPage() {
   const plats = demoDishes.filter((d) => d.model);
   return (
     // Le plat choisi vient de l'adresse (?plat=…), lue dans le navigateur.
-    <Suspense fallback={<div className="mx-auto h-[70vh] max-w-7xl animate-pulse rounded-xl bg-creme-fonce" />}>
+    <Suspense fallback={<div className="mx-auto h-[70vh] max-w-7xl animate-pulse rounded-xl bg-surface-haute" />}>
       <Experience3D plats={plats} />
     </Suspense>
   );

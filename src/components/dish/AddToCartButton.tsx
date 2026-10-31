@@ -40,7 +40,7 @@ export function AddToCartButton({ slug, name, price, available, variant = "compa
         if (suggest) openUpsell(slug);
       }}
       aria-label={disabled ? `${name} : ${label}` : `Ajouter ${name} au panier`}
-      className={`${btn.primary} ${variant === "large" ? `${btn.md} w-full` : "h-9 px-3.5"} ${added ? "!bg-vert !text-ivoire" : ""}`}
+      className={`${btn.primary} ${variant === "large" ? `${btn.md} w-full` : "h-9 px-3.5"} ${added ? "!bg-or-clair !text-noir" : ""}`}
     >
       {added ? <IconCheck width={16} height={16} /> : variant === "large" ? <IconBag width={18} height={18} /> : <IconPlus width={16} height={16} />}
       <span aria-live="polite">
